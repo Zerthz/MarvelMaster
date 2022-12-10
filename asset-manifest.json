@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/MarvelMaster/static/css/main.e6c13ad2.css",
+    "main.js": "/MarvelMaster/static/js/main.d73ff2d5.js",
+    "static/js/787.cda612ba.chunk.js": "/MarvelMaster/static/js/787.cda612ba.chunk.js",
+    "index.html": "/MarvelMaster/index.html",
+    "main.e6c13ad2.css.map": "/MarvelMaster/static/css/main.e6c13ad2.css.map",
+    "main.d73ff2d5.js.map": "/MarvelMaster/static/js/main.d73ff2d5.js.map",
+    "787.cda612ba.chunk.js.map": "/MarvelMaster/static/js/787.cda612ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.d73ff2d5.js"
+  ]
+}
