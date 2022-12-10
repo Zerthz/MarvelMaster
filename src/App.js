@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { Box, Button, createTheme, CssBaseline, Grid, ThemeProvider } from "@mui/material";
+import { deepOrange, indigo } from "@mui/material/colors";
+import { Container } from "@mui/system";
+import { useContext } from "react";
+import MarvelList from "./components/MarvelList";
+import DenseAppBar from "./components/navigation/DenseAppBar";
+import Main from "./components/navigation/views/Main";
+import MarvelMasterProvider, { MarvelMasterContext } from "./contexts/MasterProvider";
+
 
 function App() {
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+      primary: indigo,
+      secondary: deepOrange
+    },
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <MarvelMasterProvider>
+          <DenseAppBar />
+          <Main />
+
+
+        </MarvelMasterProvider>
+      </ThemeProvider>
+    </>
   );
 }
 
