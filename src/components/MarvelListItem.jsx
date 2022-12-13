@@ -1,4 +1,4 @@
-import { Checkbox, Divider, List, ListItem, ListItemButton, ListItemText, Modal, Typography, Box, Button, Grid, TextField, IconButton } from "@mui/material";
+import { Checkbox, Divider, List, ListItem, ListItemButton, ListItemText, Modal, Typography, Box, Button, Grid, TextField, IconButton, Dialog, DialogTitle } from "@mui/material";
 import BookIcon from '@mui/icons-material/Book';
 import SendIcon from '@mui/icons-material/Send';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { useComics } from "../contexts/ComicProvider";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import ComicDialog from "./ComicDialog";
 const style = {
     position: 'absolute',
     top: '50%',
@@ -36,10 +37,7 @@ const MarvelListItem = ({ comic, counter, bg }) => {
 
     const { store, updateComic, removeComic } = useComics();
 
-    const handleRemove = () => {
-        removeComic(comic.id);
-        handleClose();
-    }
+
     const handleToggle = () => {
         setChecked(!checked);
         comic.read = !checked;
@@ -108,73 +106,11 @@ const MarvelListItem = ({ comic, counter, bg }) => {
             </ListItem>
             <Divider variant="inset" component="li" />
 
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Grid container spacing={1}>
-                        {comic.imageUrl ?
-                            <Grid item xs={4}>
-                                <a href={comic.detailUrl} target="_blank" rel="noreferrer">
-                                    <img src={comic.imageUrl} alt="cover thumbnail" style={imageFit} />
-                                </a>
-                            </Grid> : null}
 
-                        <Grid container item direction="column" xs={8} rowSpacing={0.9}>
-                            <Stack direction="row">
-                                <Grid item>
-                                    <Typography id="modal-modal-title" variant="h4" component="h2">
-                                        {comic.seriesName}
-                                    </Typography>
-                                </Grid>
-                                <Grid item >
-                                    <IconButton color="error" onClick={handleRemove}>
-                                        <DeleteOutlineOutlinedIcon />
-                                    </IconButton>
-                                </Grid>
-                            </Stack>
-                            {comic.comment ?
-                                <Grid item>
-                                    <Typography sx={{ fontStyle: 'italic' }}>
-                                        {comic.comment}
-                                    </Typography>
-                                </Grid> : null}
-                            <Grid item>
-                                <Divider variant="middle" item />
+            <ComicDialog open={open} handleClose={handleClose}
+                onClick={() => setOpen(true)} handleToggle={handleToggle}
+                comic={comic} checked={checked} />
 
-                            </Grid>
-                            {comic.description ?
-                                <Grid item>
-                                    <Typography variant="body">
-                                        {comic.description}
-                                    </Typography>
-                                </Grid> : null}
-                            <Grid item>
-                                <Divider variant="middle" item />
-
-                            </Grid>
-                            {comic.detailUrl ?
-                                <Grid item alignSelf="end">
-                                    <Button href={comic.detailUrl} variant="contained" size="large" target="_blank" rel="noreferrer" endIcon={<SendIcon />}>Link to comic</Button>
-                                </Grid> : null}
-
-                            <Grid item>
-                                <Stack direction="row" spacing={2} justifyContent='flex-end'>
-                                    <Button variant="outlined" startIcon={<EditIcon />} onClick={openEdit}>Edit</Button>
-                                    {(checked && comic.detailUrl) ?
-                                        <Button variant="outlined" startIcon={<ClearIcon />} color="error" onClick={handleToggle}>I've  not read this</Button>
-                                        : <Button variant="outlined" startIcon={<BookIcon />} color="secondary" onClick={handleToggle}>I've read this</Button>}
-
-                                    <Button variant="outlined" onClick={handleClose}>Close</Button>
-                                </Stack>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </Modal>
 
             <Modal
                 open={editOpen}
