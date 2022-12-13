@@ -27,7 +27,7 @@ function ErrorList() {
                 display="flex"
                 justifyContent="center">
                 {errors.length > 0 ?
-                    <List sx={{ width: '25%' }}>
+                    <List sx={{ width: { xs: '90%', lg: '25%' } }}>
                         {listItems}
                     </List>
                     :
