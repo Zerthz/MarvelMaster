@@ -1,11 +1,10 @@
-import { Box, Button, createTheme, CssBaseline, Grid, ThemeProvider } from "@mui/material";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { deepOrange, indigo } from "@mui/material/colors";
-import { Container } from "@mui/system";
-import { useContext } from "react";
-import MarvelList from "./components/MarvelList";
-import DenseAppBar from "./components/navigation/DenseAppBar";
-import Main from "./components/navigation/views/Main";
-import MarvelMasterProvider, { MarvelMasterContext } from "./contexts/MasterProvider";
+import Main from "./components/navigation/Main";
+import MarvelMasterProvider from "./contexts/ComicProvider";
+import AuthProvider from "./contexts/AuthProvider";
+import ResponsiveAppBar from "./components/navigation/ResponsiveAppBar";
+import RepoProvider from "./contexts/RepoProvider";
 
 
 function App() {
@@ -21,12 +20,14 @@ function App() {
     <>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <MarvelMasterProvider>
-          <DenseAppBar />
-          <Main />
-
-
-        </MarvelMasterProvider>
+        <AuthProvider>
+          <RepoProvider>
+            <MarvelMasterProvider>
+              <ResponsiveAppBar />
+              <Main />
+            </MarvelMasterProvider>
+          </RepoProvider>
+        </AuthProvider>
       </ThemeProvider>
     </>
   );

@@ -1,13 +1,11 @@
-import { Checkbox, Divider, List, ListItem, ListItemButton, ListItemText, Modal, Typography, Box, Button, Grid, Link, TextField, IconButton } from "@mui/material";
+import { Checkbox, Divider, List, ListItem, ListItemButton, ListItemText, Modal, Typography, Box, Button, Grid, TextField, IconButton } from "@mui/material";
 import BookIcon from '@mui/icons-material/Book';
 import SendIcon from '@mui/icons-material/Send';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Stack } from "@mui/system";
-import React, { useContext, useState } from 'react';
-import { MarvelMasterContext } from "../contexts/MasterProvider";
+import React, { useState } from 'react';
+import { useComics } from "../contexts/ComicProvider";
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Delete } from "@mui/icons-material";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 const style = {
     position: 'absolute',
@@ -36,7 +34,7 @@ const MarvelListItem = ({ comic, counter, bg }) => {
     const [imageUrlForm, setImageUrlForm] = useState(comic.imageUrl);
     const [descriptionForm, setDescriptionForm] = useState(comic.description);
 
-    const { store, updateComic, removeComic } = useContext(MarvelMasterContext);
+    const { store, updateComic, removeComic } = useComics();
 
     const handleRemove = () => {
         removeComic(comic.id);

@@ -1,12 +1,19 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
-export const MarvelMasterContext = createContext();
+export const ComicContext = createContext();
 
-const MarvelMasterProvider = (props) => {
+export const useComics = () => {
+    return useContext(ComicContext);
+}
+
+const ComicProvider = (props) => {
     const [results, setResults] = useState([]);
+    const [allResults, setAllResults] = useState([]);
     const [errors, setErrors] = useState([]);
     const [cacheExists, setCacheExists] = useState();
     const [errorCount, setErrorCount] = useState(0);
+
+
 
     const store = (id, read) => {
         let newArr = [...results];
@@ -72,6 +79,8 @@ const MarvelMasterProvider = (props) => {
                 setErrors(data.missingItems);
                 setErrorCount(data.missingItems.length);
 
+
+
             });
 
         setCacheExists(true);
@@ -84,8 +93,11 @@ const MarvelMasterProvider = (props) => {
         let cachedError = localStorage.getItem('missingItems');
         if (cached) {
             let cache = JSON.parse(cached);
-            setResults(cache);
+            setResults(cache.slice(0, 100));
+            setAllResults(cache);
             setCacheExists(true);
+
+
         } else {
             setCacheExists(false);
         }
@@ -97,14 +109,14 @@ const MarvelMasterProvider = (props) => {
 
     }, []);
     return (
-        <MarvelMasterContext.Provider
+        <ComicContext.Provider
             value={{
-                results, cacheExists, fetchComics, store, updateComic, errors, removeComic, errorCount
+                results, cacheExists, fetchComics, store, updateComic, errors, removeComic, errorCount, allResults
             }}
         >
             {props.children}
-        </MarvelMasterContext.Provider>
+        </ComicContext.Provider>
     )
 }
 
-export default MarvelMasterProvider;
+export default ComicProvider;

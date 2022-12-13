@@ -1,15 +1,10 @@
-import { Checkbox, Divider, List, ListItem, ListItemButton, ListItemText, Modal, Typography, Box, Button, Tabs, Tab } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
-import { MarvelMasterContext } from "../contexts/MasterProvider";
-import ModalUnstyled from '@mui/base/ModalUnstyled';
-import MarvelListItem from "./MarvelListItem";
-import GetComicsPrompt from "./GetComicsPrompt";
+import { List, Typography, Box, } from "@mui/material";
+import { useComics } from "../contexts/ComicProvider";
 import ErrorListItem from "./ErrorListItem";
 
 function ErrorList() {
 
-    const { errors } = useContext(MarvelMasterContext);
-
+    const { errors } = useComics();
 
     let counter = 0;
     let listItems = errors.map(item => {

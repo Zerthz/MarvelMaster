@@ -1,8 +1,8 @@
-import { Checkbox, Divider, List, ListItem, ListItemButton, ListItemText, Modal, Typography, Box, Button, Grid, Link, TextField } from "@mui/material";
+import { Divider, List, ListItem, ListItemButton, ListItemText, Modal, Box, Button, TextField } from "@mui/material";
 
 import { Stack } from "@mui/system";
-import React, { useContext, useState } from 'react';
-import { MarvelMasterContext } from "../contexts/MasterProvider";
+import React, { useState } from 'react';
+import { useComics } from "../contexts/ComicProvider";
 
 
 const style = {
@@ -31,7 +31,7 @@ const ErrorListItem = ({ comic, bg }) => {
     const [imageError, setImageError] = useState(true);
     const [descriptionError, setDescriptionError] = useState(true);
 
-    const { updateComic } = useContext(MarvelMasterContext);
+    const { updateComic } = useComics();
 
 
 

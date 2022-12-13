@@ -1,14 +1,14 @@
-import { Checkbox, Divider, List, ListItem, ListItemButton, ListItemText, Modal, Typography, Box, Button, Tabs, Tab } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
-import { MarvelMasterContext } from "../contexts/MasterProvider";
-import ModalUnstyled from '@mui/base/ModalUnstyled';
+import { List, Box } from "@mui/material";
+import { useComics } from "../contexts/ComicProvider";
 import MarvelListItem from "./MarvelListItem";
 import GetComicsPrompt from "./GetComicsPrompt";
+import { useAuth } from "../contexts/AuthProvider";
+import SignUp from "./SignUp";
 
 function MarvelList() {
 
-    const { results, cacheExists } = useContext(MarvelMasterContext);
-
+    const { results, cacheExists } = useComics();
+    const { currentUser } = useAuth();
 
     let counter = 0;
     let listItems = results.map(item => {
@@ -27,15 +27,17 @@ function MarvelList() {
 
     return (
         <>
+
             <Box
                 display="flex"
                 justifyContent="center">
-                {cacheExists ?
+                {!currentUser && <SignUp />}
+                {cacheExists && currentUser &&
                     <List sx={{ width: '25%' }}>
                         {listItems}
                     </List>
-                    : <GetComicsPrompt />
                 }
+                {!cacheExists && currentUser && <GetComicsPrompt />}
             </Box>
 
         </>

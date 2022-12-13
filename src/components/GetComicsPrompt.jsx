@@ -1,10 +1,9 @@
 import { Button, Grid, Typography } from "@mui/material";
-import { Box, Stack } from "@mui/system";
-import { useContext } from "react";
-import { MarvelMasterContext } from "../contexts/MasterProvider";
+import { Box } from "@mui/system";
+import { useComics } from "../contexts/ComicProvider";
 
 const GetComicsPrompt = () => {
-    const { fetchComics } = useContext(MarvelMasterContext);
+    const { fetchComics } = useComics();
 
     return (
         <>
