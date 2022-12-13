@@ -13,7 +13,16 @@ const ComicProvider = (props) => {
     const [cacheExists, setCacheExists] = useState();
     const [errorCount, setErrorCount] = useState(0);
 
+    const updateCache = (resultToSave, missingItemsToSave) => {
+        localStorage.setItem('readComics', JSON.stringify(resultToSave));
+        localStorage.setItem('missingItems', JSON.stringify(missingItemsToSave));
 
+        setAllResults(resultToSave);
+        setResults(resultToSave.slice(0, 100));
+        setErrors(missingItemsToSave);
+        setErrorCount(missingItemsToSave.length);
+        setCacheExists(true);
+    }
 
     const store = (id, read) => {
         let newArr = [...results];
@@ -111,7 +120,7 @@ const ComicProvider = (props) => {
     return (
         <ComicContext.Provider
             value={{
-                results, cacheExists, fetchComics, store, updateComic, errors, removeComic, errorCount, allResults
+                results, cacheExists, fetchComics, store, updateComic, errors, removeComic, errorCount, allResults, updateCache
             }}
         >
             {props.children}

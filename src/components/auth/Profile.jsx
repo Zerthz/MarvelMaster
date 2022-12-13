@@ -10,11 +10,11 @@ import { useRepo } from "../../contexts/RepoProvider";
 const Profile = () => {
     const { logout } = useAuth();
     const { setData, getUserData } = useRepo();
-    const { allResults, errors } = useComics();
+    const { allResults, errors, updateCache } = useComics();
     let navigate = useNavigate();
 
 
-    const handleSync = async () => {
+    const handleUpload = async () => {
         try {
             let data = {
                 results: allResults,
@@ -26,9 +26,11 @@ const Profile = () => {
         }
     }
 
-    const handleGetData = async () => {
+    const handleDownload = async () => {
         try {
-            console.log(await getUserData());
+            let userData = await getUserData();
+            updateCache(userData.results, userData.missingItems);
+            console.log("Data updated");
         } catch (error) {
             console.log(error);
         }
@@ -42,7 +44,6 @@ const Profile = () => {
 
 
     useEffect(() => {
-        console.log(process.env.foo)
     }, [])
     return (
         <>
@@ -66,14 +67,14 @@ const Profile = () => {
                             variant="contained"
                             size="large"
                             endIcon={<CloudUploadOutlined />}
-                            onClick={handleSync}
+                            onClick={handleUpload}
                         >Upload</Button>
                         <Button
                             variant="outlined"
                             color="primary"
                             size="large"
                             endIcon={<CloudDownloadOutlined />}
-                            onClick={handleGetData}
+                            onClick={handleDownload}
                         >Download</Button>
                         <Button
                             variant="outlined"
