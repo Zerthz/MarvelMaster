@@ -3,9 +3,9 @@ import { Button, Divider, Paper, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthProvider";
-import { useComics } from "../contexts/ComicProvider";
-import { useRepo } from "../contexts/RepoProvider";
+import { useAuth } from "../../contexts/AuthProvider";
+import { useComics } from "../../contexts/ComicProvider";
+import { useRepo } from "../../contexts/RepoProvider";
 
 const Profile = () => {
     const { logout } = useAuth();

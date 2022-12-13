@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import ErrorList from "../ErrorList";
-import Login from "../Login";
+import Login from "../auth/Login";
 import MarvelList from "../MarvelList";
-import Profile from "../Profile";
-import SignUp from "../SignUp";
+import Profile from "../auth/Profile";
+import SignUp from "../auth/SignUp";
 import PrivateRoute from "./PrivateRoute";
 
 

@@ -3,7 +3,7 @@ import { useComics } from "../contexts/ComicProvider";
 import MarvelListItem from "./MarvelListItem";
 import GetComicsPrompt from "./GetComicsPrompt";
 import { useAuth } from "../contexts/AuthProvider";
-import SignUp from "./SignUp";
+import SignUp from "./auth/SignUp";
 
 function MarvelList() {
 

@@ -1,12 +1,12 @@
 import { LockOutlined } from "@mui/icons-material";
 import { Container, Box, Typography, Avatar, Grid, TextField, Button, Link } from "@mui/material";
 import { useState } from "react";
-import { useAuth } from "../contexts/AuthProvider";
+import { useAuth } from "../../contexts/AuthProvider";
 import { Link as BrowserLink, useNavigate } from 'react-router-dom';
 
 
-const Login = () => {
-    const { login } = useAuth();
+const SignUp = () => {
+    const { signUp } = useAuth();
 
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("");
@@ -22,12 +22,14 @@ const Login = () => {
         setPassword(event.target.value);
     }
 
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             setLoading(true);
-            await login(email, password);
+            await signUp(email, password);
             navigate("/");
         } catch (error) {
             console.log(error)
@@ -49,7 +51,7 @@ const Login = () => {
                         <LockOutlined />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Log In
+                        Sign up
                     </Typography>
 
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -88,12 +90,12 @@ const Login = () => {
                             disabled={loading}
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Log In
+                            Sign Up
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link component={BrowserLink} to="/SignUp" variant="body2">
-                                    Need an account? Sign Up
+                                <Link component={BrowserLink} to="/LogIn" variant="body2">
+                                    Already have an account? Sign in
                                 </Link>
                             </Grid>
                         </Grid>
@@ -104,4 +106,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default SignUp;
