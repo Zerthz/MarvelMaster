@@ -31,6 +31,7 @@ const Profile = () => {
             let userData = await getUserData();
             updateCache(userData.results, userData.missingItems);
             console.log("Data updated");
+            console.log(userData.results, userData.missingItems);
         } catch (error) {
             console.log(error);
         }

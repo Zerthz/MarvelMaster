@@ -25,10 +25,12 @@ const ComicProvider = (props) => {
     }
 
     const store = (id, read) => {
-        let newArr = [...results];
+        let newArr = [...allResults];
         let toUpdate = newArr.find(comic => comic.id === id);
         toUpdate.read = read;
-        setResults(newArr);
+        setAllResults(newArr);
+        setResults(newArr.slice(0, 100));
+
         localStorage.setItem('readComics', JSON.stringify(newArr))
     }
 
@@ -102,8 +104,8 @@ const ComicProvider = (props) => {
         let cachedError = localStorage.getItem('missingItems');
         if (cached) {
             let cache = JSON.parse(cached);
-            setResults(cache.slice(0, 100));
             setAllResults(cache);
+            setResults(cache.slice(0, 100));
             setCacheExists(true);
 
 
