@@ -6,7 +6,7 @@ import { Link as BrowserLink, useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
-    const { login, currentUser } = useAuth();
+    const { login } = useAuth();
 
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("");
