@@ -62,7 +62,7 @@ const Profile = () => {
                         This is irreversable.
                     </Typography>
                     <Divider variant="middle" />
-                    <Box sx={{ display: 'flex', justifyContent: 'center', gap: '1em' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', gap: '1em', flexDirection: { xs: 'column', md: 'row' } }}>
                         <Button
                             variant="contained"
                             size="large"
