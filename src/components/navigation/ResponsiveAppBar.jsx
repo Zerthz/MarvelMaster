@@ -123,11 +123,11 @@ function ResponsiveAppBar() {
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
-                            color: 'inherit',
+                            color: '#DFCF00',
                             textDecoration: 'none',
                         }}
                     >
-                        Marvel Master
+                        MarvelMaster
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', gap: '0.6rem' } }}>
                         <MenuItem component={BrowserLink} to="/Part1">
@@ -153,7 +153,7 @@ function ResponsiveAppBar() {
                         <Divider variant="middle" flexItem orientation="vertical" />
 
                     </Box>
-                    {currentUser ?
+                    {currentUser &&
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -185,8 +185,7 @@ function ResponsiveAppBar() {
                                 </MenuItem>
 
                             </Menu>
-                        </Box> : <Typography>Sign In</Typography>
-                    }
+                        </Box>}
                 </Toolbar>
             </Container>
         </AppBar >
