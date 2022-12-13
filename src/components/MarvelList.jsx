@@ -33,7 +33,7 @@ function MarvelList() {
                 justifyContent="center">
                 {!currentUser && <SignUp />}
                 {cacheExists && currentUser &&
-                    <List sx={{ width: '25%' }}>
+                    <List sx={{ width: { xs: '90%', lg: '25%' } }}>
                         {listItems}
                     </List>
                 }
