@@ -8,7 +8,7 @@ import { useComics } from "../../contexts/ComicProvider";
 import { useRepo } from "../../contexts/RepoProvider";
 
 const Profile = () => {
-    const { logout } = useAuth();
+    const { logout, currentUser } = useAuth();
     const { setData, getUserData } = useRepo();
     const { allResults, errors, updateCache } = useComics();
     let navigate = useNavigate();
@@ -58,7 +58,13 @@ const Profile = () => {
                     </Typography>
                     <Typography
                         textAlign="center"
-                        variant="body1">
+                        variant="subtitle2">
+                        {currentUser.email}
+                    </Typography>
+                    <Typography
+                        textAlign="center"
+                        variant="body1"
+                    >
                         This is your profile, you can upload your local browser data to the cloud, or you can download data from the cloud.
                         This is irreversable.
                     </Typography>
