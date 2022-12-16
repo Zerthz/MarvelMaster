@@ -1,5 +1,5 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import { deepOrange, indigo } from "@mui/material/colors";
+import { deepOrange, indigo, teal } from "@mui/material/colors";
 import Main from "./components/navigation/Main";
 import MarvelMasterProvider from "./contexts/ComicProvider";
 import AuthProvider from "./contexts/AuthProvider";
@@ -12,7 +12,8 @@ function App() {
     palette: {
       mode: 'dark',
       primary: indigo,
-      secondary: deepOrange
+      secondary: deepOrange,
+      info: teal
     },
   });
 
