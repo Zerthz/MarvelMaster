@@ -54,15 +54,17 @@ const ComicProvider = (props) => {
 
     }
 
-    const updateComic = (id, title, url, img, description) => {
-        let newArr = [...results];
+    const updateComic = (id, title, url, img, description, comment) => {
+        let newArr = [...allResults];
         let toUpdate = newArr.find(comic => comic.id === id);
         toUpdate.seriesName = title;
         toUpdate.detailUrl = url;
         toUpdate.imageUrl = img;
         toUpdate.description = description;
-        setResults(newArr);
+        toUpdate.comment = comment;
 
+        setAllResults(newArr);
+        setResults(newArr.slice(0, 100));
         // if there are errors existing, check if this existed in the errors too.
         if (errors.length > 0) {
             let errorArr = [...errors];
