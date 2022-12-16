@@ -1,21 +1,8 @@
-import { Checkbox, Divider, List, ListItem, ListItemButton, ListItemText, Modal, Box, Button, TextField } from "@mui/material";
-import { Stack } from "@mui/system";
+import { Checkbox, Divider, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import React, { useState } from 'react';
 import { useComics } from "../contexts/ComicProvider";
 import ComicDialog from "./Modals/ComicDialog";
-import EditDialog from "./Modals/EditDialog";
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 800,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 3,
-};
 
 const MarvelListItem = ({ comic, counter, bg }) => {
     const { store } = useComics();
