@@ -13,6 +13,18 @@ const ComicProvider = (props) => {
     const [cacheExists, setCacheExists] = useState();
     const [errorCount, setErrorCount] = useState(0);
     const [ableToLoadMore, setAbleToLoadMore] = useState(true);
+    const [unread, setUnread] = useState();
+
+    const unReadComics = (toReduce) => {
+        let readList = toReduce.reduce((readList, comic) => {
+            if (comic.read === false) {
+                readList.push(comic);
+            }
+            return readList;
+        }, [])
+
+        return readList;
+    }
 
     const updateCache = (resultToSave, missingItemsToSave) => {
         localStorage.setItem('readComics', JSON.stringify(resultToSave));
@@ -134,7 +146,7 @@ const ComicProvider = (props) => {
         <ComicContext.Provider
             value={{
                 results, cacheExists, fetchComics, store, updateComic, errors, removeComic, errorCount, allResults, updateCache,
-                ableToLoadMore, loadMore
+                ableToLoadMore, loadMore, unread
             }}
         >
             {props.children}

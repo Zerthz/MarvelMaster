@@ -1,9 +1,10 @@
-import { List, Box, Button } from "@mui/material";
+import { List, Box, Button, Accordion, AccordionSummary, AccordionDetails, Divider } from "@mui/material";
 import { useComics } from "../contexts/ComicProvider";
 import MarvelListItem from "./MarvelListItem";
 import GetComicsPrompt from "./GetComicsPrompt";
 import { useAuth } from "../contexts/AuthProvider";
 import SignUp from "./auth/SignUp";
+import ReadAccordion from "./ReadAccordion";
 
 function MarvelList() {
 
@@ -12,6 +13,8 @@ function MarvelList() {
 
     let counter = 0;
     let listItems = results.map(item => {
+        if (item.read === true)
+            return;
         counter = counter + 1;
         let bg = '#3f51b5';
         if (counter % 2 === 0) {
@@ -29,12 +32,16 @@ function MarvelList() {
         <>
             <Box
                 display="flex"
-                sx={{ flexDirection: 'column', alignItems: 'center' }}>
+                sx={{ flexDirection: 'column', alignItems: 'center', paddingTop: '2em' }}>
                 {!currentUser && <SignUp />}
                 {cacheExists && currentUser &&
-                    <List sx={{ width: { xs: '90%', lg: '25%' } }}>
-                        {listItems}
-                    </List>
+                    <>
+                        <ReadAccordion />
+                        <Divider />
+                        <List sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
+                            {listItems}
+                        </List>
+                    </>
                 }
                 {!cacheExists && currentUser && <GetComicsPrompt />}
                 {ableToLoadMore &&
