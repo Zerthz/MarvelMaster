@@ -12,6 +12,7 @@ const ComicProvider = (props) => {
     const [errors, setErrors] = useState([]);
     const [cacheExists, setCacheExists] = useState();
     const [errorCount, setErrorCount] = useState(0);
+    const [ableToLoadMore, setAbleToLoadMore] = useState(true);
 
     const updateCache = (resultToSave, missingItemsToSave) => {
         localStorage.setItem('readComics', JSON.stringify(resultToSave));
@@ -29,7 +30,7 @@ const ComicProvider = (props) => {
         let toUpdate = newArr.find(comic => comic.id === id);
         toUpdate.read = read;
         setAllResults(newArr);
-        setResults(newArr.slice(0, 100));
+        setResults(newArr.slice(0, results.length));
 
         localStorage.setItem('readComics', JSON.stringify(newArr))
     }
@@ -37,7 +38,7 @@ const ComicProvider = (props) => {
     const removeComic = (id) => {
         let newArr = [...results];
         let toRemove = newArr.findIndex(comic => comic.id === id);
-        newArr.splice(toRemove, 1);
+        newArr.slice(toRemove, 1);
         setResults(newArr);
         if (errors.length > 0) {
             let errorArr = [...errors];
@@ -64,13 +65,13 @@ const ComicProvider = (props) => {
         toUpdate.comment = comment;
 
         setAllResults(newArr);
-        setResults(newArr.slice(0, 100));
+        setResults(newArr.slice(0, results.length));
         // if there are errors existing, check if this existed in the errors too.
         if (errors.length > 0) {
             let errorArr = [...errors];
             let errorUpdate = errorArr.findIndex(comic => comic.id === id);
             if (errorUpdate > -1) {
-                errorArr.splice(errorUpdate, 1);
+                errorArr.slice(errorUpdate, 1);
                 setErrors(errorArr);
                 setErrorCount(errorArr.length);
                 localStorage.setItem('missingItems', JSON.stringify(errorArr))
@@ -80,6 +81,20 @@ const ComicProvider = (props) => {
         }
         localStorage.setItem('readComics', JSON.stringify(newArr))
     }
+
+    const loadMore = () => {
+        let lastIndex = results.length - 1;
+        let all = [...allResults];
+        let foo = Math.min(100, (all.length - lastIndex));
+        let loaded = all.slice(lastIndex, (lastIndex + foo));
+
+        let newArr = [...results, ...loaded];
+        setResults(newArr);
+        if (newArr.length - 1 === all.length) {
+            setAbleToLoadMore(false);
+        }
+    }
+
     const fetchComics = () => {
         let url = "https://localhost:7284/api/MarvelMaster/Part1";
 
@@ -91,11 +106,7 @@ const ComicProvider = (props) => {
                 setResults(data.result);
                 setErrors(data.missingItems);
                 setErrorCount(data.missingItems.length);
-
-
-
             });
-
         setCacheExists(true);
     }
 
@@ -109,8 +120,6 @@ const ComicProvider = (props) => {
             setAllResults(cache);
             setResults(cache.slice(0, 100));
             setCacheExists(true);
-
-
         } else {
             setCacheExists(false);
         }
@@ -124,7 +133,8 @@ const ComicProvider = (props) => {
     return (
         <ComicContext.Provider
             value={{
-                results, cacheExists, fetchComics, store, updateComic, errors, removeComic, errorCount, allResults, updateCache
+                results, cacheExists, fetchComics, store, updateComic, errors, removeComic, errorCount, allResults, updateCache,
+                ableToLoadMore, loadMore
             }}
         >
             {props.children}
