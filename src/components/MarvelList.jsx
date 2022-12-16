@@ -1,10 +1,11 @@
-import { List, Box, Button, Accordion, AccordionSummary, AccordionDetails, Divider } from "@mui/material";
+import { List, Box, Button, Divider } from "@mui/material";
 import { useComics } from "../contexts/ComicProvider";
 import MarvelListItem from "./MarvelListItem";
 import GetComicsPrompt from "./GetComicsPrompt";
 import { useAuth } from "../contexts/AuthProvider";
 import SignUp from "./auth/SignUp";
 import ReadAccordion from "./ReadAccordion";
+import ScrollTopFab from "./ScrollTopFab";
 
 function MarvelList() {
 
@@ -51,6 +52,10 @@ function MarvelList() {
                         color="info"
                         onClick={loadMore}
                         sx={{ marginBottom: '1em', width: { xs: '90%', lg: '25%' } }} >Load More</Button>}
+
+                <ScrollTopFab />
+
+
             </Box>
         </>
     );
