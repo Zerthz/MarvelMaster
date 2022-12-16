@@ -5,7 +5,7 @@ import SendIcon from '@mui/icons-material/Send';
 import BookIcon from '@mui/icons-material/Book';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useComics } from "../contexts/ComicProvider";
+import { useComics } from "../../contexts/ComicProvider";
 import { useState } from "react";
 
 

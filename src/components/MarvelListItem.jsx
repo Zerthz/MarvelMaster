@@ -1,13 +1,9 @@
-import { Checkbox, Divider, List, ListItem, ListItemButton, ListItemText, Modal, Typography, Box, Button, Grid, TextField, IconButton, Dialog, DialogTitle } from "@mui/material";
-import BookIcon from '@mui/icons-material/Book';
-import SendIcon from '@mui/icons-material/Send';
-import ClearIcon from '@mui/icons-material/Clear';
+import { Checkbox, Divider, List, ListItem, ListItemButton, ListItemText, Modal, Box, Button, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { useState } from 'react';
 import { useComics } from "../contexts/ComicProvider";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import ComicDialog from "./ComicDialog";
+import ComicDialog from "./Modals/ComicDialog";
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -19,11 +15,6 @@ const style = {
     boxShadow: 24,
     p: 3,
 };
-let imageFit = {
-    width: "100%",
-    height: "100%",
-    objectFit: 'cover'
-}
 
 const MarvelListItem = ({ comic, counter, bg }) => {
     const [checked, setChecked] = useState(comic.read);
