@@ -15,49 +15,46 @@ function MarvelList() {
     let counter = 0;
     let listItems = results.map(item => {
         if (item.read === true)
-            return;
+            return () => { };
         counter = counter + 1;
         let bg = '#3f51b5';
         if (counter % 2 === 0) {
             bg = 'secondary'
         }
         return (
-            <>
-                <MarvelListItem key={item.id} bg={bg} counter={counter} comic={item} />
-            </>
+            <MarvelListItem key={item.id} bg={bg} counter={counter} comic={item} />
         )
 
     });
 
     return (
-        <>
-            <Box
-                display="flex"
-                sx={{ flexDirection: 'column', alignItems: 'center', paddingTop: '2em' }}>
-                {!currentUser && <SignUp />}
-                {cacheExists && currentUser &&
-                    <>
-                        <ReadAccordion />
-                        <Divider />
-                        <List sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
-                            {listItems}
-                        </List>
-                    </>
-                }
-                {!cacheExists && currentUser && <GetComicsPrompt />}
-                {ableToLoadMore &&
-                    <Button
-                        variant="contained"
-                        size="large"
-                        color="info"
-                        onClick={loadMore}
-                        sx={{ marginBottom: '1em', width: { xs: '90%', lg: '25%' } }} >Load More</Button>}
+        <Box
+            display="flex"
+            sx={{ flexDirection: 'column', alignItems: 'center', paddingTop: '2em' }}>
+            {!currentUser && <SignUp />}
+            {cacheExists && currentUser &&
+                <>
+                    <ReadAccordion />
+                    <Divider />
+                    <List sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
+                        {listItems}
+                    </List>
+                </>
+            }
+            {!cacheExists && currentUser && <GetComicsPrompt />}
+            {ableToLoadMore &&
+                <Button
+                    variant="contained"
+                    size="large"
+                    color="info"
+                    onClick={loadMore}
+                    sx={{ marginBottom: '1em', width: { xs: '90%', lg: '25%' } }}>
+                    Load More
+                </Button>}
 
-                <ScrollTopFab />
+            <ScrollTopFab />
+        </Box>
 
-
-            </Box>
-        </>
     );
 }
 
