@@ -4,8 +4,10 @@ const HandleAuthErrorMessages = (code) => {
             return "Invalid email.";
         case 'auth/wrong-password':
             return "Invalid password";
+        case 'auth/weak-password':
+            return "Password need to be atleast 6 characters";
         default:
-            return "Couldn't log you in, try again later.";
+            return "Error on our part, try again later.";
     }
 
 }
