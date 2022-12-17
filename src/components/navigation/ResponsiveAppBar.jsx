@@ -10,7 +10,7 @@ import { useAuth } from '../../contexts/AuthProvider';
 
 
 function ResponsiveAppBar() {
-    const { errorCount } = useComics();
+    const { errors } = useComics();
     const { currentUser, logout } = useAuth();
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -135,7 +135,7 @@ function ResponsiveAppBar() {
                         </MenuItem>
                         <Divider variant="middle" flexItem orientation="vertical" />
                         <Badge
-                            badgeContent={errorCount}
+                            badgeContent={errors.length}
                             color="error"
                             overlap="circular"
                             anchorOrigin={{

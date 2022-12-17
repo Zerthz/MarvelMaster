@@ -11,20 +11,7 @@ const ComicProvider = (props) => {
     const [allResults, setAllResults] = useState([]);
     const [errors, setErrors] = useState([]);
     const [cacheExists, setCacheExists] = useState();
-    const [errorCount, setErrorCount] = useState(0);
     const [ableToLoadMore, setAbleToLoadMore] = useState(true);
-    const [unread, setUnread] = useState();
-
-    const unReadComics = (toReduce) => {
-        let readList = toReduce.reduce((readList, comic) => {
-            if (comic.read === false) {
-                readList.push(comic);
-            }
-            return readList;
-        }, [])
-
-        return readList;
-    }
 
     const updateCache = (resultToSave, missingItemsToSave) => {
         localStorage.setItem('readComics', JSON.stringify(resultToSave));
@@ -33,7 +20,6 @@ const ComicProvider = (props) => {
         setAllResults(resultToSave);
         setResults(resultToSave.slice(0, 100));
         setErrors(missingItemsToSave);
-        setErrorCount(missingItemsToSave.length);
         setCacheExists(true);
     }
 
@@ -58,7 +44,6 @@ const ComicProvider = (props) => {
             if (errorUpdate > -1) {
                 errorArr.splice(errorUpdate, 1);
                 setErrors(errorArr);
-                setErrorCount(errorArr.length);
                 localStorage.setItem('missingItems', JSON.stringify(errorArr))
 
             }
@@ -85,7 +70,6 @@ const ComicProvider = (props) => {
             if (errorUpdate > -1) {
                 errorArr.slice(errorUpdate, 1);
                 setErrors(errorArr);
-                setErrorCount(errorArr.length);
                 localStorage.setItem('missingItems', JSON.stringify(errorArr))
 
             }
@@ -117,7 +101,6 @@ const ComicProvider = (props) => {
                 localStorage.setItem('missingItems', JSON.stringify(data.missingItems));
                 setResults(data.result);
                 setErrors(data.missingItems);
-                setErrorCount(data.missingItems.length);
             });
         setCacheExists(true);
     }
@@ -138,15 +121,14 @@ const ComicProvider = (props) => {
         if (cachedError) {
             let cache = JSON.parse(cachedError)
             setErrors(cache)
-            setErrorCount(cache.length);
         }
 
     }, []);
     return (
         <ComicContext.Provider
             value={{
-                results, cacheExists, fetchComics, store, updateComic, errors, removeComic, errorCount, allResults, updateCache,
-                ableToLoadMore, loadMore, unread
+                results, cacheExists, fetchComics, store, updateComic, errors, removeComic, allResults, updateCache,
+                ableToLoadMore, loadMore
             }}
         >
             {props.children}
