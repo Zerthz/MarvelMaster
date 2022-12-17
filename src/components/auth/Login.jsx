@@ -3,6 +3,7 @@ import { Container, Box, Typography, Avatar, Grid, TextField, Button, Link } fro
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthProvider";
 import { Link as BrowserLink, useNavigate } from 'react-router-dom';
+import HandleAuthErrorMessages from "../../services/HandleAuthErrors";
 
 
 const Login = () => {
@@ -11,6 +12,9 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const [loginError, setLoginError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState();
 
     let navigate = useNavigate();
 
@@ -26,10 +30,14 @@ const Login = () => {
         e.preventDefault();
 
         try {
+            setLoginError(false);
+            setErrorMessage('');
             setLoading(true);
             await login(email, password);
             navigate("/");
         } catch (error) {
+            setLoginError(true);
+            setErrorMessage(HandleAuthErrorMessages(error));
             console.log(error)
         }
         setLoading(false);
@@ -51,7 +59,6 @@ const Login = () => {
                     <Typography component="h1" variant="h5">
                         Log In
                     </Typography>
-
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
@@ -81,6 +88,10 @@ const Login = () => {
                                 />
                             </Grid>
                         </Grid>
+                        {loginError &&
+                            <Typography color="error" sx={{ fontStyle: 'italic' }}>
+                                {errorMessage}
+                            </Typography>}
                         <Button
                             type="submit"
                             fullWidth
