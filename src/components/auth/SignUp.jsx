@@ -3,6 +3,7 @@ import { Container, Box, Typography, Avatar, Grid, TextField, Button, Link } fro
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthProvider";
 import { Link as BrowserLink, useNavigate } from 'react-router-dom';
+import HandleAuthErrorMessages from "../../services/HandleAuthErrors";
 
 
 const SignUp = () => {
@@ -11,6 +12,10 @@ const SignUp = () => {
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordConfirm, setPasswordConfirm] = useState("");
+
+    const [errorMessage, setErrorMessage] = useState("");
+
 
     let navigate = useNavigate();
 
@@ -21,17 +26,33 @@ const SignUp = () => {
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     }
+    const handlePasswordConfirmChange = (event) => {
+        setPasswordConfirm(event.target.value);
+    }
+
 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!email) {
+            setErrorMessage("You need to fill in an email");
+            return;
+        }
+        if (password !== passwordConfirm) {
+            setErrorMessage("Passwords don't match");
+            return;
+        }
+
+
         try {
             setLoading(true);
+            setErrorMessage("");
             await signUp(email, password);
             navigate("/");
         } catch (error) {
+            setErrorMessage(HandleAuthErrorMessages(error));
             console.log(error)
         }
         setLoading(false);
@@ -82,7 +103,25 @@ const SignUp = () => {
 
                                 />
                             </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    name="passwordConfirm"
+                                    label="Confirm Password"
+                                    type="password"
+                                    id="passwordConfirm"
+                                    autoComplete="new-password"
+                                    value={passwordConfirm}
+                                    onChange={handlePasswordConfirmChange}
+
+                                />
+                            </Grid>
                         </Grid>
+                        {errorMessage &&
+                            <Typography color="error" sx={{ fontStyle: 'italic' }}>
+                                {errorMessage}
+                            </Typography>}
                         <Button
                             type="submit"
                             fullWidth

@@ -128,7 +128,7 @@ const ComicProvider = (props) => {
         <ComicContext.Provider
             value={{
                 results, cacheExists, fetchComics, store, updateComic, errors, removeComic, allResults, updateCache,
-                ableToLoadMore, loadMore
+                ableToLoadMore, loadMore,
             }}
         >
             {props.children}
