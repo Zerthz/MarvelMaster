@@ -10,7 +10,7 @@ import { useRepo } from "../../contexts/RepoProvider";
 const Profile = () => {
     const { logout, currentUser } = useAuth();
     const { setData, getUserData } = useRepo();
-    const { allResults, errors, updateCache } = useComics();
+    const { allResults, errors, createCache } = useComics();
     let navigate = useNavigate();
 
 
@@ -29,7 +29,7 @@ const Profile = () => {
     const handleDownload = async () => {
         try {
             let userData = await getUserData();
-            updateCache(userData.results, userData.missingItems);
+            createCache(userData.results, userData.missingItems);
             console.log("Data updated");
             console.log(userData.results, userData.missingItems);
         } catch (error) {
@@ -59,7 +59,7 @@ const Profile = () => {
                     <Typography
                         textAlign="center"
                         variant="subtitle2">
-                        {currentUser.email}
+                        {currentUser.displayName || currentUser.email}
                     </Typography>
                     <Typography
                         textAlign="center"

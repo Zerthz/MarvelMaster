@@ -13,7 +13,7 @@ const RepoProvider = (props) => {
     const { currentUser } = useAuth();
 
     const setData = (data) => {
-        return setDoc(doc(db, "users", currentUser.uid), data);
+        return setDoc(doc(db, "users", currentUser.uid), data, { merge: true });
     }
 
     const getUserData = async () => {
