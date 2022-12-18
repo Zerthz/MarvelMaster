@@ -21,6 +21,7 @@ const AuthProvider = (props) => {
     }
 
     const logout = () => {
+        localStorage.removeItem(currentUser.uid);
         return signOut(auth);
     }
 

@@ -7,18 +7,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
 export const ReadAccordion = () => {
-    const { results } = useComics();
+    const { readResults } = useComics();
 
     const [expanded, setExpanded] = useState(true);
 
-    let readList = results.reduce((readList, comic) => {
-        if (comic.read) {
-            readList.push(comic);
-        }
-        return readList;
-    }, [])
-
-    let readListItems = readList.map(comic => {
+    let readListItems = readResults.map(comic => {
 
         return (<MarvelListItem key={comic.id} bg={'lightgreen'} comic={comic} />);
     });
