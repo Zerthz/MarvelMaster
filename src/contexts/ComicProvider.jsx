@@ -93,16 +93,22 @@ const ComicProvider = (props) => {
         return false;
     }
 
-    const store = (id, read) => {
-        let newArr = [...allResults];
-        let toUpdate = newArr.find(comic => comic.id === id);
-        toUpdate.read = read;
-        setAllResults(newArr);
-        setReadResults(getReadComics(newArr));
-        setResults(newArr.slice(0, results.length));
+    const store = (id, read, page) => {
 
-        // updateCache(newArr, 'Part1');
-        setData({ results: newArr, missingItems: errors });
+        let all = { ...userData };
+        let field = all[page];
+        let toUpdate = field.find(comic => comic.id === id);
+        toUpdate.read = read;
+        setUserData(all);
+        setData(all);
+
+        // let newArr = [...allResults];
+        // let toUpdate = newArr.find(comic => comic.id === id);
+        // setAllResults(newArr);
+        // setReadResults(getReadComics(newArr));
+        // setResults(newArr.slice(0, results.length));
+
+        // setData({ results: newArr, missingItems: errors });
     }
 
     const removeComic = (id) => {

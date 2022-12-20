@@ -72,7 +72,7 @@ function MarvelList() {
         }
         finally {
         }
-    }, [id]);
+    }, [id, userData]);
 
     return (
         <>

@@ -8,7 +8,7 @@ import getReadComics from '../services/GetReadComics';
 
 
 export const ReadAccordion = ({ data }) => {
-    const { readResults } = useComics();
+    const { userData } = useComics();
 
     const [expanded, setExpanded] = useState(true);
     const [readItems, setReadItems] = useState();
@@ -30,7 +30,7 @@ export const ReadAccordion = ({ data }) => {
     useEffect(() => {
         let foo = getReadComics(data);
         createItems(foo);
-    }, [data])
+    }, [data, userData])
 
     return (
         <Accordion sx={{ width: { xs: '90%', lg: '25%' } }} expanded={expanded} onChange={handleChange}>

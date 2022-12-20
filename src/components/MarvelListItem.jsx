@@ -1,5 +1,6 @@
 import { Checkbox, Divider, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import React, { useState } from 'react';
+import { useParams } from "react-router-dom";
 import { useComics } from "../contexts/ComicProvider";
 import ComicDialog from "./Modals/ComicDialog";
 
@@ -11,11 +12,12 @@ const MarvelListItem = ({ comic, counter, bg }) => {
     const [checked, setChecked] = useState(comic.read);
     const [open, setOpen] = useState(false);
 
+    const { id } = useParams();
+
     const handleToggle = () => {
         setChecked(!checked);
         comic.read = !checked;
-        store(comic.id, !checked);
-
+        store(comic.id, !checked, id.toLowerCase());
     };
     const handleClose = () => {
         setOpen(false);
