@@ -17,6 +17,7 @@ function MarvelList() {
     const [results, setResults] = useState();
     const [loading, setLoading] = useState(true);
     const [comicItems, setComicItems] = useState();
+
     const { id } = useParams();
 
     let navigate = useNavigate();
@@ -25,20 +26,22 @@ function MarvelList() {
 
     const createItems = (data) => {
         let listItems = data.map(item => {
-            if (item.read === true)
-                return;
-            counter = counter + 1;
-            let bg = '#3f51b5';
-            if (counter % 2 === 0) {
-                bg = 'secondary'
-            }
-            return (
-                <MarvelListItem key={item.id} bg={bg} counter={counter} comic={item} />
-            )
+            if (item.read !== true) {
 
+                counter = counter + 1;
+                let bg = '#3f51b5';
+                if (counter % 2 === 0) {
+                    bg = 'secondary'
+                }
+                return (
+                    <MarvelListItem key={item.id} bg={bg} counter={counter} comic={item} />
+                )
+            }
         });
 
         setComicItems(listItems);
+        setLoading(false);
+
     }
 
 
@@ -48,7 +51,7 @@ function MarvelList() {
             if (supportedLists[id.toLowerCase()]) {
                 let data = userData[id.toLowerCase()];
                 setResults(data);
-                createItems(data);
+                createItems(data.slice(0, 100));
             } else {
 
                 navigate("/NotFound");
@@ -60,7 +63,6 @@ function MarvelList() {
             console.log(error);
         }
         finally {
-            setLoading(false);
         }
     }, [id]);
 
