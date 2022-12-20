@@ -15,13 +15,14 @@ const Main = () => {
                 <Route exact path="/" element={<MarvelList />} />
             </Route>
             <Route element={<PrivateRoute />}>
-                <Route path="/Part1" element={<MarvelList />} />
+                <Route path="MM">
+                    <Route path="/MM/:id" element={<MarvelList />} />
+                </Route>
                 <Route path="/Errors" element={<ErrorList />} />
             </Route>
             <Route path="/SignUp" element={<SignUp />} />
             <Route path="/LogIn" element={<Login />} />
             <Route path="/Profile" element={<Profile />} />
-
         </Routes>
     );
 }

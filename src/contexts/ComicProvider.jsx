@@ -20,8 +20,9 @@ const ComicProvider = (props) => {
     const [allResults, setAllResults] = useState([]);
     const [readResults, setReadResults] = useState([]);
     const [errors, setErrors] = useState([]);
-    const [cacheExists, setCacheExists] = useState();
     const [ableToLoadMore, setAbleToLoadMore] = useState(true);
+    const [dataExists, setDataExists] = useState(false);
+    const [userData, setUserData] = useState({});
 
     const [loading, setLoading] = useState(true);
 
@@ -40,7 +41,7 @@ const ComicProvider = (props) => {
         setResults(resultToSave.slice(0, 100));
         setErrors(missingItemsToSave);
         localStorage.setItem(currentUser.uid, JSON.stringify(data));
-        setCacheExists(true);
+        // setCacheExists(true);
     }
 
     const updateCache = (data, toUpdate) => {
@@ -67,7 +68,7 @@ const ComicProvider = (props) => {
         };
 
         localStorage.setItem(currentUser.uid, JSON.stringify(cache));
-        setCacheExists(true);
+        // setCacheExists(true);
     }
 
     const removeError = (id, allComics) => {
@@ -164,7 +165,7 @@ const ComicProvider = (props) => {
                 setResults(data.result);
                 setErrors(data.missingItems);
             });
-        setCacheExists(true);
+        // setCacheExists(true);
     }
 
     const getFromDb = async () => {
@@ -175,71 +176,85 @@ const ComicProvider = (props) => {
     useEffect(() => {
         const getComics = async () => {
             setLoading(true);
-            let userContent = localStorage.getItem(currentUser.uid);
 
-            if (!userContent) {
-                try {
-                    let comics = await getFromDb();
-                    createCache(comics.results, comics.missingItems);
+            try {
+                let userData = await getFromDb();
 
-                } catch {
-                    // No Cache and we can't retrieve data from the database
-                    // Create new data
+                setUserData(userData);
+                setDataExists(true)
 
-                    setCacheExists(false);
-                }
+            } catch (error) {
+                // no user data exists
+                console.log(error);
+                setDataExists(false);
+            } finally {
+                setLoading(false);
             }
-            else {
-                let content = JSON.parse(userContent);
-                // old content saved in cache
-                if (lessThanOneHourAgo(content.timeSaved) === false) {
-                    try {
-                        // want to compare read in db vs read in cache.
-                        let comics = await getFromDb();
-                        let x = comics.results;
-                        let read = getReadComics(x);
-                        let cacheRead = getReadComics(content.results.part1);
-
-                        // if more read in cache we use cache instead of db
-                        if (cacheRead.length > read.length) {
-                            setAllResults(content.results.part1);
-                            setReadResults(cacheRead);
-                            setResults(content.results.part1.slice(0, 100));
-                            setErrors(content.missingItems);
-                            setCacheExists(true);
-                            updateCache({}, 'timestamp');
-                        }
-                        // we decide to use db content anyways
-                        else {
-                            createCache(comics.results, comics.missingItems);
-                        }
-
-
-                    } catch (error) {
-                        // fail to get comics from db, should be a weird edge case
-                        setCacheExists(false);
-                        console.log(error);
-                    }
-                }
-                else {
-                    setAllResults(content.results.part1);
-                    setReadResults(getReadComics(content.results.part1));
-                    setResults(content.results.part1.slice(0, 100));
-                    setErrors(content.missingItems);
-                    setCacheExists(true);
-                }
-            }
-
         }
+        //     let userContent = localStorage.getItem(currentUser.uid);
+
+        //     if (!userContent) {
+        //         try {
+        //             let comics = await getFromDb();
+        //             createCache(comics.results, comics.missingItems);
+
+        //         } catch {
+        //             // No Cache and we can't retrieve data from the database
+        //             // Create new data
+
+        //             setCacheExists(false);
+        //         }
+        //     }
+        //     else {
+        //         let content = JSON.parse(userContent);
+        //         // old content saved in cache
+        //         if (lessThanOneHourAgo(content.timeSaved) === false) {
+        //             try {
+        //                 // want to compare read in db vs read in cache.
+        //                 let comics = await getFromDb();
+        //                 let x = comics.results;
+        //                 let read = getReadComics(x);
+        //                 let cacheRead = getReadComics(content.results.part1);
+
+        //                 // if more read in cache we use cache instead of db
+        //                 if (cacheRead.length > read.length) {
+        //                     setAllResults(content.results.part1);
+        //                     setReadResults(cacheRead);
+        //                     setResults(content.results.part1.slice(0, 100));
+        //                     setErrors(content.missingItems);
+        //                     setCacheExists(true);
+        //                     updateCache({}, 'timestamp');
+        //                 }
+        //                 // we decide to use db content anyways
+        //                 else {
+        //                     createCache(comics.results, comics.missingItems);
+        //                 }
+
+
+        //             } catch (error) {
+        //                 // fail to get comics from db, should be a weird edge case
+        //                 setCacheExists(false);
+        //                 console.log(error);
+        //             }
+        //         }
+        //         else {
+        //             setAllResults(content.results.part1);
+        //             setReadResults(getReadComics(content.results.part1));
+        //             setResults(content.results.part1.slice(0, 100));
+        //             setErrors(content.missingItems);
+        //             setCacheExists(true);
+        //         }
+        //     }
+
+        // }
         getComics();
-        setLoading(false);
 
     }, [currentUser]);
     return (
         <ComicContext.Provider
             value={{
-                results, cacheExists, fetchComics, store, updateComic, errors, removeComic, allResults, createCache,
-                ableToLoadMore, loadMore, readResults
+                results, dataExists, fetchComics, store, updateComic, errors, removeComic, allResults, createCache,
+                ableToLoadMore, loadMore, readResults, userData
             }}
         >
             {!loading && props.children}

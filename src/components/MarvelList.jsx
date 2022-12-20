@@ -6,16 +6,22 @@ import { useAuth } from "../contexts/AuthProvider";
 import SignUp from "./auth/SignUp";
 import ReadAccordion from "./ReadAccordion";
 import ScrollTopFab from "./ScrollTopFab";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function MarvelList() {
 
-    const { results, cacheExists, ableToLoadMore, loadMore } = useComics();
+    const { userData, dataExists, ableToLoadMore, loadMore } = useComics();
     const { currentUser } = useAuth();
+
+    const [results, setResults] = useState();
+
+    const { id } = useParams();
 
     let counter = 0;
     let listItems = results.map(item => {
         if (item.read === true)
-            return () => { };
+            return;
         counter = counter + 1;
         let bg = '#3f51b5';
         if (counter % 2 === 0) {
@@ -27,13 +33,30 @@ function MarvelList() {
 
     });
 
+    useEffect(() => {
+        try {
+            if (id) {
+                let data = userData[id.toLowerCase()];
+                setResults(data);
+            } else {
+
+                setResults(userData['part1']);
+            }
+
+
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
     return (
         <Box
             display="flex"
             sx={{ flexDirection: 'column', alignItems: 'center', paddingTop: '2em' }}>
             {!currentUser && <SignUp />}
-            {cacheExists && currentUser &&
+            {dataExists && currentUser &&
                 <>
+                    {id}
                     <ReadAccordion />
                     <Divider />
                     <List sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
@@ -41,7 +64,7 @@ function MarvelList() {
                     </List>
                 </>
             }
-            {!cacheExists && currentUser && <GetComicsPrompt />}
+            {!dataExists && currentUser && <GetComicsPrompt />}
             {ableToLoadMore &&
                 <Button
                     variant="contained"
