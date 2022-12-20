@@ -14,10 +14,8 @@ const Main = () => {
             <Route exact path="/" element={<PrivateRoute />}>
                 <Route exact path="/" element={<MarvelList />} />
             </Route>
-            <Route path="/Part1" element={<PrivateRoute />}>
+            <Route element={<PrivateRoute />}>
                 <Route path="/Part1" element={<MarvelList />} />
-            </Route>
-            <Route path="/Errors" element={<PrivateRoute />}>
                 <Route path="/Errors" element={<ErrorList />} />
             </Route>
             <Route path="/SignUp" element={<SignUp />} />
