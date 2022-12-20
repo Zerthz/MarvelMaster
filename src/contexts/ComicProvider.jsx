@@ -24,52 +24,61 @@ const ComicProvider = (props) => {
     const [dataExists, setDataExists] = useState(false);
     const [userData, setUserData] = useState({});
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
-    const createCache = (resultToSave, missingItemsToSave) => {
 
-        let data = {
-            timeSaved: dayjs(),
-            results: {
-                part1: resultToSave,
-            },
-            missingItems: missingItemsToSave,
-        };
+    let supportedLists = {
+        part1: 'Marvel Master Part 1',
+        jhtms: 'Jonathan Hickman: The Marvel Saga',
+    };
 
-        setAllResults(resultToSave);
-        setReadResults(getReadComics(resultToSave));
-        setResults(resultToSave.slice(0, 100));
-        setErrors(missingItemsToSave);
-        localStorage.setItem(currentUser.uid, JSON.stringify(data));
-        // setCacheExists(true);
-    }
 
-    const updateCache = (data, toUpdate) => {
-        let cacheJSON = localStorage.getItem(currentUser.uid);
-        let cache = JSON.parse(cacheJSON);
-        cache.timeSaved = dayjs();
-        switch (toUpdate) {
-            case 'Part1':
-                cache.results.part1 = data;
-                break;
-            case 'missingItems':
-                cache.missingItems = data;
-                break;
-            // update all
-            case 'all':
-                cache.results = data.results;
-                cache.missingItems = data.missingItems;
-                break;
-            // this allows us to enter here with only changing the timestamp
-            case 'timestamp':
-                break;
-            default:
-                return;
-        };
 
-        localStorage.setItem(currentUser.uid, JSON.stringify(cache));
-        // setCacheExists(true);
-    }
+
+    // const createCache = (resultToSave, missingItemsToSave) => {
+
+    //     let data = {
+    //         timeSaved: dayjs(),
+    //         results: {
+    //             part1: resultToSave,
+    //         },
+    //         missingItems: missingItemsToSave,
+    //     };
+
+    //     setAllResults(resultToSave);
+    //     setReadResults(getReadComics(resultToSave));
+    //     setResults(resultToSave.slice(0, 100));
+    //     setErrors(missingItemsToSave);
+    //     localStorage.setItem(currentUser.uid, JSON.stringify(data));
+    //     // setCacheExists(true);
+    // }
+
+    // const updateCache = (data, toUpdate) => {
+    //     let cacheJSON = localStorage.getItem(currentUser.uid);
+    //     let cache = JSON.parse(cacheJSON);
+    //     cache.timeSaved = dayjs();
+    //     switch (toUpdate) {
+    //         case 'Part1':
+    //             cache.results.part1 = data;
+    //             break;
+    //         case 'missingItems':
+    //             cache.missingItems = data;
+    //             break;
+    //         // update all
+    //         case 'all':
+    //             cache.results = data.results;
+    //             cache.missingItems = data.missingItems;
+    //             break;
+    //         // this allows us to enter here with only changing the timestamp
+    //         case 'timestamp':
+    //             break;
+    //         default:
+    //             return;
+    //     };
+
+    //     localStorage.setItem(currentUser.uid, JSON.stringify(cache));
+    //     // setCacheExists(true);
+    // }
 
     const removeError = (id, allComics) => {
         let errorArr = [...errors];
@@ -77,7 +86,7 @@ const ComicProvider = (props) => {
         if (errorUpdate > -1) {
             errorArr.splice(errorUpdate, 1);
             setErrors(errorArr);
-            updateCache({ results: { part1: allComics }, missingItems: errorArr }, 'all');
+            // updateCache({ results: { part1: allComics }, missingItems: errorArr }, 'all');
             setData({ results: allComics, missingItems: errorArr });
             return true;
         }
@@ -92,7 +101,7 @@ const ComicProvider = (props) => {
         setReadResults(getReadComics(newArr));
         setResults(newArr.slice(0, results.length));
 
-        updateCache(newArr, 'Part1');
+        // updateCache(newArr, 'Part1');
         setData({ results: newArr, missingItems: errors });
     }
 
@@ -113,7 +122,7 @@ const ComicProvider = (props) => {
 
         }
 
-        updateCache(newArr, 'Part1');
+        // updateCache(newArr, 'Part1');
         setData({ results: newArr, missingItems: errors });
 
     }
@@ -136,7 +145,7 @@ const ComicProvider = (props) => {
             }
 
         }
-        updateCache(newArr, 'Part1');
+        // updateCache(newArr, 'Part1');
         setData({ results: newArr, missingItems: errors });
 
     }
@@ -175,7 +184,9 @@ const ComicProvider = (props) => {
 
     useEffect(() => {
         const getComics = async () => {
+
             setLoading(true);
+
 
             try {
                 let userData = await getFromDb();
@@ -190,6 +201,7 @@ const ComicProvider = (props) => {
             } finally {
                 setLoading(false);
             }
+
         }
         //     let userContent = localStorage.getItem(currentUser.uid);
 
@@ -253,7 +265,7 @@ const ComicProvider = (props) => {
     return (
         <ComicContext.Provider
             value={{
-                results, dataExists, fetchComics, store, updateComic, errors, removeComic, allResults, createCache,
+                results, dataExists, fetchComics, store, updateComic, errors, removeComic, allResults, supportedLists,
                 ableToLoadMore, loadMore, readResults, userData
             }}
         >

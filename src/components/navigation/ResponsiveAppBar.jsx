@@ -130,7 +130,7 @@ function ResponsiveAppBar() {
                         MarvelMaster
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', gap: '0.6rem' } }}>
-                        <MenuItem component={BrowserLink} to="/Part1">
+                        <MenuItem component={BrowserLink} to="/list/Part1">
                             Part 1
                         </MenuItem>
                         <Divider variant="middle" flexItem orientation="vertical" />

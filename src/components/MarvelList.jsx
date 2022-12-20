@@ -6,48 +6,63 @@ import { useAuth } from "../contexts/AuthProvider";
 import SignUp from "./auth/SignUp";
 import ReadAccordion from "./ReadAccordion";
 import ScrollTopFab from "./ScrollTopFab";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function MarvelList() {
 
-    const { userData, dataExists, ableToLoadMore, loadMore } = useComics();
+    const { userData, dataExists, ableToLoadMore, loadMore, supportedLists } = useComics();
     const { currentUser } = useAuth();
 
     const [results, setResults] = useState();
-
+    const [loading, setLoading] = useState(true);
+    const [comicItems, setComicItems] = useState();
     const { id } = useParams();
 
+    let navigate = useNavigate();
     let counter = 0;
-    let listItems = results.map(item => {
-        if (item.read === true)
-            return;
-        counter = counter + 1;
-        let bg = '#3f51b5';
-        if (counter % 2 === 0) {
-            bg = 'secondary'
-        }
-        return (
-            <MarvelListItem key={item.id} bg={bg} counter={counter} comic={item} />
-        )
 
-    });
+
+    const createItems = (data) => {
+        let listItems = data.map(item => {
+            if (item.read === true)
+                return;
+            counter = counter + 1;
+            let bg = '#3f51b5';
+            if (counter % 2 === 0) {
+                bg = 'secondary'
+            }
+            return (
+                <MarvelListItem key={item.id} bg={bg} counter={counter} comic={item} />
+            )
+
+        });
+
+        setComicItems(listItems);
+    }
+
 
     useEffect(() => {
         try {
-            if (id) {
+            setLoading(true);
+            if (supportedLists[id.toLowerCase()]) {
                 let data = userData[id.toLowerCase()];
                 setResults(data);
+                createItems(data);
             } else {
 
-                setResults(userData['part1']);
+                navigate("/NotFound");
+
             }
 
 
         } catch (error) {
             console.log(error);
         }
-    }, []);
+        finally {
+            setLoading(false);
+        }
+    }, [id]);
 
     return (
         <Box
@@ -60,7 +75,7 @@ function MarvelList() {
                     <ReadAccordion />
                     <Divider />
                     <List sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
-                        {listItems}
+                        {comicItems}
                     </List>
                 </>
             }
