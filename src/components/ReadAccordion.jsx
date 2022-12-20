@@ -28,8 +28,7 @@ export const ReadAccordion = ({ data }) => {
     }
 
     useEffect(() => {
-        let foo = getReadComics(data);
-        createItems(foo);
+        createItems(getReadComics(data));
     }, [data, userData])
 
     return (

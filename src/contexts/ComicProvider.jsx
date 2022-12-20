@@ -94,21 +94,12 @@ const ComicProvider = (props) => {
     }
 
     const store = (id, read, page) => {
-
         let all = { ...userData };
         let field = all[page];
         let toUpdate = field.find(comic => comic.id === id);
         toUpdate.read = read;
         setUserData(all);
         setData(all);
-
-        // let newArr = [...allResults];
-        // let toUpdate = newArr.find(comic => comic.id === id);
-        // setAllResults(newArr);
-        // setReadResults(getReadComics(newArr));
-        // setResults(newArr.slice(0, results.length));
-
-        // setData({ results: newArr, missingItems: errors });
     }
 
     const removeComic = (id) => {
@@ -133,26 +124,43 @@ const ComicProvider = (props) => {
 
     }
 
-    const updateComic = (id, title, url, img, description, comment) => {
-        let newArr = [...allResults];
-        let toUpdate = newArr.find(comic => comic.id === id);
+    const updateComic = (id, title, url, img, description, comment, page) => {
+
+        let all = { ...userData };
+        let field = all[page];
+        let toUpdate = field.find(comic => comic.id === id);
         toUpdate.seriesName = title;
         toUpdate.detailUrl = url;
         toUpdate.imageUrl = img;
         toUpdate.description = description;
         toUpdate.comment = comment;
 
-        setAllResults(newArr);
-        setResults(newArr.slice(0, results.length));
-        // if there are errors existing, check if this existed in the errors too.
-        if (errors.length > 0) {
-            if (removeError(id, newArr)) {
-                return;
+        if (all.errors.length > 0) {
+            let errorArr = [...all.errors];
+            let errorUpdate = errorArr.findIndex(comic => comic.id === id);
+            if (errorUpdate > -1) {
+                errorArr.splice(errorUpdate, 1);
+                all.errors = errorArr;
             }
-
         }
-        // updateCache(newArr, 'Part1');
-        setData({ results: newArr, missingItems: errors });
+
+        setUserData(all);
+        setData(all);
+
+        // let newArr = [...allResults];
+
+
+        // setAllResults(newArr);
+        // setResults(newArr.slice(0, results.length));
+        // // if there are errors existing, check if this existed in the errors too.
+        // if (errors.length > 0) {
+        //     if (removeError(id, newArr)) {
+        //         return;
+        //     }
+
+        // }
+        // // updateCache(newArr, 'Part1');
+        // setData({ results: newArr, missingItems: errors });
 
     }
 

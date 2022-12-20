@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, List, ListItem, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useComics } from "../../contexts/ComicProvider";
 
 
@@ -8,6 +9,8 @@ const EditDialog = (props) => {
     const { open, onClose, onCancel, comic } = props;
 
     const { updateComic } = useComics();
+
+    const { id } = useParams();
 
     const [titleForm, setTitleForm] = useState(comic.seriesName);
     const [detailUrlForm, setDetailUrlForm] = useState(comic.detailUrl || "");
@@ -22,7 +25,7 @@ const EditDialog = (props) => {
 
     const handleSave = () => {
         if (detailUrlForm && imageUrlForm && titleForm) {
-            updateComic(comic.id, titleForm, detailUrlForm, imageUrlForm, descriptionForm, commentForm);
+            updateComic(comic.id, titleForm, detailUrlForm, imageUrlForm, descriptionForm, commentForm, id.toLowerCase());
             onClose();
         }
     }
