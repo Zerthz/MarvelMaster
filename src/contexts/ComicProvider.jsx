@@ -184,9 +184,7 @@ const ComicProvider = (props) => {
 
     useEffect(() => {
         const getComics = async () => {
-
             setLoading(true);
-
 
             try {
                 let userData = await getFromDb();

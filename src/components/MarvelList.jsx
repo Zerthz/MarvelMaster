@@ -67,34 +67,37 @@ function MarvelList() {
     }, [id]);
 
     return (
-        <Box
-            display="flex"
-            sx={{ flexDirection: 'column', alignItems: 'center', paddingTop: '2em' }}>
-            {!currentUser && <SignUp />}
-            {dataExists && currentUser &&
-                <>
-                    {id}
-                    <ReadAccordion />
-                    <Divider />
-                    <List sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
-                        {comicItems}
-                    </List>
-                </>
+        <>
+            {!loading &&
+                <Box
+                    display="flex"
+                    sx={{ flexDirection: 'column', alignItems: 'center', paddingTop: '2em' }}>
+                    {!currentUser && <SignUp />}
+                    {dataExists && currentUser &&
+                        <>
+                            {id}
+                            <ReadAccordion data={results} />
+                            <Divider />
+                            <List sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
+                                {comicItems}
+                            </List>
+                        </>
+                    }
+                    {!dataExists && currentUser && <GetComicsPrompt />}
+                    {ableToLoadMore &&
+                        <Button
+                            variant="contained"
+                            size="large"
+                            color="info"
+                            onClick={loadMore}
+                            sx={{ marginBottom: '1em', width: { xs: '90%', lg: '25%' } }}>
+                            Load More
+                        </Button>}
+
+                    <ScrollTopFab />
+                </Box>
             }
-            {!dataExists && currentUser && <GetComicsPrompt />}
-            {ableToLoadMore &&
-                <Button
-                    variant="contained"
-                    size="large"
-                    color="info"
-                    onClick={loadMore}
-                    sx={{ marginBottom: '1em', width: { xs: '90%', lg: '25%' } }}>
-                    Load More
-                </Button>}
-
-            <ScrollTopFab />
-        </Box>
-
+        </>
     );
 }
 
