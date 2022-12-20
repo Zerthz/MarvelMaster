@@ -15,8 +15,9 @@ const Main = () => {
         <Routes>
             <Route exact path="/" element={<LandingPage />} />
             <Route element={<PrivateRoute />}>
-                <Route path="list">
+                <Route path="/list">
                     <Route path="/list/:id" element={<MarvelList />} />
+
                 </Route>
                 <Route path="/Errors" element={<ErrorList />} />
             </Route>

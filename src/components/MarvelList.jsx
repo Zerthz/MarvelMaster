@@ -6,7 +6,7 @@ import { useAuth } from "../contexts/AuthProvider";
 import SignUp from "./auth/SignUp";
 import ReadAccordion from "./ReadAccordion";
 import ScrollTopFab from "./ScrollTopFab";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function MarvelList() {
@@ -26,20 +26,21 @@ function MarvelList() {
 
     const createItems = (data) => {
         let listItems = data.map(item => {
-            if (item.read !== true) {
+            if (item.read === true) { return; }
 
-                counter = counter + 1;
-                let bg = '#3f51b5';
-                if (counter % 2 === 0) {
-                    bg = 'secondary'
-                }
-                return (
-                    <MarvelListItem key={item.id} bg={bg} counter={counter} comic={item} />
-                )
+            counter = counter + 1;
+            let bg = '#3f51b5';
+            if (counter % 2 === 0) {
+                bg = 'secondary'
             }
+            return (
+                <MarvelListItem key={item.id} bg={bg} counter={counter} comic={item} />
+            )
+
         });
 
         setComicItems(listItems);
+        setDataExists(true);
         setLoading(false);
 
     }
@@ -83,6 +84,7 @@ function MarvelList() {
                     {dataExists && currentUser &&
                         <>
                             {id}
+
                             <ReadAccordion data={results} />
                             <Divider />
                             <List sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
