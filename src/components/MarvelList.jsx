@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 
 function MarvelList() {
 
-    const { userData, dataExists, ableToLoadMore, loadMore, supportedLists } = useComics();
+    const { userData, dataExists, ableToLoadMore, loadMore, supportedLists, setDataExists } = useComics();
     const { currentUser } = useAuth();
 
     const [results, setResults] = useState();
@@ -50,8 +50,15 @@ function MarvelList() {
             setLoading(true);
             if (supportedLists[id.toLowerCase()]) {
                 let data = userData[id.toLowerCase()];
-                setResults(data);
-                createItems(data.slice(0, 100));
+                if (data) {
+                    setResults(data);
+                    createItems(data.slice(0, 100));
+                }
+                else {
+                    // This user doesn't have this supported data
+                    setDataExists(false);
+                    setLoading(false);
+                }
             } else {
 
                 navigate("/NotFound");
@@ -84,7 +91,7 @@ function MarvelList() {
                         </>
                     }
                     {!dataExists && currentUser && <GetComicsPrompt />}
-                    {ableToLoadMore &&
+                    {dataExists && ableToLoadMore &&
                         <Button
                             variant="contained"
                             size="large"
