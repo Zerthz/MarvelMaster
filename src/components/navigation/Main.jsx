@@ -5,15 +5,14 @@ import MarvelList from "../MarvelList";
 import Profile from "../auth/Profile";
 import SignUp from "../auth/SignUp";
 import PrivateRoute from "./PrivateRoute";
+import LandingPage from "./LadningPage";
 
 
 
 const Main = () => {
     return (
         <Routes>
-            <Route exact path="/" element={<PrivateRoute />}>
-                <Route exact path="/" element={<MarvelList />} />
-            </Route>
+            <Route exact path="/" element={<LandingPage />} />
             <Route element={<PrivateRoute />}>
                 <Route path="MM">
                     <Route path="/MM/:id" element={<MarvelList />} />
