@@ -146,22 +146,6 @@ const ComicProvider = (props) => {
 
         setUserData(all);
         setData(all);
-
-        // let newArr = [...allResults];
-
-
-        // setAllResults(newArr);
-        // setResults(newArr.slice(0, results.length));
-        // // if there are errors existing, check if this existed in the errors too.
-        // if (errors.length > 0) {
-        //     if (removeError(id, newArr)) {
-        //         return;
-        //     }
-
-        // }
-        // // updateCache(newArr, 'Part1');
-        // setData({ results: newArr, missingItems: errors });
-
     }
 
     const loadMore = () => {
