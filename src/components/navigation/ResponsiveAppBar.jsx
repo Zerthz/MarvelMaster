@@ -138,22 +138,23 @@ function ResponsiveAppBar() {
                             Jonathan Hickman: TMS
                         </MenuItem>
                         <Divider variant="middle" flexItem orientation="vertical" />
-                        <Badge
-                            badgeContent={userData.errors.length}
-                            color="error"
-                            overlap="circular"
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'right',
-                            }}
-                        >
-                            <MenuItem component={BrowserLink} to="/Errors" >
-                                <Typography color="secondary">
-                                    Errors
-                                </Typography>
-                            </MenuItem>
-                        </Badge>
-
+                        {userData.errors &&
+                            <Badge
+                                badgeContent={userData.errors.length}
+                                color="error"
+                                overlap="circular"
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+                            >
+                                <MenuItem component={BrowserLink} to="/Errors" >
+                                    <Typography color="secondary">
+                                        Errors
+                                    </Typography>
+                                </MenuItem>
+                            </Badge>
+                        }
                         <Divider variant="middle" flexItem orientation="vertical" />
 
                     </Box>

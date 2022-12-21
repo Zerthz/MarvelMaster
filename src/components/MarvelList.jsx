@@ -6,7 +6,7 @@ import { useAuth } from "../contexts/AuthProvider";
 import SignUp from "./auth/SignUp";
 import ReadAccordion from "./ReadAccordion";
 import ScrollTopFab from "./ScrollTopFab";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function MarvelList() {

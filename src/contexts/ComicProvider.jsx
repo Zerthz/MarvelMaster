@@ -161,18 +161,48 @@ const ComicProvider = (props) => {
     //     }
     // }
 
-    const fetchComics = () => {
-        let url = "https://localhost:7284/api/MarvelMaster/Part1";
+    const fetchComics = (id) => {
+        setLoading(true);
+        let param;
+        switch (id.toLowerCase()) {
+            case 'part1':
+                param = 'MMPart1';
+                break;
+            case 'jhtms':
+                param = 'JHTMS';
+                break;
+            default:
+                return;
+        }
+
+
+        let url = "https://localhost:7284/api/MarvelMaster/" + param;
 
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                localStorage.setItem('readComics', JSON.stringify(data.result))
-                localStorage.setItem('missingItems', JSON.stringify(data.missingItems));
-                setResults(data.result);
-                setErrors(data.missingItems);
+                if (data) {
+                    let all = { ...userData };
+
+                    switch (id.toLowerCase()) {
+                        case 'part1':
+                            all.part1 = data.result;
+                            all.errors = data.missingItems;
+                            break;
+                        case 'jhtms':
+                            all.jhtms = data.result;
+                            break;
+                        default:
+                            return;
+                    }
+                    setUserData(all);
+                    setData(all);
+                }
+
+
+
+                setLoading(false);
             });
-        // setCacheExists(true);
     }
 
     const getFromDb = async () => {
