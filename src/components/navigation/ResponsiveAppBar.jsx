@@ -99,8 +99,11 @@ function ResponsiveAppBar() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            <MenuItem component={BrowserLink} to="/Part1">
+                            <MenuItem component={BrowserLink} to="/list/Part1">
                                 Part 1
+                            </MenuItem>
+                            <MenuItem component={BrowserLink} to="/list/JHTMS">
+                                Jonathan Hickman: TMS
                             </MenuItem>
                             <MenuItem component={BrowserLink} to="/Errors" >
 
