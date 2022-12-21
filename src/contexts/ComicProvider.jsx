@@ -148,18 +148,18 @@ const ComicProvider = (props) => {
         setData(all);
     }
 
-    const loadMore = () => {
-        let lastIndex = results.length - 1;
-        let all = [...allResults];
-        let comicsLeft = Math.min(100, (all.length - lastIndex));
-        let loaded = all.slice(lastIndex, (lastIndex + comicsLeft));
+    // const loadMore = () => {
+    //     let lastIndex = results.length - 1;
+    //     let all = [...allResults];
+    //     let comicsLeft = Math.min(100, (all.length - lastIndex));
+    //     let loaded = all.slice(lastIndex, (lastIndex + comicsLeft));
 
-        let newArr = [...results, ...loaded];
-        setResults(newArr);
-        if (newArr.length - 1 === all.length) {
-            setAbleToLoadMore(false);
-        }
-    }
+    //     let newArr = [...results, ...loaded];
+    //     setResults(newArr);
+    //     if (newArr.length - 1 === all.length) {
+    //         setAbleToLoadMore(false);
+    //     }
+    // }
 
     const fetchComics = () => {
         let url = "https://localhost:7284/api/MarvelMaster/Part1";
@@ -262,7 +262,7 @@ const ComicProvider = (props) => {
         <ComicContext.Provider
             value={{
                 results, dataExists, fetchComics, store, updateComic, errors, removeComic, allResults, supportedLists,
-                ableToLoadMore, loadMore, readResults, userData, setDataExists
+                ableToLoadMore, readResults, userData, setDataExists
             }}
         >
             {!loading && props.children}

@@ -11,12 +11,13 @@ import { useEffect, useState } from "react";
 
 function MarvelList() {
 
-    const { userData, dataExists, ableToLoadMore, loadMore, supportedLists, setDataExists } = useComics();
+    const { userData, dataExists, supportedLists, setDataExists } = useComics();
     const { currentUser } = useAuth();
 
     const [results, setResults] = useState();
     const [loading, setLoading] = useState(true);
     const [comicItems, setComicItems] = useState();
+    const [ableToLoadMore, setAbleToLoadMore] = useState(true);
 
     const { id } = useParams();
 
@@ -42,6 +43,20 @@ function MarvelList() {
         setComicItems(listItems);
         setDataExists(true);
         setLoading(false);
+
+    }
+    const loadMore = () => {
+        setLoading(true);
+        let lastIndex = comicItems.length - 1;
+        let all = [...userData[id.toLowerCase()]];
+        let comicsLeft = Math.min(100, (all.length - lastIndex));
+
+        let loaded = all.slice(0, (lastIndex + comicsLeft));
+        createItems(loaded);
+        if (loaded.length - 1 === all.length) {
+            setAbleToLoadMore(false);
+        }
+
 
     }
 
