@@ -4,10 +4,10 @@ import ErrorListItem from "./ErrorListItem";
 
 function ErrorList() {
 
-    const { errors } = useComics();
+    const { userData } = useComics();
 
     let counter = 0;
-    let listItems = errors.map(item => {
+    let listItems = userData.errors.map(item => {
         counter = counter + 1;
         let bg = '#3f51b5';
         if (counter % 2 === 0) {
@@ -26,7 +26,7 @@ function ErrorList() {
             <Box
                 display="flex"
                 justifyContent="center">
-                {errors.length > 0 ?
+                {userData.errors.length > 0 ?
                     <List sx={{ width: { xs: '90%', lg: '25%' } }}>
                         {listItems}
                     </List>
