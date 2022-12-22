@@ -82,20 +82,18 @@ function ResponsiveAppBar() {
                         </IconButton>
 
                         <Drawer anchor="left" open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}>
-                            <Menu>
-                                <MenuItem component={BrowserLink} to="/list/Part1">
-                                    Part 1
-                                </MenuItem>
-                                <MenuItem component={BrowserLink} to="/list/JHTMS">
-                                    Jonathan Hickman: TMS
-                                </MenuItem>
-                                <MenuItem component={BrowserLink} to="/Errors" >
+                            <MenuItem component={BrowserLink} to="/list/Part1">
+                                Part 1
+                            </MenuItem>
+                            <MenuItem component={BrowserLink} to="/list/JHTMS">
+                                Jonathan Hickman: TMS
+                            </MenuItem>
+                            <MenuItem component={BrowserLink} to="/Errors" >
 
-                                    <Typography color="secondary">
-                                        Errors
-                                    </Typography>
-                                </MenuItem>
-                            </Menu>
+                                <Typography color="secondary">
+                                    Errors
+                                </Typography>
+                            </MenuItem>
                         </Drawer>
 
                     </Box>
