@@ -1,4 +1,4 @@
-import { List, Box, Button, Divider } from "@mui/material";
+import { List, Box, Button, Divider, Paper, Typography } from "@mui/material";
 import { useComics } from "../contexts/ComicProvider";
 import MarvelListItem from "./MarvelListItem";
 import GetComicsPrompt from "./GetComicsPrompt";
@@ -9,6 +9,7 @@ import ScrollTopFab from "./ScrollTopFab";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getReadComics from "../services/GetReadComics";
+import TitleProgress from "./TitleProgress";
 
 function MarvelList() {
 
@@ -65,7 +66,7 @@ function MarvelList() {
     useEffect(() => {
         try {
             setLoading(true);
-            if (supportedLists[id.toLowerCase()]) {
+            if (supportedLists[id.toLowerCase()].title) {
                 let data = userData[id.toLowerCase()];
                 if (data) {
                     setResults(data);
@@ -101,8 +102,7 @@ function MarvelList() {
                     {!currentUser && <SignUp />}
                     {dataExists && currentUser &&
                         <>
-                            {id}
-
+                            <TitleProgress />
                             <ReadAccordion data={results} />
                             <Divider />
                             <List sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
