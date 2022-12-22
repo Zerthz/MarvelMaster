@@ -55,8 +55,8 @@ function ResponsiveAppBar() {
                     <Typography
                         variant="h6"
                         noWrap
-                        component="a"
-                        href="/"
+                        component={BrowserLink}
+                        to="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -141,7 +141,7 @@ function ResponsiveAppBar() {
                             Jonathan Hickman: TMS
                         </MenuItem>
                         <Divider variant="middle" flexItem orientation="vertical" />
-                        {userData.errors &&
+                        {userData.errors && <>
                             <Badge
                                 badgeContent={userData.errors.length}
                                 color="error"
@@ -157,8 +157,9 @@ function ResponsiveAppBar() {
                                     </Typography>
                                 </MenuItem>
                             </Badge>
+                            <Divider variant="middle" flexItem orientation="vertical" />
+                        </>
                         }
-                        <Divider variant="middle" flexItem orientation="vertical" />
 
                     </Box>
                     {currentUser &&
