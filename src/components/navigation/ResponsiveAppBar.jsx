@@ -10,7 +10,7 @@ import { useAuth } from '../../contexts/AuthProvider';
 
 
 function ResponsiveAppBar() {
-    const { errors } = useComics();
+    const { userData } = useComics();
     const { currentUser, logout } = useAuth();
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -55,8 +55,8 @@ function ResponsiveAppBar() {
                     <Typography
                         variant="h6"
                         noWrap
-                        component="a"
-                        href="/"
+                        component={BrowserLink}
+                        to="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -99,8 +99,11 @@ function ResponsiveAppBar() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            <MenuItem component={BrowserLink} to="/Part1">
+                            <MenuItem component={BrowserLink} to="/list/Part1">
                                 Part 1
+                            </MenuItem>
+                            <MenuItem component={BrowserLink} to="/list/JHTMS">
+                                Jonathan Hickman: TMS
                             </MenuItem>
                             <MenuItem component={BrowserLink} to="/Errors" >
 
@@ -130,27 +133,33 @@ function ResponsiveAppBar() {
                         MarvelMaster
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', gap: '0.6rem' } }}>
-                        <MenuItem component={BrowserLink} to="/Part1">
+                        <MenuItem component={BrowserLink} to="/list/Part1">
                             Part 1
                         </MenuItem>
                         <Divider variant="middle" flexItem orientation="vertical" />
-                        <Badge
-                            badgeContent={errors.length}
-                            color="error"
-                            overlap="circular"
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'right',
-                            }}
-                        >
-                            <MenuItem component={BrowserLink} to="/Errors" >
-                                <Typography color="secondary">
-                                    Errors
-                                </Typography>
-                            </MenuItem>
-                        </Badge>
-
+                        <MenuItem component={BrowserLink} to="/list/JHTMS">
+                            Jonathan Hickman: TMS
+                        </MenuItem>
                         <Divider variant="middle" flexItem orientation="vertical" />
+                        {userData.errors && <>
+                            <Badge
+                                badgeContent={userData.errors.length}
+                                color="error"
+                                overlap="circular"
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+                            >
+                                <MenuItem component={BrowserLink} to="/Errors" >
+                                    <Typography color="secondary">
+                                        Errors
+                                    </Typography>
+                                </MenuItem>
+                            </Badge>
+                            <Divider variant="middle" flexItem orientation="vertical" />
+                        </>
+                        }
 
                     </Box>
                     {currentUser &&
