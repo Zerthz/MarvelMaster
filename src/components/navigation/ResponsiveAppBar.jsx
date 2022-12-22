@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Tooltip, MenuItem } from "@mui/material";
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Tooltip, MenuItem, Drawer } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link as BrowserLink, useNavigate } from 'react-router-dom';
@@ -69,7 +69,6 @@ function ResponsiveAppBar() {
                     >
                         Marvel Master
                     </Typography>
-
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
@@ -81,37 +80,24 @@ function ResponsiveAppBar() {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                            }}
-                        >
-                            <MenuItem component={BrowserLink} to="/list/Part1">
-                                Part 1
-                            </MenuItem>
-                            <MenuItem component={BrowserLink} to="/list/JHTMS">
-                                Jonathan Hickman: TMS
-                            </MenuItem>
-                            <MenuItem component={BrowserLink} to="/Errors" >
 
-                                <Typography color="secondary">
-                                    Errors
-                                </Typography>
-                            </MenuItem>
-                        </Menu>
+                        <Drawer anchor="left" open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}>
+                            <Menu>
+                                <MenuItem component={BrowserLink} to="/list/Part1">
+                                    Part 1
+                                </MenuItem>
+                                <MenuItem component={BrowserLink} to="/list/JHTMS">
+                                    Jonathan Hickman: TMS
+                                </MenuItem>
+                                <MenuItem component={BrowserLink} to="/Errors" >
+
+                                    <Typography color="secondary">
+                                        Errors
+                                    </Typography>
+                                </MenuItem>
+                            </Menu>
+                        </Drawer>
+
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
@@ -160,7 +146,6 @@ function ResponsiveAppBar() {
                             <Divider variant="middle" flexItem orientation="vertical" />
                         </>
                         }
-
                     </Box>
                     {currentUser &&
                         <Box sx={{ flexGrow: 0 }}>
