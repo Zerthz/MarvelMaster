@@ -224,62 +224,7 @@ const ComicProvider = (props) => {
             }
 
         }
-        //     let userContent = localStorage.getItem(currentUser.uid);
 
-        //     if (!userContent) {
-        //         try {
-        //             let comics = await getFromDb();
-        //             createCache(comics.results, comics.missingItems);
-
-        //         } catch {
-        //             // No Cache and we can't retrieve data from the database
-        //             // Create new data
-
-        //             setCacheExists(false);
-        //         }
-        //     }
-        //     else {
-        //         let content = JSON.parse(userContent);
-        //         // old content saved in cache
-        //         if (lessThanOneHourAgo(content.timeSaved) === false) {
-        //             try {
-        //                 // want to compare read in db vs read in cache.
-        //                 let comics = await getFromDb();
-        //                 let x = comics.results;
-        //                 let read = getReadComics(x);
-        //                 let cacheRead = getReadComics(content.results.part1);
-
-        //                 // if more read in cache we use cache instead of db
-        //                 if (cacheRead.length > read.length) {
-        //                     setAllResults(content.results.part1);
-        //                     setReadResults(cacheRead);
-        //                     setResults(content.results.part1.slice(0, 100));
-        //                     setErrors(content.missingItems);
-        //                     setCacheExists(true);
-        //                     updateCache({}, 'timestamp');
-        //                 }
-        //                 // we decide to use db content anyways
-        //                 else {
-        //                     createCache(comics.results, comics.missingItems);
-        //                 }
-
-
-        //             } catch (error) {
-        //                 // fail to get comics from db, should be a weird edge case
-        //                 setCacheExists(false);
-        //                 console.log(error);
-        //             }
-        //         }
-        //         else {
-        //             setAllResults(content.results.part1);
-        //             setReadResults(getReadComics(content.results.part1));
-        //             setResults(content.results.part1.slice(0, 100));
-        //             setErrors(content.missingItems);
-        //             setCacheExists(true);
-        //         }
-        //     }
-
-        // }
         getComics();
 
     }, [currentUser]);

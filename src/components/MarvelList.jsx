@@ -8,6 +8,7 @@ import ReadAccordion from "./ReadAccordion";
 import ScrollTopFab from "./ScrollTopFab";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import getReadComics from "../services/GetReadComics";
 
 function MarvelList() {
 
@@ -68,7 +69,9 @@ function MarvelList() {
                 let data = userData[id.toLowerCase()];
                 if (data) {
                     setResults(data);
-                    createItems(data.slice(0, 100));
+                    let read = getReadComics(data);
+                    let foo = data.slice(read.length, (100 + read.length));
+                    createItems(foo);
                 }
                 else {
                     // This user doesn't have this supported data
