@@ -7,6 +7,8 @@ import SignUp from "../auth/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import LandingPage from "./LadningPage";
 import NotFound from "./NotFound";
+import ResetEmail from "../auth/ResetPassword";
+import ResetPassword from "../auth/ResetPassword";
 
 
 
@@ -24,7 +26,8 @@ const Main = () => {
             <Route path="/SignUp" element={<SignUp />} />
             <Route path="/LogIn" element={<Login />} />
             <Route path="/Profile" element={<Profile />} />
-            <Route path="/NotFound" element={<NotFound />} />
+            <Route path="/ResetPassword" element={<ResetPassword />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 }

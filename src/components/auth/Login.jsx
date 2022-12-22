@@ -101,7 +101,12 @@ const Login = () => {
                         >
                             Log In
                         </Button>
-                        <Grid container justifyContent="flex-end">
+                        <Grid container justifyContent="space-between">
+                            <Grid item>
+                                <Link component={BrowserLink} to="/ResetPassword" variant="body2">
+                                    Forgot password?
+                                </Link>
+                            </Grid>
                             <Grid item>
                                 <Link component={BrowserLink} to="/SignUp" variant="body2">
                                     Need an account? Sign Up
