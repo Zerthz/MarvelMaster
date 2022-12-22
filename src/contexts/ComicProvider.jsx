@@ -1,7 +1,4 @@
-import dayjs from 'dayjs';
 import { createContext, useContext, useEffect, useState } from 'react';
-import getReadComics from '../services/GetReadComics';
-import lessThanOneHourAgo from '../services/LessThanOneHourAgo';
 import { useAuth } from './AuthProvider';
 import { useRepo } from './RepoProvider';
 
@@ -18,9 +15,7 @@ const ComicProvider = (props) => {
 
     const [results, setResults] = useState([]);
     const [allResults, setAllResults] = useState([]);
-    const [readResults, setReadResults] = useState([]);
     const [errors, setErrors] = useState([]);
-    const [ableToLoadMore, setAbleToLoadMore] = useState(true);
     const [dataExists, setDataExists] = useState(false);
     const [userData, setUserData] = useState({});
 
@@ -292,7 +287,7 @@ const ComicProvider = (props) => {
         <ComicContext.Provider
             value={{
                 results, dataExists, fetchComics, store, updateComic, errors, removeComic, allResults, supportedLists,
-                ableToLoadMore, readResults, userData, setDataExists
+                userData, setDataExists
             }}
         >
             {!loading && props.children}
