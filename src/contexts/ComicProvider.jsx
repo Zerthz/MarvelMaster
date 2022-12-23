@@ -10,7 +10,7 @@ export const useComics = () => {
 
 const ComicProvider = (props) => {
 
-    const { getUserData, setData } = useRepo();
+    const { getUserData, setData, getComics } = useRepo();
     const { currentUser } = useAuth();
 
     const [results, setResults] = useState([]);
@@ -83,7 +83,7 @@ const ComicProvider = (props) => {
 
     const removeError = (id, allComics) => {
         let errorArr = [...errors];
-        let errorUpdate = errorArr.findIndex(comic => comic.id === id);
+        let errorUpdate = errorArr.findIndex(comic => comic.Id === id);
         if (errorUpdate > -1) {
             errorArr.splice(errorUpdate, 1);
             setErrors(errorArr);
@@ -97,8 +97,8 @@ const ComicProvider = (props) => {
     const store = (id, read, page) => {
         let all = { ...userData };
         let field = all[page];
-        let toUpdate = field.find(comic => comic.id === id);
-        toUpdate.read = read;
+        let toUpdate = field.find(comic => comic.Id === id);
+        toUpdate.Read = read;
         setUserData(all);
         setData(all);
     }
@@ -111,7 +111,7 @@ const ComicProvider = (props) => {
         setResults(newArr.slice(0, 100));
         if (errors.length > 0) {
             let errorArr = [...errors];
-            let errorUpdate = errorArr.findIndex(comic => comic.id === id);
+            let errorUpdate = errorArr.findIndex(comic => comic.Id === id);
             if (errorUpdate > -1) {
                 if (removeError(id, newArr)) {
                     return;
@@ -129,16 +129,16 @@ const ComicProvider = (props) => {
 
         let all = { ...userData };
         let field = all[page];
-        let toUpdate = field.find(comic => comic.id === id);
-        toUpdate.seriesName = title;
-        toUpdate.detailUrl = url;
-        toUpdate.imageUrl = img;
-        toUpdate.description = description;
-        toUpdate.comment = comment;
+        let toUpdate = field.find(comic => comic.Id === id);
+        toUpdate.SeriesName = title;
+        toUpdate.DetailUrl = url;
+        toUpdate.ImageUrl = img;
+        toUpdate.Description = description;
+        toUpdate.Comment = comment;
 
         if (all.errors.length > 0) {
             let errorArr = [...all.errors];
-            let errorUpdate = errorArr.findIndex(comic => comic.id === id);
+            let errorUpdate = errorArr.findIndex(comic => comic.Id === id);
             if (errorUpdate > -1) {
                 errorArr.splice(errorUpdate, 1);
                 all.errors = errorArr;
@@ -149,20 +149,8 @@ const ComicProvider = (props) => {
         setData(all);
     }
 
-    // const loadMore = () => {
-    //     let lastIndex = results.length - 1;
-    //     let all = [...allResults];
-    //     let comicsLeft = Math.min(100, (all.length - lastIndex));
-    //     let loaded = all.slice(lastIndex, (lastIndex + comicsLeft));
 
-    //     let newArr = [...results, ...loaded];
-    //     setResults(newArr);
-    //     if (newArr.length - 1 === all.length) {
-    //         setAbleToLoadMore(false);
-    //     }
-    // }
-
-    const fetchComics = (id) => {
+    const fetchComics = async (id) => {
         setLoading(true);
         let param;
         switch (id.toLowerCase()) {
@@ -176,34 +164,53 @@ const ComicProvider = (props) => {
                 return;
         }
 
+        let comics = await getComics(param);
+        if (comics) {
+            let all = { ...userData };
 
-        let url = "https://localhost:7284/api/MarvelMaster/" + param;
+            switch (id.toLowerCase()) {
+                case 'part1':
+                    all.part1 = comics.Result;
+                    all.errors = comics.MissingItems;
+                    break;
+                case 'jhtms':
+                    all.jhtms = comics.Result;
+                    break;
+                default:
+                    return;
+            }
 
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (data) {
-                    let all = { ...userData };
-
-                    switch (id.toLowerCase()) {
-                        case 'part1':
-                            all.part1 = data.result;
-                            all.errors = data.missingItems;
-                            break;
-                        case 'jhtms':
-                            all.jhtms = data.result;
-                            break;
-                        default:
-                            return;
-                    }
-                    setUserData(all);
-                    setData(all);
-                }
+            setUserData(all);
+            setData(all);
+            setLoading(false);
+        }
 
 
+        // fetch(url)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         if (data) {
+        //             let all = { ...userData };
 
-                setLoading(false);
-            });
+        //             switch (id.toLowerCase()) {
+        //                 case 'part1':
+        //                     all.part1 = data.result;
+        //                     all.errors = data.missingItems;
+        //                     break;
+        //                 case 'jhtms':
+        //                     all.jhtms = data.result;
+        //                     break;
+        //                 default:
+        //                     return;
+        //             }
+        //             setUserData(all);
+        //             setData(all);
+        //         }
+
+
+
+        //         setLoading(false);
+        //     });
     }
 
     const getFromDb = async () => {

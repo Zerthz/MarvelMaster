@@ -15,7 +15,7 @@ function ErrorList() {
         }
         return (
             <>
-                <ErrorListItem key={item.id} bg={bg} counter={counter} comic={item} />
+                <ErrorListItem key={item.Id} bg={bg} counter={counter} comic={item} />
             </>
         )
 

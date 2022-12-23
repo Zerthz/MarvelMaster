@@ -21,7 +21,7 @@ export const ReadAccordion = ({ data }) => {
     const createItems = (comics) => {
         let readListItems = comics.map(comic => {
 
-            return (<MarvelListItem key={comic.id} bg={'lightgreen'} comic={comic} />);
+            return (<MarvelListItem key={comic.Id} bg={'lightgreen'} comic={comic} />);
         });
 
         setReadItems(readListItems);

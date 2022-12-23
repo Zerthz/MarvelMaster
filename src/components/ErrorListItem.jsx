@@ -15,13 +15,13 @@ const ErrorListItem = ({ comic, bg }) => {
             <ListItem
                 sx={{ background: bg }}
                 disablePadding
-                key={comic.id}
+                key={comic.Id}
             >
                 <ListItemButton onClick={() => {
                     setEditOpen(true);
                 }}>
 
-                    <ListItemText primary={comic.seriesName + ' #' + comic.issue} />
+                    <ListItemText primary={comic.SeriesName + ' #' + comic.Issue} />
                 </ListItemButton>
             </ListItem>
 

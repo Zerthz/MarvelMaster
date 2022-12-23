@@ -12,15 +12,15 @@ const EditDialog = (props) => {
 
     const { id } = useParams();
 
-    const [titleForm, setTitleForm] = useState(comic.seriesName);
-    const [detailUrlForm, setDetailUrlForm] = useState(comic.detailUrl || "");
-    const [imageUrlForm, setImageUrlForm] = useState(comic.imageUrl || "");
-    const [descriptionForm, setDescriptionForm] = useState(comic.description || "");
-    const [commentForm, setCommentForm] = useState(comic.comment || "");
+    const [titleForm, setTitleForm] = useState(comic.SeriesName);
+    const [detailUrlForm, setDetailUrlForm] = useState(comic.DetailUrl || "");
+    const [imageUrlForm, setImageUrlForm] = useState(comic.ImageUrl || "");
+    const [descriptionForm, setDescriptionForm] = useState(comic.Description || "");
+    const [commentForm, setCommentForm] = useState(comic.Comment || "");
 
     const [titleError, setTitleError] = useState(false);
-    const [detailError, setDetailError] = useState(true);
-    const [imageError, setImageError] = useState(true);
+    const [detailError, setDetailError] = useState(false);
+    const [imageError, setImageError] = useState(false);
 
 
     const handleSave = () => {
@@ -30,11 +30,11 @@ const EditDialog = (props) => {
         }
     }
     const handleCancel = () => {
-        setTitleForm(comic.seriesName);
-        setDetailUrlForm(comic.detailUrl);
-        setImageUrlForm(comic.imageUrl);
-        setDescriptionForm(comic.description);
-        setCommentForm(comic.comment);
+        setTitleForm(comic.SeriesName);
+        setDetailUrlForm(comic.DetailUrl);
+        setImageUrlForm(comic.ImageUrl);
+        setDescriptionForm(comic.Description);
+        setCommentForm(comic.Comment);
         onCancel();
     }
 

@@ -81,7 +81,7 @@ function ResponsiveAppBar() {
                             <MenuIcon />
                         </IconButton>
 
-                        <Drawer anchor="left" open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}>
+                        <Drawer anchor="left" open={Boolean(anchorElNav)} variant="temporary" onClose={handleCloseNavMenu}>
                             <MenuItem component={BrowserLink} to="/list/Part1">
                                 Part 1
                             </MenuItem>

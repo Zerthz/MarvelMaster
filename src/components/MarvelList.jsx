@@ -29,7 +29,7 @@ function MarvelList() {
 
     const createItems = (data) => {
         let listItems = data.map(item => {
-            if (item.read === true) { return; }
+            if (item.Read === true) { return; }
 
             counter = counter + 1;
             let bg = '#3f51b5';
@@ -37,7 +37,7 @@ function MarvelList() {
                 bg = 'secondary'
             }
             return (
-                <MarvelListItem key={item.id} bg={bg} counter={counter} comic={item} />
+                <MarvelListItem key={item.Id} bg={bg} counter={counter} comic={item} />
             )
 
         });

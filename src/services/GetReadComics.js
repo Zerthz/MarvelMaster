@@ -1,7 +1,7 @@
 // input is comic array
 const getReadComics = (allComics) => {
     let readList = allComics.reduce((readList, comic) => {
-        if (comic.read) {
+        if (comic.Read) {
             readList.push(comic);
         }
         return readList;

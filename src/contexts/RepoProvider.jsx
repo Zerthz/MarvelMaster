@@ -12,6 +12,20 @@ export const useRepo = () => {
 const RepoProvider = (props) => {
     const { currentUser } = useAuth();
 
+
+
+    const getComics = async (name) => {
+        const docRef = doc(db, "comics", name);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            return docSnap.data();
+        } else {
+            // doc.data() will be undefined in this case
+            throw new Error("No data found for user ", currentUser.uid);
+        }
+    }
+
+
     const setData = (data) => {
         return setDoc(doc(db, "users", currentUser.uid), data, { merge: true });
     }
@@ -32,7 +46,7 @@ const RepoProvider = (props) => {
     }, [])
 
     return (
-        <RepoContext.Provider value={{ setData, getUserData }}>
+        <RepoContext.Provider value={{ setData, getUserData, getComics }}>
             {props.children}
         </RepoContext.Provider>
     );

@@ -9,15 +9,15 @@ const MarvelListItem = ({ comic, counter, bg }) => {
     const { store } = useComics();
 
 
-    const [checked, setChecked] = useState(comic.read);
+    const [checked, setChecked] = useState(comic.Read);
     const [open, setOpen] = useState(false);
 
     const { id } = useParams();
 
     const handleToggle = () => {
         setChecked(!checked);
-        comic.read = !checked;
-        store(comic.id, !checked, id.toLowerCase());
+        comic.Read = !checked;
+        store(comic.Id, !checked, id.toLowerCase());
     };
     const handleClose = () => {
         setOpen(false);
@@ -32,7 +32,7 @@ const MarvelListItem = ({ comic, counter, bg }) => {
             <ListItem
                 sx={{ background: bg }}
                 disablePadding
-                key={comic.id}
+                key={comic.Id}
                 secondaryAction={
                     <Checkbox
                         edge="end"
@@ -45,7 +45,7 @@ const MarvelListItem = ({ comic, counter, bg }) => {
                 <ListItemButton onClick={() => {
                     setOpen(true);
                 }}>
-                    <ListItemText primary={comic.seriesName} />
+                    <ListItemText primary={comic.SeriesName} />
                 </ListItemButton>
             </ListItem>
 

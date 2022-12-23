@@ -55,10 +55,10 @@ const ComicDialog = (props) => {
             <Dialog open={open} onClose={handleClose}>
                 <DialogContent>
                     <Grid container spacing={1} sx={{ flexDirection: { xs: 'column', lg: 'row' }, alignItems: 'center' }}>
-                        {comic.imageUrl ?
+                        {comic.ImageUrl ?
                             < Grid item lg={4} xs={7} p={0} >
-                                <a href={comic.detailUrl} target="_blank" rel="noreferrer">
-                                    <img src={comic.imageUrl} alt="cover thumbnail" style={imageFit} />
+                                <a href={comic.DetailUrl} target="_blank" rel="noreferrer">
+                                    <img src={comic.ImageUrl} alt="cover thumbnail" style={imageFit} />
                                 </a>
                             </Grid> : null}
 
@@ -67,7 +67,7 @@ const ComicDialog = (props) => {
                             <Stack direction="row">
                                 <Grid item>
                                     <Typography id="modal-modal-title" variant="h4" component="h2">
-                                        {comic.seriesName}
+                                        {comic.SeriesName}
                                     </Typography>
                                 </Grid>
                                 <Grid item >
@@ -76,20 +76,20 @@ const ComicDialog = (props) => {
                                     </IconButton>
                                 </Grid>
                             </Stack>
-                            {comic.comment ?
+                            {comic.Comment ?
                                 <Grid item>
                                     <Typography sx={{ fontStyle: 'italic' }}>
-                                        {comic.comment}
+                                        {comic.Comment}
                                     </Typography>
                                 </Grid> : null}
                             <Grid item>
                                 <Divider variant="middle" item />
 
                             </Grid>
-                            {comic.description ? <>
+                            {comic.Description ? <>
                                 <Grid item>
                                     <Typography variant="body">
-                                        {comic.description}
+                                        {comic.Description}
                                     </Typography>
                                 </Grid>
                                 <Grid item>
@@ -97,9 +97,9 @@ const ComicDialog = (props) => {
                                 </Grid>
                             </>
                                 : null}
-                            {comic.detailUrl ?
+                            {comic.DetailUrl ?
                                 <Grid item sx={{ alignSelf: { xs: 'center', lg: 'end' } }}>
-                                    <Button href={comic.detailUrl} variant="contained" size="large" target="_blank" rel="noreferrer" endIcon={<SendIcon />}>Link to comic</Button>
+                                    <Button href={comic.DetailUrl} variant="contained" size="large" target="_blank" rel="noreferrer" endIcon={<SendIcon />}>Link to comic</Button>
                                 </Grid> : null}
                         </Grid>
                     </Grid>
@@ -107,7 +107,7 @@ const ComicDialog = (props) => {
 
                 <DialogActions>
                     <Button variant="outlined" startIcon={<EditIcon />} onClick={handleEditOpen}>Edit</Button>
-                    {(toggled && comic.detailUrl) ?
+                    {(toggled && comic.DetailUrl) ?
                         <Button variant="outlined" startIcon={<ClearIcon />} color="error" onClick={handleDialogToggle}>Remove</Button>
                         : <Button variant="outlined" startIcon={<BookIcon />} color="success" onClick={handleDialogToggle}>Read</Button>}
 
