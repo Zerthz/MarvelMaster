@@ -28,7 +28,7 @@ const ComicDialog = (props) => {
     const [editOpen, setEditOpen] = useState(false);
 
     const handleRemove = () => {
-        removeComic(comic.id);
+        removeComic(comic.Id);
         handleClose();
     }
 

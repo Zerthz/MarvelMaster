@@ -1,4 +1,4 @@
-import { List, Box, Button, Divider } from "@mui/material";
+import { List, Box, Button, Divider, Typography } from "@mui/material";
 import { useComics } from "../contexts/ComicProvider";
 import MarvelListItem from "./MarvelListItem";
 import GetComicsPrompt from "./GetComicsPrompt";
