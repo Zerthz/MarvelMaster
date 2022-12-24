@@ -25,11 +25,17 @@ function ErrorList() {
         <>
             <Box
                 display="flex"
-                justifyContent="center">
+                alignItems="center"
+                flexDirection={"column"}>
                 {userData.errors.length > 0 ?
-                    <List sx={{ width: { xs: '90%', lg: '25%' } }}>
-                        {listItems}
-                    </List>
+                    <>
+                        <Typography variant="h4" pt={2}>
+                            Errors
+                        </Typography>
+                        <List sx={{ width: { xs: '90%', lg: '25%' } }}>
+                            {listItems}
+                        </List>
+                    </>
                     :
                     <Typography>
                         Luckily there are no errors! :)
