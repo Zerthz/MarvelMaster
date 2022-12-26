@@ -71,8 +71,8 @@ function MarvelList() {
                 if (data) {
                     setResults(data);
                     let read = getReadComics(data);
-                    let foo = data.slice(read.length, (100 + read.length));
-                    createItems(foo);
+                    let foo = data.filter(x => !read.includes(x));
+                    createItems(foo.slice(0, 100));
                 }
                 else {
                     // This user doesn't have this supported data
@@ -88,8 +88,6 @@ function MarvelList() {
 
         } catch (error) {
             console.log(error);
-        }
-        finally {
         }
     }, [id, userData]);
 
