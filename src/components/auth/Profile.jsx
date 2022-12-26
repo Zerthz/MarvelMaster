@@ -9,18 +9,18 @@ import { useRepo } from "../../contexts/RepoProvider";
 
 const Profile = () => {
     const { logout, currentUser } = useAuth();
-    const { setData, getUserData } = useRepo();
-    const { allResults, errors, createCache } = useComics();
+    const { uploadFixed } = useRepo();
+    const { allResults, errors } = useComics();
     let navigate = useNavigate();
 
 
-    const handleUpload = async () => {
+    const handleUpload = () => {
         try {
             let data = {
-                results: allResults,
-                missingItems: errors
+                Result: allResults,
+                MissingItems: errors
             }
-            await setData(data);
+            uploadFixed(data);
         } catch (error) {
             console.log(error);
         }
@@ -28,10 +28,7 @@ const Profile = () => {
 
     const handleDownload = async () => {
         try {
-            let userData = await getUserData();
-            createCache(userData.results, userData.missingItems);
-            console.log("Data updated");
-            console.log(userData.results, userData.missingItems);
+
         } catch (error) {
             console.log(error);
         }
@@ -82,6 +79,7 @@ const Profile = () => {
                             size="large"
                             endIcon={<CloudDownloadOutlined />}
                             onClick={handleDownload}
+                            disabled
                         >Download</Button>
                         <Button
                             variant="outlined"
