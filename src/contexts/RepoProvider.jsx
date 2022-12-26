@@ -14,7 +14,7 @@ const RepoProvider = (props) => {
 
 
     const uploadFixed = (data) => {
-        data.Result.array.forEach(comic => {
+        data.Result.forEach(comic => {
             comic.Read = false;
         });
 

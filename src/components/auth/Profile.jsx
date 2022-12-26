@@ -1,7 +1,7 @@
 import { CloudDownloadOutlined, CloudUploadOutlined } from "@mui/icons-material";
-import { Button, Divider, Paper, Typography } from "@mui/material";
+import { Alert, Button, Divider, Paper, Snackbar, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
 import { useComics } from "../../contexts/ComicProvider";
@@ -10,17 +10,23 @@ import { useRepo } from "../../contexts/RepoProvider";
 const Profile = () => {
     const { logout, currentUser } = useAuth();
     const { uploadFixed } = useRepo();
-    const { allResults, errors } = useComics();
+    const { userData } = useComics();
+
+    const [open, setOpen] = useState(false);
+
     let navigate = useNavigate();
 
-
+    const handleClose = () => {
+        setOpen(false);
+    }
     const handleUpload = () => {
         try {
             let data = {
-                Result: allResults,
-                MissingItems: errors
+                Result: userData.part1,
+                MissingItems: userData.errors
             }
             uploadFixed(data);
+            setOpen(true);
         } catch (error) {
             console.log(error);
         }
@@ -92,6 +98,15 @@ const Profile = () => {
                 </Paper>
 
             </Container>
+            <Snackbar
+                open={open}
+                autoHideDuration={3000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Upload Successful
+                </Alert>
+            </Snackbar>
 
         </>
     );
