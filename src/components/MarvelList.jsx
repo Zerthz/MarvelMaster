@@ -84,8 +84,6 @@ function MarvelList() {
                 navigate("/NotFound");
 
             }
-
-
         } catch (error) {
             console.log(error);
         }

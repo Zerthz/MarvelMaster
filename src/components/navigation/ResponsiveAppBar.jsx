@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Tooltip, MenuItem, Drawer } from "@mui/material";
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Tooltip, MenuItem, Drawer, MenuList } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link as BrowserLink, useNavigate } from 'react-router-dom';
@@ -69,6 +69,7 @@ function ResponsiveAppBar() {
                     >
                         Marvel Master
                     </Typography>
+                    {/* Small screens */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
@@ -82,9 +83,15 @@ function ResponsiveAppBar() {
                         </IconButton>
 
                         <Drawer anchor="left" open={Boolean(anchorElNav)} variant="temporary" onClose={handleCloseNavMenu}>
-                            <MenuItem component={BrowserLink} to="/list/Part1">
+
+                            <MenuItem component={Typography}>
+                                Marvel Master
+                            </MenuItem>
+                            <MenuItem sx={{ paddingLeft: '2em' }} component={BrowserLink} to="/list/Part1">
                                 Part 1
                             </MenuItem>
+
+
                             <MenuItem component={BrowserLink} to="/list/JHTMS">
                                 Jonathan Hickman: TMS
                             </MenuItem>
@@ -97,6 +104,7 @@ function ResponsiveAppBar() {
                         </Drawer>
 
                     </Box>
+                    {/* Small screens */}
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
                         variant="h5"
