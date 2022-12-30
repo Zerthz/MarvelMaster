@@ -10,7 +10,7 @@ import getReadComics from '../services/GetReadComics';
 export const ReadAccordion = ({ data }) => {
     const { userData } = useComics();
 
-    const [expanded, setExpanded] = useState(true);
+    const [expanded, setExpanded] = useState(false);
     const [readItems, setReadItems] = useState();
 
 
