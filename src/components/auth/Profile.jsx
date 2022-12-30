@@ -21,8 +21,9 @@ const Profile = () => {
     }
     const handleUpload = () => {
         try {
+            let result = JSON.parse(JSON.stringify(userData.part1));
             let data = {
-                Result: userData.part1,
+                Result: result,
                 MissingItems: userData.errors
             }
             uploadFixed(data);
