@@ -1,7 +1,7 @@
 import { CloudDownloadOutlined, CloudUploadOutlined } from "@mui/icons-material";
-import { Button, Divider, Paper, Typography } from "@mui/material";
+import { Alert, Button, Divider, Paper, Snackbar, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
 import { useComics } from "../../contexts/ComicProvider";
@@ -9,18 +9,25 @@ import { useRepo } from "../../contexts/RepoProvider";
 
 const Profile = () => {
     const { logout, currentUser } = useAuth();
-    const { setData, getUserData } = useRepo();
-    const { allResults, errors, createCache } = useComics();
+    const { uploadFixed } = useRepo();
+    const { userData } = useComics();
+
+    const [open, setOpen] = useState(false);
+
     let navigate = useNavigate();
 
-
-    const handleUpload = async () => {
+    const handleClose = () => {
+        setOpen(false);
+    }
+    const handleUpload = () => {
         try {
+            let result = JSON.parse(JSON.stringify(userData.part1));
             let data = {
-                results: allResults,
-                missingItems: errors
+                Result: result,
+                MissingItems: userData.errors
             }
-            await setData(data);
+            uploadFixed(data);
+            setOpen(true);
         } catch (error) {
             console.log(error);
         }
@@ -28,10 +35,7 @@ const Profile = () => {
 
     const handleDownload = async () => {
         try {
-            let userData = await getUserData();
-            createCache(userData.results, userData.missingItems);
-            console.log("Data updated");
-            console.log(userData.results, userData.missingItems);
+
         } catch (error) {
             console.log(error);
         }
@@ -82,6 +86,7 @@ const Profile = () => {
                             size="large"
                             endIcon={<CloudDownloadOutlined />}
                             onClick={handleDownload}
+                            disabled
                         >Download</Button>
                         <Button
                             variant="outlined"
@@ -94,6 +99,15 @@ const Profile = () => {
                 </Paper>
 
             </Container>
+            <Snackbar
+                open={open}
+                autoHideDuration={3000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Upload Successful
+                </Alert>
+            </Snackbar>
 
         </>
     );

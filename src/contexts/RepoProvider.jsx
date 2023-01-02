@@ -13,6 +13,13 @@ const RepoProvider = (props) => {
     const { currentUser } = useAuth();
 
 
+    const uploadFixed = (data) => {
+        data.Result.forEach(comic => {
+            comic.Read = false;
+        });
+
+        return setDoc(doc(db, "comics", "MMPart1"), data, { merge: true });
+    }
 
     const getComics = async (name) => {
         const docRef = doc(db, "comics", name);
@@ -46,7 +53,7 @@ const RepoProvider = (props) => {
     }, [])
 
     return (
-        <RepoContext.Provider value={{ setData, getUserData, getComics }}>
+        <RepoContext.Provider value={{ setData, getUserData, getComics, uploadFixed }}>
             {props.children}
         </RepoContext.Provider>
     );
