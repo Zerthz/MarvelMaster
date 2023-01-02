@@ -7,7 +7,6 @@ const LandingPage = () => {
             <Typography>
                 Most scuffed loading page of all time
             </Typography>
-            <Link to="/list/jhtms">link</Link>
         </>
     );
 }

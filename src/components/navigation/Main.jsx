@@ -19,7 +19,6 @@ const Main = () => {
             <Route element={<PrivateRoute />}>
                 <Route path="/list">
                     <Route path="/list/:id" element={<MarvelList />} />
-
                 </Route>
                 <Route path="/Errors" element={<ErrorList />} />
             </Route>

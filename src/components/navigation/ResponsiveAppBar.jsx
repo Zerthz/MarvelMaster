@@ -1,13 +1,16 @@
 import React from 'react';
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Tooltip, MenuItem, Drawer } from "@mui/material";
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Tooltip, MenuItem, Drawer, ListItemIcon, ListItemText } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link as BrowserLink, useNavigate } from 'react-router-dom';
 import { Badge, Divider } from '@mui/material';
 import { useComics } from '../../contexts/ComicProvider';
 import { useAuth } from '../../contexts/AuthProvider';
+import LooksOneOutlinedIcon from '@mui/icons-material/LooksOneOutlined';
 
-
+let style = {
+    width: '50vw'
+}
 
 function ResponsiveAppBar() {
     const { userData } = useComics();
@@ -69,6 +72,7 @@ function ResponsiveAppBar() {
                     >
                         Marvel Master
                     </Typography>
+                    {/* small screens */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
@@ -81,21 +85,44 @@ function ResponsiveAppBar() {
                             <MenuIcon />
                         </IconButton>
 
-                        <Drawer anchor="left" open={Boolean(anchorElNav)} variant="temporary" onClose={handleCloseNavMenu}>
+                        <Drawer anchor="left" open={Boolean(anchorElNav)} variant="temporary" onClose={handleCloseNavMenu} PaperProps={{ sx: { width: '50vw' } }}>
+                            <Typography variant='h6' pl={2} mt={2}>
+                                Marvel Master
+                            </Typography>
+                            <Divider />
                             <MenuItem component={BrowserLink} to="/list/Part1">
-                                Part 1
+                                <ListItemText inset>
+                                    Part 1
+                                </ListItemText>
                             </MenuItem>
+
+                            <Typography variant='h6' pl={2} mt={2}>
+                                Cosmic
+                            </Typography>
+                            <Divider />
+                            <MenuItem component={BrowserLink} to="/list/Annhilation">
+                                <ListItemText inset>
+                                    Annhilation
+                                </ListItemText>
+                            </MenuItem>
+
+                            <Typography variant='h6' pl={2} mt={2}>
+                                Others
+                            </Typography>
+                            <Divider />
                             <MenuItem component={BrowserLink} to="/list/JHTMS">
-                                Jonathan Hickman: TMS
+                                <ListItemText inset>
+                                    Jonathan Hickman: TMS
+                                </ListItemText>
                             </MenuItem>
                             <MenuItem component={BrowserLink} to="/Errors" >
-
-                                <Typography color="secondary">
-                                    Errors
-                                </Typography>
+                                <ListItemText inset>
+                                    <Typography color="secondary">
+                                        Errors
+                                    </Typography>
+                                </ListItemText>
                             </MenuItem>
                         </Drawer>
-
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
@@ -123,6 +150,10 @@ function ResponsiveAppBar() {
                         <Divider variant="middle" flexItem orientation="vertical" />
                         <MenuItem component={BrowserLink} to="/list/JHTMS">
                             Jonathan Hickman: TMS
+                        </MenuItem>
+                        <Divider variant="middle" flexItem orientation="vertical" />
+                        <MenuItem component={BrowserLink} to="/list/Annhilation">
+                            Annhilation
                         </MenuItem>
                         <Divider variant="middle" flexItem orientation="vertical" />
                         {userData.errors && <>
