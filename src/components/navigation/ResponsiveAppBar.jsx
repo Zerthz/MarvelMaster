@@ -1,16 +1,12 @@
 import React from 'react';
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Tooltip, MenuItem, Drawer, ListItemIcon, ListItemText } from "@mui/material";
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Tooltip, MenuItem, Drawer, ListItemText } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link as BrowserLink, useNavigate } from 'react-router-dom';
 import { Badge, Divider } from '@mui/material';
 import { useComics } from '../../contexts/ComicProvider';
 import { useAuth } from '../../contexts/AuthProvider';
-import LooksOneOutlinedIcon from '@mui/icons-material/LooksOneOutlined';
 
-let style = {
-    width: '50vw'
-}
 
 function ResponsiveAppBar() {
     const { userData } = useComics();
