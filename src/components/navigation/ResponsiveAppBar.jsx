@@ -6,6 +6,7 @@ import { Link as BrowserLink, useNavigate } from 'react-router-dom';
 import { Badge, Divider } from '@mui/material';
 import { useComics } from '../../contexts/ComicProvider';
 import { useAuth } from '../../contexts/AuthProvider';
+import NavDrawer from './navbarComponents/NavDrawer';
 
 
 function ResponsiveAppBar() {
@@ -80,45 +81,8 @@ function ResponsiveAppBar() {
                         >
                             <MenuIcon />
                         </IconButton>
+                        <NavDrawer anchorElNav={anchorElNav} handleCloseNavMenu={handleCloseNavMenu} />
 
-                        <Drawer anchor="left" open={Boolean(anchorElNav)} variant="temporary" onClose={handleCloseNavMenu} PaperProps={{ sx: { width: '50vw' } }}>
-                            <Typography variant='h6' pl={2} mt={2}>
-                                Marvel Master
-                            </Typography>
-                            <Divider />
-                            <MenuItem component={BrowserLink} to="/list/Part1">
-                                <ListItemText inset>
-                                    Part 1
-                                </ListItemText>
-                            </MenuItem>
-
-                            <Typography variant='h6' pl={2} mt={2}>
-                                Cosmic
-                            </Typography>
-                            <Divider />
-                            <MenuItem component={BrowserLink} to="/list/Annhilation">
-                                <ListItemText inset>
-                                    Annhilation
-                                </ListItemText>
-                            </MenuItem>
-
-                            <Typography variant='h6' pl={2} mt={2}>
-                                Others
-                            </Typography>
-                            <Divider />
-                            <MenuItem component={BrowserLink} to="/list/JHTMS">
-                                <ListItemText inset>
-                                    Jonathan Hickman: TMS
-                                </ListItemText>
-                            </MenuItem>
-                            <MenuItem component={BrowserLink} to="/Errors" >
-                                <ListItemText inset>
-                                    <Typography color="secondary">
-                                        Errors
-                                    </Typography>
-                                </ListItemText>
-                            </MenuItem>
-                        </Drawer>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
