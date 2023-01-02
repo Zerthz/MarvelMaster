@@ -30,7 +30,7 @@ const TitleProgress = () => {
         finally {
             setLoading(false);
         }
-    }, [userData])
+    }, [userData, id])
 
     return (
         <>

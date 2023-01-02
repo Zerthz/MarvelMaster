@@ -25,7 +25,11 @@ const EditDialog = (props) => {
 
     const handleSave = () => {
         if (detailUrlForm && imageUrlForm && titleForm) {
-            updateComic(comic.Id, titleForm, detailUrlForm, imageUrlForm, descriptionForm, commentForm, id.toLowerCase());
+            let foo = id;
+            if (id === undefined) {
+                foo = "Part1"
+            }
+            updateComic(comic.Id, titleForm, detailUrlForm, imageUrlForm, descriptionForm, commentForm, foo.toLowerCase());
             onClose();
         }
     }

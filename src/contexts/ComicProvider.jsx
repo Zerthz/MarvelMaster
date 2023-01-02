@@ -31,6 +31,10 @@ const ComicProvider = (props) => {
             title: 'Jonathan Hickman: The Marvel Saga',
             description: "Jonathan Hickman's work in the Marvel 616 universe all in one list, put together by users over at reddit"
         },
+        annhilation: {
+            title: 'Annhilation',
+            description: "The start of the modern era of Marvel cosmic. Orchestrated by Dan Abnett and Andy Lanning, this era introduces the actual Guardians of the Galaxy and the reinvention of Nova along with political intrigues, massive space battles and end of the universe type of events, all of this into one gigantic and coherent storyline. Side stories includes the rise of the Inhumans and the Silver Surfer as the herald of Galactus."
+        }
     };
 
 
@@ -160,6 +164,9 @@ const ComicProvider = (props) => {
             case 'jhtms':
                 param = 'JHTMS';
                 break;
+            case 'annhilation':
+                param = 'COSANN'
+                break;
             default:
                 return;
         }
@@ -175,6 +182,9 @@ const ComicProvider = (props) => {
                     break;
                 case 'jhtms':
                     all.jhtms = comics.Result;
+                    break;
+                case 'annhilation':
+                    all.annhilation = comics.Result;
                     break;
                 default:
                     return;
