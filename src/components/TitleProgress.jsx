@@ -14,16 +14,33 @@ const TitleProgress = () => {
     const [percent, setPercent] = useState();
     const [progressText, setProgressText] = useState();
 
+    const total = (arcs) => {
+        let num = 0;
+        arcs.forEach(arcs => {
+            num += arcs.ArcParts.filter(x => x.IsComic).length;
+        });
+        return num;
 
+    }
+
+    const readC = (arcs) => {
+        let num = 0;
+        arcs.forEach(arcs => {
+            num += arcs.ArcParts.filter(x => (x.Read && x.IsComic)).length;
+        });
+        return num;
+    }
     useEffect(() => {
         setLoading(true);
         try {
-            let comics = userData[id.toLowerCase()]
-            let read = getReadComics(comics);
-            let percent = Math.round((read.length / comics.length) * 100)
+            let arcs = userData[id.toLowerCase()]
+
+            let totalComics = total(arcs);
+            let readComics = readC(arcs);
+            let percent = Math.round((readComics / totalComics) * 100)
             setPercent(percent);
 
-            setProgressText(`You've read ${read.length} out of ${comics.length} comics (${percent}%)`)
+            setProgressText(`You've read ${readComics} out of ${totalComics} comics (${percent}%)`)
         } catch (error) {
             console.log(error);
         }

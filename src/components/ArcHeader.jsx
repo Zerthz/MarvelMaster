@@ -9,7 +9,7 @@ const ArcHeader = ({ title, description, image }) => {
 
     return (
         <Box sx={{ padding: '1em' }}>
-            {image && <img src={image} style={style} />}
+            {image && <img src={image} style={style} alt="Header" />}
             <Typography variant="h3" align="center">
                 {title}
             </Typography>
