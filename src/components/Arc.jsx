@@ -1,8 +1,7 @@
-import { Button, Collapse, Divider, IconButton, List } from "@mui/material";
+import { Collapse, Divider, IconButton, List } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useComics } from "../contexts/ComicProvider";
 import ArcSubheader from "./ArcSubheader";
-import ArcTitle from "./ArcHeader";
 import MarvelListItem from "./MarvelListItem";
 import ReadAccordion from "./ReadAccordion";
 import ArcHeader from "./ArcHeader";
