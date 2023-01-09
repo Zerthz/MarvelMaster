@@ -1,4 +1,4 @@
-import { List } from "@mui/material";
+import { Button, Collapse, Divider, IconButton, List } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useComics } from "../contexts/ComicProvider";
 import ArcSubheader from "./ArcSubheader";
@@ -6,13 +6,17 @@ import ArcTitle from "./ArcHeader";
 import MarvelListItem from "./MarvelListItem";
 import ReadAccordion from "./ReadAccordion";
 import ArcHeader from "./ArcHeader";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 const Arc = ({ arc, arcIndex }) => {
     const [comicItems, setComicItems] = useState();
     const { userData } = useComics();
 
-
-
+    const [expanded, setExpanded] = useState(true);
+    const handleExpand = () => {
+        setExpanded(!expanded);
+    }
     useEffect(() => {
         let counter = 0;
         let listItems = arc.ArcParts.map(item => {
@@ -40,10 +44,17 @@ const Arc = ({ arc, arcIndex }) => {
     return (
         <>
             <ArcHeader title={arc.Title} description={arc.Description} image={arc.ImageUrl} />
-            <ReadAccordion data={arc.ArcParts} arcIndex={arcIndex} />
-            <List>
-                {comicItems}
-            </List>
+            <Divider sx={{ marginBottom: '0.5em' }}>
+                <IconButton onClick={handleExpand}>
+                    {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                </IconButton>
+            </Divider>
+            <Collapse in={expanded}>
+                <ReadAccordion data={arc.ArcParts} arcIndex={arcIndex} />
+                <List>
+                    {comicItems}
+                </List>
+            </Collapse>
         </>
     );
 }

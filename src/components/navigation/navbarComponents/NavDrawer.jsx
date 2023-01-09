@@ -5,7 +5,7 @@ import { Link as BrowserLink } from 'react-router-dom';
 const NavDrawer = ({ anchorElNav, handleCloseNavMenu }) => {
     return (
         <Drawer anchor="left" open={Boolean(anchorElNav)} variant="temporary" onClose={handleCloseNavMenu} PaperProps={{ sx: { width: '50vw' } }}>
-            <Typography variant='h6' pl={2} mt={2}>
+            {/* <Typography variant='h6' pl={2} mt={2}>
                 Marvel Master
             </Typography>
             <Divider />
@@ -13,7 +13,7 @@ const NavDrawer = ({ anchorElNav, handleCloseNavMenu }) => {
                 <ListItemText inset>
                     Part 1
                 </ListItemText>
-            </MenuItem>
+            </MenuItem> */}
 
             <Typography variant='h6' pl={2} mt={2}>
                 Cosmic

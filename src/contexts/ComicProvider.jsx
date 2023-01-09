@@ -23,10 +23,10 @@ const ComicProvider = (props) => {
 
 
     let supportedLists = {
-        part1: {
-            title: 'Marvel Master Part 1',
-            description: "Containing by far the most first appearances of significant characters of any Marvel era. You will see how the biggest superheroes in the Marvel Universe received their superpowers and witness the foundation that decades of comics will be built on. Witness the formation of the X-Men, Fantastic Four, and Avengers. Like most Silver Age comics there are numerous guest appearances but few actual crossovers. The beginning of the reading order features numerous limited series that take place chronologically before, as well as during, the earliest published Marvel comics."
-        },
+        // part1: {
+        //     title: 'Marvel Master Part 1',
+        //     description: "Containing by far the most first appearances of significant characters of any Marvel era. You will see how the biggest superheroes in the Marvel Universe received their superpowers and witness the foundation that decades of comics will be built on. Witness the formation of the X-Men, Fantastic Four, and Avengers. Like most Silver Age comics there are numerous guest appearances but few actual crossovers. The beginning of the reading order features numerous limited series that take place chronologically before, as well as during, the earliest published Marvel comics."
+        // },
         jhtms: {
             title: 'Jonathan Hickman: The Marvel Saga',
             description: "Jonathan Hickman's work in the Marvel 616 universe all in one list, put together by users over at reddit"
