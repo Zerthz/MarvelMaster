@@ -7,7 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import getReadComics from '../services/GetReadComics';
 
 
-export const ReadAccordion = ({ data }) => {
+export const ReadAccordion = ({ data, arcIndex }) => {
     const { userData } = useComics();
 
     const [expanded, setExpanded] = useState(false);
@@ -21,7 +21,7 @@ export const ReadAccordion = ({ data }) => {
     const createItems = (comics) => {
         let readListItems = comics.map(comic => {
 
-            return (<MarvelListItem key={comic.Id} bg={'lightgreen'} comic={comic} />);
+            return (<MarvelListItem key={comic.Id} bg={'lightgreen'} comic={comic} arcIndex={arcIndex} />);
         });
 
         setReadItems(readListItems);
@@ -32,7 +32,7 @@ export const ReadAccordion = ({ data }) => {
     }, [data, userData])
 
     return (
-        <Accordion sx={{ width: { xs: '90%', lg: '25%' } }} expanded={expanded} onChange={handleChange}>
+        <Accordion expanded={expanded} onChange={handleChange}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"

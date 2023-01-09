@@ -98,10 +98,10 @@ const ComicProvider = (props) => {
         return false;
     }
 
-    const store = (id, read, page) => {
+    const store = (id, read, page, arcIndex) => {
         let all = { ...userData };
         let field = all[page];
-        let toUpdate = field.find(comic => comic.Id === id);
+        let toUpdate = field[arcIndex].ArcParts.find(comic => comic.Id === id);
         toUpdate.Read = read;
         setUserData(all);
         setData(all);

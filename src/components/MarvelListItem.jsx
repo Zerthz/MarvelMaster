@@ -5,7 +5,7 @@ import { useComics } from "../contexts/ComicProvider";
 import ComicDialog from "./Modals/ComicDialog";
 
 
-const MarvelListItem = ({ comic, counter, bg }) => {
+const MarvelListItem = ({ comic, counter, bg, arcIndex }) => {
     const { store } = useComics();
 
 
@@ -17,7 +17,7 @@ const MarvelListItem = ({ comic, counter, bg }) => {
     const handleToggle = () => {
         setChecked(!checked);
         comic.Read = !checked;
-        store(comic.Id, !checked, id.toLowerCase());
+        store(comic.Id, !checked, id.toLowerCase(), arcIndex);
     };
     const handleClose = () => {
         setOpen(false);
@@ -48,8 +48,6 @@ const MarvelListItem = ({ comic, counter, bg }) => {
                     <ListItemText primary={comic.SeriesName} />
                 </ListItemButton>
             </ListItem>
-
-            <Divider variant="inset" component="li" />
 
 
             <ComicDialog open={open} handleClose={handleClose}

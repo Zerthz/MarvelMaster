@@ -10,6 +10,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getReadComics from "../services/GetReadComics";
 import TitleProgress from "./TitleProgress";
+import ArcTitle from "./ArcTitle";
+import Arc from "./Arc";
 
 function MarvelList() {
 
@@ -24,24 +26,15 @@ function MarvelList() {
     const { id } = useParams();
 
     let navigate = useNavigate();
+
+
+
     let counter = 0;
-
-
     const createItems = (data) => {
-        let listItems = data.map(item => {
-            if (item.Read === true) { return; }
-
-            counter = counter + 1;
-            let bg = '#3f51b5';
-            if (counter % 2 === 0) {
-                bg = 'secondary'
-            }
-            return (
-                <MarvelListItem key={item.Id} bg={bg} counter={counter} comic={item} />
-            )
-
+        let listItems = data.map(arc => {
+            return <Arc arc={arc} arcIndex={counter} />
         });
-
+        counter += 1;
         setComicItems(listItems);
         setDataExists(true);
         setLoading(false);
@@ -99,11 +92,10 @@ function MarvelList() {
                     {dataExists && currentUser &&
                         <>
                             <TitleProgress />
-                            <ReadAccordion data={results} />
                             <Divider />
-                            <List sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
+                            <Box sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
                                 {comicItems}
-                            </List>
+                            </Box>
                         </>
                     }
                     {!dataExists && currentUser && <GetComicsPrompt />}
