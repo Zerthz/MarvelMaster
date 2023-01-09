@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getReadComics from "../services/GetReadComics";
 import TitleProgress from "./TitleProgress";
-import ArcTitle from "./ArcTitle";
+import ArcTitle from "./ArcHeader";
 import Arc from "./Arc";
 
 function MarvelList() {
@@ -18,11 +18,11 @@ function MarvelList() {
     const { userData, dataExists, supportedLists, setDataExists } = useComics();
     const { currentUser } = useAuth();
 
-    const [results, setResults] = useState();
     const [loading, setLoading] = useState(true);
     const [comicItems, setComicItems] = useState();
+    const [loadedResults, setLoadedResults] = useState();
     const [ableToLoadMore, setAbleToLoadMore] = useState(true);
-
+    const [loadedArcs, setLoadedArcs] = useState();
     const { id } = useParams();
 
     let navigate = useNavigate();
@@ -36,23 +36,29 @@ function MarvelList() {
         });
         counter += 1;
         setComicItems(listItems);
+        setLoadedResults(listItems[0]);
+        setLoadedArcs(1);
+        if (listItems.length === 1) {
+            setAbleToLoadMore(false);
+        }
         setDataExists(true);
         setLoading(false);
 
     }
     const loadMore = () => {
         setLoading(true);
-        let lastIndex = comicItems.length - 1;
-        let all = [...userData[id.toLowerCase()]];
-        let comicsLeft = Math.min(100, (all.length - lastIndex));
 
-        let loaded = all.slice(0, (lastIndex + comicsLeft));
-        createItems(loaded);
-        if (loaded.length - 1 === all.length) {
+        let loaded = loadedArcs;
+        let arr = [...comicItems];
+        let load = arr.slice(0, loaded + 1);
+        setLoadedResults(load);
+        setLoadedArcs(loaded + 1);
+
+        if ((loadedArcs + 1) === comicItems.length) {
             setAbleToLoadMore(false);
         }
 
-
+        setLoading(false);
     }
 
 
@@ -62,7 +68,6 @@ function MarvelList() {
             if (supportedLists[id.toLowerCase()].title) {
                 let data = userData[id.toLowerCase()];
                 if (data) {
-                    setResults(data);
                     let read = getReadComics(data);
                     let foo = data.filter(x => !read.includes(x));
                     createItems(foo.slice(0, 100));
@@ -87,14 +92,14 @@ function MarvelList() {
             {!loading &&
                 <Box
                     display="flex"
-                    sx={{ flexDirection: 'column', alignItems: 'center', paddingTop: '2em' }}>
+                    sx={{ flexDirection: 'column', alignItems: 'center', paddingTop: '2em', gap: '0.5em' }}>
                     {!currentUser && <SignUp />}
                     {dataExists && currentUser &&
                         <>
                             <TitleProgress />
                             <Divider />
                             <Box sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
-                                {comicItems}
+                                {loadedResults}
                             </Box>
                         </>
                     }
