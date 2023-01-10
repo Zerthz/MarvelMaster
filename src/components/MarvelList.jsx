@@ -42,7 +42,6 @@ function MarvelList() {
         }
         setDataExists(true);
         setLoading(false);
-
     }
     const loadMore = () => {
         setLoading(true);
