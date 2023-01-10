@@ -1,4 +1,4 @@
-import { Collapse, Divider, IconButton, List } from "@mui/material";
+import { Button, Collapse, Divider, IconButton, List } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useComics } from "../contexts/ComicProvider";
 import ArcSubheader from "./ArcSubheader";
@@ -7,15 +7,23 @@ import ReadAccordion from "./ReadAccordion";
 import ArcHeader from "./ArcHeader";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { MoreHoriz } from "@mui/icons-material";
+import { useParams } from "react-router-dom";
 
 const Arc = ({ arc, arcIndex }) => {
     const [comicItems, setComicItems] = useState();
     const { userData } = useComics();
+    const { id } = useParams();
 
     const [expanded, setExpanded] = useState(true);
+    const [arcExpanded, setArcExpanded] = useState(true);
     const handleExpand = () => {
         setExpanded(!expanded);
     }
+    const handleArcExpand = () => {
+        setArcExpanded(!arcExpanded);
+    }
+
     useEffect(() => {
         let counter = 0;
         let listItems = arc.ArcParts.map(item => {
@@ -36,23 +44,34 @@ const Arc = ({ arc, arcIndex }) => {
         setComicItems(listItems);
     }, [arc, userData])
 
+    useEffect(() => {
 
+        setExpanded(true);
+        setArcExpanded(true);
+
+
+    }, [id])
 
 
 
     return (
         <>
-            <ArcHeader title={arc.Title} description={arc.Description} image={arc.ImageUrl} />
-            <Divider sx={{ marginBottom: '0.5em' }}>
-                <IconButton onClick={handleExpand}>
-                    {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                </IconButton>
-            </Divider>
-            <Collapse in={expanded}>
-                <ReadAccordion data={arc.ArcParts} arcIndex={arcIndex} />
-                <List>
-                    {comicItems}
-                </List>
+            <IconButton sx={{ display: 'flex', marginLeft: 'auto', opacity: '0.1' }} onClick={handleArcExpand}>
+                {arcExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+            <Collapse in={arcExpanded}>
+                <ArcHeader title={arc.Title} description={arc.Description} image={arc.ImageUrl} />
+                <Divider sx={{ marginBottom: '0.5em' }}>
+                    <IconButton onClick={handleExpand}>
+                        {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                    </IconButton>
+                </Divider>
+                <Collapse in={expanded}>
+                    <ReadAccordion data={arc.ArcParts} arcIndex={arcIndex} />
+                    <List>
+                        {comicItems}
+                    </List>
+                </Collapse>
             </Collapse>
         </>
     );
