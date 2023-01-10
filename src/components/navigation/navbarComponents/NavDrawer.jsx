@@ -4,7 +4,7 @@ import { Link as BrowserLink } from 'react-router-dom';
 
 const NavDrawer = ({ anchorElNav, handleCloseNavMenu }) => {
     return (
-        <Drawer anchor="left" open={Boolean(anchorElNav)} variant="temporary" onClose={handleCloseNavMenu} PaperProps={{ sx: { width: '50vw' } }}>
+        <Drawer anchor="left" open={Boolean(anchorElNav)} variant="temporary" onClose={handleCloseNavMenu} PaperProps={{ sx: { minWidth: 'fit-content', width: '50vw' } }}>
             {/* <Typography variant='h6' pl={2} mt={2}>
                 Marvel Master
             </Typography>
