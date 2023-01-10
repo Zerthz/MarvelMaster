@@ -113,10 +113,10 @@ function ResponsiveAppBar() {
                             Jonathan Hickman: TMS
                         </MenuItem>
                         <Divider variant="middle" flexItem orientation="vertical" />
-                        {/* <MenuItem component={BrowserLink} to="/list/XMEN">
+                        <MenuItem component={BrowserLink} to="/list/XMEN">
                             X-Men
                         </MenuItem>
-                        <Divider variant="middle" flexItem orientation="vertical" /> */}
+                        <Divider variant="middle" flexItem orientation="vertical" />
                         <MenuItem component={BrowserLink} to="/list/Annhilation">
                             Annhilation
                         </MenuItem>
