@@ -6,7 +6,7 @@ import { useComics } from "../../contexts/ComicProvider";
 
 
 const EditDialog = (props) => {
-    const { open, onClose, onCancel, comic } = props;
+    const { open, onClose, onCancel, comic, arcIndex } = props;
 
     const { updateComic } = useComics();
 
@@ -27,12 +27,13 @@ const EditDialog = (props) => {
         if (detailUrlForm && imageUrlForm && titleForm) {
             let foo = id;
             if (id === undefined) {
-                foo = "Part1"
+                foo = "JHTMS"
             }
-            updateComic(comic.Id, titleForm, detailUrlForm, imageUrlForm, descriptionForm, commentForm, foo.toLowerCase());
+            updateComic(comic.Id, titleForm, detailUrlForm, imageUrlForm, descriptionForm, commentForm, foo.toLowerCase(), arcIndex);
             onClose();
         }
     }
+
     const handleCancel = () => {
         setTitleForm(comic.SeriesName);
         setDetailUrlForm(comic.DetailUrl);

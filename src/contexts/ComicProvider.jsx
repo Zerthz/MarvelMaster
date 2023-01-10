@@ -133,11 +133,11 @@ const ComicProvider = (props) => {
 
     }
 
-    const updateComic = (id, title, url, img, description, comment, page) => {
+    const updateComic = (id, title, url, img, description, comment, page, arc) => {
 
         let all = { ...userData };
         let field = all[page];
-        let toUpdate = field.find(comic => comic.Id === id);
+        let toUpdate = field[arc].ArcParts.find(comic => comic.Id === id);
         toUpdate.SeriesName = title;
         toUpdate.DetailUrl = url;
         toUpdate.ImageUrl = img;

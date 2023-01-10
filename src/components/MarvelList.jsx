@@ -22,7 +22,7 @@ function MarvelList() {
     const [comicItems, setComicItems] = useState();
     const [loadedResults, setLoadedResults] = useState();
     const [ableToLoadMore, setAbleToLoadMore] = useState(true);
-    const [loadedArcs, setLoadedArcs] = useState();
+    const [loadedArcs, setLoadedArcs] = useState(1);
     const { id } = useParams();
 
     let navigate = useNavigate();
@@ -31,13 +31,12 @@ function MarvelList() {
 
     let counter = 0;
     const createItems = (data) => {
-        let listItems = data.map(arc => {
-            return <Arc arc={arc} arcIndex={counter} />
+        let listItems = data.map((arc) => {
+            return (<Arc arc={arc} arcIndex={counter++} />);
         });
-        counter += 1;
         setComicItems(listItems);
-        setLoadedResults(listItems[0]);
-        setLoadedArcs(1);
+        setLoadedResults(listItems.slice(0, loadedArcs));
+        // setLoadedArcs(1);
         if (listItems.length === 1) {
             setAbleToLoadMore(false);
         }

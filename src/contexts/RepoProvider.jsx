@@ -18,7 +18,7 @@ const RepoProvider = (props) => {
             comic.Read = false;
         });
 
-        return setDoc(doc(db, "comics", "MMPart1"), data, { merge: true });
+        return setDoc(doc(db, "comics", "MXMEN"), data, { merge: true });
     }
 
     const getComics = async (name) => {

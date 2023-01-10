@@ -45,14 +45,14 @@ const MarvelListItem = ({ comic, counter, bg, arcIndex }) => {
                 <ListItemButton onClick={() => {
                     setOpen(true);
                 }}>
-                    <ListItemText primary={comic.SeriesName} />
+                    {comic.DetailUrl ? <ListItemText primary={comic.SeriesName} /> : <ListItemText primary={comic.SeriesName + ' #' + comic.Issue} />}
                 </ListItemButton>
             </ListItem>
 
 
             <ComicDialog open={open} handleClose={handleClose}
                 onClick={() => setOpen(true)} handleToggle={handleToggle}
-                comic={comic} checked={checked} />
+                comic={comic} checked={checked} arcIndex={arcIndex} />
         </>);
 }
 

@@ -20,7 +20,7 @@ let imageFit = {
 
 
 const ComicDialog = (props) => {
-    const { open, handleClose, comic, handleToggle, checked } = props;
+    const { open, handleClose, comic, handleToggle, checked, arcIndex } = props;
 
     const { removeComic } = useComics();
 
@@ -115,7 +115,7 @@ const ComicDialog = (props) => {
                 </DialogActions>
 
             </Dialog >
-            <EditDialog open={editOpen} onClose={handleEditClose} comic={comic} onCancel={handleEditCancel} />
+            <EditDialog open={editOpen} onClose={handleEditClose} comic={comic} onCancel={handleEditCancel} arcIndex={arcIndex} />
 
         </>
     );
