@@ -24,6 +24,25 @@ const NavDrawer = ({ anchorElNav, handleCloseNavMenu }) => {
                     Annhilation
                 </ListItemText>
             </MenuItem>
+            <Typography variant='h6' pl={2} mt={2}>
+                X-Men
+            </Typography>
+            <Divider />
+            <MenuItem component={BrowserLink} to="/list/PheonixSaga">
+                <ListItemText inset>
+                    Pheonix Saga
+                </ListItemText>
+            </MenuItem>
+            <MenuItem component={BrowserLink} to="/list/XMenDays">
+                <ListItemText inset>
+                    Days of Future Past
+                </ListItemText>
+            </MenuItem>
+            <MenuItem component={BrowserLink} to="/list/XMenDays">
+                <ListItemText inset>
+                    Modern X-Men <span style={{ fontStyle: 'italic' }}>(10+ years)</span>
+                </ListItemText>
+            </MenuItem>
 
             <Typography variant='h6' pl={2} mt={2}>
                 Others
@@ -41,7 +60,7 @@ const NavDrawer = ({ anchorElNav, handleCloseNavMenu }) => {
                     </Typography>
                 </ListItemText>
             </MenuItem>
-        </Drawer>
+        </Drawer >
     );
 }
 
