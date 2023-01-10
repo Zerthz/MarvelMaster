@@ -15,6 +15,7 @@ function ResponsiveAppBar() {
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [anchorElXmen, setAnchorElXmen] = React.useState(null);
 
     let navigate = useNavigate();
 
@@ -47,6 +48,12 @@ function ResponsiveAppBar() {
         setAnchorElUser(null);
     };
 
+    const handleXMenMenu = (event) => {
+        setAnchorElXmen(event.currentTarget);
+    }
+    const handleCloseXMenMenu = () => {
+        setAnchorElXmen(null);
+    };
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -113,9 +120,29 @@ function ResponsiveAppBar() {
                             Jonathan Hickman: TMS
                         </MenuItem>
                         <Divider variant="middle" flexItem orientation="vertical" />
-                        <MenuItem component={BrowserLink} to="/list/XMEN">
+                        <MenuItem component={BrowserLink} onClick={handleXMenMenu}>
                             X-Men
                         </MenuItem>
+                        <Menu
+                            anchorEl={anchorElXmen}
+                            keepMounted
+                            open={Boolean(anchorElXmen)}
+                            onClose={handleCloseXMenMenu}
+                        >
+                            <MenuItem component={BrowserLink} to="/list/PheonixSaga">
+                                Pheonix Saga
+                            </MenuItem>
+                            <MenuItem component={BrowserLink} to="/list/XMenDays">
+                                Days of Future Past
+                            </MenuItem>
+                            <MenuItem component={BrowserLink} to="/list/XMen">
+                                Modern X-Men
+                            </MenuItem>
+                        </Menu>
+
+
+
+
                         <Divider variant="middle" flexItem orientation="vertical" />
                         <MenuItem component={BrowserLink} to="/list/Annhilation">
                             Annhilation
