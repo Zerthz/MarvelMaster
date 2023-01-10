@@ -1,4 +1,4 @@
-import { List, Box, Button, Divider, Typography } from "@mui/material";
+import { List, Box, Button, Divider, Typography, Grid, Chip } from "@mui/material";
 import { useComics } from "../contexts/ComicProvider";
 import MarvelListItem from "./MarvelListItem";
 import GetComicsPrompt from "./GetComicsPrompt";
@@ -12,6 +12,10 @@ import getReadComics from "../services/GetReadComics";
 import TitleProgress from "./TitleProgress";
 import ArcTitle from "./ArcHeader";
 import Arc from "./Arc";
+import { Link as BrowserLink } from 'react-router-dom';
+import OtherReading from "./PreviousReading";
+import PreviousReading from "./PreviousReading";
+import NextReading from "./NextReading";
 
 function MarvelList() {
 
@@ -39,6 +43,9 @@ function MarvelList() {
         // setLoadedArcs(1);
         if (listItems.length === 1) {
             setAbleToLoadMore(false);
+        }
+        else {
+            setAbleToLoadMore(true);
         }
         setDataExists(true);
         setLoading(false);
@@ -84,7 +91,9 @@ function MarvelList() {
             console.log(error);
         }
     }, [id, userData]);
-
+    useEffect(() => {
+        setLoadedArcs(1);
+    }, [id])
     return (
         <>
             {!loading &&
@@ -96,9 +105,11 @@ function MarvelList() {
                         <>
                             <TitleProgress />
                             <Divider />
+                            {supportedLists[id.toLowerCase()].previousReading && <PreviousReading text="Prior Reading" />}
                             <Box sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
                                 {loadedResults}
                             </Box>
+
                         </>
                     }
                     {!dataExists && currentUser && <GetComicsPrompt />}
@@ -111,7 +122,11 @@ function MarvelList() {
                             sx={{ marginBottom: '1em', width: { xs: '90%', lg: '25%' } }}>
                             Load More
                         </Button>}
-
+                    {dataExists && !ableToLoadMore &&
+                        <>
+                            <Chip label="End" variant="outlined" />
+                            {supportedLists[id.toLowerCase()].nextReading && <NextReading text="Read This Next" />}
+                        </>}
                     <ScrollTopFab />
                 </Box>
             }

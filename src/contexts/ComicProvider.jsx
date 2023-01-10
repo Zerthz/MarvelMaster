@@ -33,7 +33,31 @@ const ComicProvider = (props) => {
         },
         xmen: {
             title: 'X-Men',
-            description: "A decade worth of X-Men comics"
+            description: "A decade worth of X-Men comics",
+            previousReading: {
+                name: 'xmendays',
+                url: 'https://i.imgur.com/bAzwGUw.png'
+            }
+        },
+        pheonixsaga: {
+            title: 'Pheonix Saga',
+            description: "Telepath Jean Grey has gained power beyond all comprehension, and that power has corrupted her absolutely! Now the X-Men must decide if the life of the woman they cherish is worth the existence of the entire universe!",
+            nextReading: {
+                name: 'xmendays',
+                url: 'https://i.imgur.com/bAzwGUw.png'
+            }
+        },
+        xmendays: {
+            title: 'X-Men: Days of Future Past',
+            description: 'The year 2013 teeters on the brink of Armageddon. Sentinels, whose destructive paths have now reached humanity, imprison and exterminate mutants at will. Although teen Kitty Pryde is a newbie to the team, it’s up to the X-Men’s youngest member to relay a message from her future…to prevent a catalyzing event in the X-Men’s present.',
+            previousReading: {
+                name: 'pheonixsaga',
+                url: 'https://i.imgur.com/7kk64iF.png'
+            },
+            nextReading: {
+                name: 'xmen',
+                url: 'https://i.imgur.com/qIpKDp0.png'
+            }
         },
         annhilation: {
             title: 'Annhilation',
@@ -174,6 +198,12 @@ const ComicProvider = (props) => {
             case 'xmen':
                 param = "MXMEN"
                 break;
+            case 'pheonixsaga':
+                param = "PHSAGA"
+                break;
+            case 'xmendays':
+                param = "DOFP"
+                break;
             default:
                 return;
         }
@@ -195,6 +225,12 @@ const ComicProvider = (props) => {
                     break;
                 case 'xmen':
                     all.xmen = comics.Result;
+                    break;
+                case 'pheonixsaga':
+                    all.pheonixsaga = comics.Result;
+                    break;
+                case 'xmendays':
+                    all.xmendays = comics.Result;
                     break;
                 default:
                     return;
