@@ -38,7 +38,7 @@ const NavDrawer = ({ anchorElNav, handleCloseNavMenu }) => {
                     Days of Future Past
                 </ListItemText>
             </MenuItem>
-            <MenuItem component={BrowserLink} to="/list/XMenDays">
+            <MenuItem component={BrowserLink} to="/list/Xmen">
                 <ListItemText inset>
                     Modern X-Men <span style={{ fontStyle: 'italic' }}>(10+ years)</span>
                 </ListItemText>
