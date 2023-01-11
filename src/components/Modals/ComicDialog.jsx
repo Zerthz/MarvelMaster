@@ -37,7 +37,6 @@ const ComicDialog = (props) => {
 
     const handleDialogToggle = () => {
         setToggled(!toggled);
-        handleToggle();
     }
     const handleEditOpen = () => {
         setEditOpen(true);
@@ -53,6 +52,9 @@ const ComicDialog = (props) => {
     const close = () => {
         if (comic.Rating !== ratingValue) {
             updateRating(id.toLowerCase(), comic, arcIndex, ratingValue);
+        }
+        if (comic.Read !== toggled) {
+            handleToggle();
         }
         handleClose();
     }
