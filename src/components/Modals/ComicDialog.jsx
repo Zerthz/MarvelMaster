@@ -1,5 +1,5 @@
 import { DeleteOutlineOutlined } from "@mui/icons-material";
-import { Button, Dialog, DialogActions, DialogContent, Divider, Grid, IconButton, Typography } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, Divider, Grid, IconButton, Rating, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import SendIcon from '@mui/icons-material/Send';
 import BookIcon from '@mui/icons-material/Book';
@@ -26,6 +26,7 @@ const ComicDialog = (props) => {
 
     const [toggled, setToggled] = useState(checked);
     const [editOpen, setEditOpen] = useState(false);
+    const [ratingValue, setRatingValue] = useState();
 
     const handleRemove = () => {
         removeComic(comic.Id);
@@ -98,9 +99,27 @@ const ComicDialog = (props) => {
                             </>
                                 : null}
                             {comic.DetailUrl ?
-                                <Grid item sx={{ alignSelf: { xs: 'center', lg: 'end' } }}>
-                                    <Button href={comic.DetailUrl} variant="contained" size="large" target="_blank" rel="noreferrer" endIcon={<SendIcon />}>Link to comic</Button>
-                                </Grid> : null}
+                                <>
+                                    <Grid container item sx={{ justifyContent: 'space-between' }}>
+                                        <Grid item>
+                                            <Grid item>
+                                                <Typography variant="subtitle2" sx={{ fontStyle: 'italic' }}>
+                                                    {comic.Rating ? "Rated" : "Rate it!"}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item>
+                                                <Rating value={ratingValue}
+                                                    precision={0.5}
+                                                    onChange={(event, newValue) => {
+                                                        setRatingValue(newValue);
+                                                    }} />
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item sx={{ alignSelf: 'center' }}>
+                                            <Button href={comic.DetailUrl} variant="contained" size="large" target="_blank" rel="noreferrer" endIcon={<SendIcon />}>Link to comic</Button>
+                                        </Grid>
+                                    </Grid>
+                                </> : null}
                         </Grid>
                     </Grid>
                 </DialogContent>
