@@ -113,6 +113,16 @@ const ComicProvider = (props) => {
     //     // setCacheExists(true);
     // }
 
+    const updateRating = (page, comic, arc, rating) => {
+        let all = { ...userData };
+        let field = all[page];
+        let toUpdate = field[arc].ArcParts.find(c => c.Id === comic.Id);
+        toUpdate.Rating = rating;
+
+        setUserData(all);
+        setData(all);
+    }
+
     const removeError = (id, allComics) => {
         let errorArr = [...errors];
         let errorUpdate = errorArr.findIndex(comic => comic.Id === id);
@@ -301,7 +311,7 @@ const ComicProvider = (props) => {
         <ComicContext.Provider
             value={{
                 results, dataExists, fetchComics, store, updateComic, errors, removeComic, allResults, supportedLists,
-                userData, setDataExists
+                userData, setDataExists, updateRating
             }}
         >
             {!loading && props.children}

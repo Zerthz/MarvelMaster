@@ -8,6 +8,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { useComics } from "../../contexts/ComicProvider";
 import { useState } from "react";
 import EditDialog from "./EditDialog";
+import { useParams } from "react-router-dom";
 
 
 
@@ -22,7 +23,8 @@ let imageFit = {
 const ComicDialog = (props) => {
     const { open, handleClose, comic, handleToggle, checked, arcIndex } = props;
 
-    const { removeComic } = useComics();
+    const { removeComic, updateRating } = useComics();
+    const { id } = useParams();
 
     const [toggled, setToggled] = useState(checked);
     const [editOpen, setEditOpen] = useState(false);
@@ -48,12 +50,19 @@ const ComicDialog = (props) => {
         handleEditClose();
     }
 
+    const close = () => {
+        if (comic.Rating !== ratingValue) {
+            updateRating(id.toLowerCase(), comic, arcIndex, ratingValue);
+        }
+        handleClose();
+    }
+
 
 
 
     return (
         <>
-            <Dialog open={open} onClose={handleClose}>
+            <Dialog open={open} onClose={close}>
                 <DialogContent>
                     <Grid container spacing={1} sx={{ flexDirection: { xs: 'column', lg: 'row' }, alignItems: 'center' }}>
                         {comic.ImageUrl ?
