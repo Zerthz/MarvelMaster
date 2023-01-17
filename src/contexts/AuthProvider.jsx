@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { httpsCallable } from "firebase/functions";
 import React, { useEffect, useState, useContext } from "react";
-import { auth } from "../fbconfig";
+import { auth, functions } from "../fbconfig";
 
 export const AuthContext = React.createContext();
 
@@ -29,9 +30,20 @@ const AuthProvider = (props) => {
         return sendPasswordResetEmail(auth, email);
     }
 
+    const makeAdmin = (email) => {
+        const addAdminRole = httpsCallable(functions, "addAdminRole");
+        addAdminRole({ email: email }).then(result => console.log(result));
+    }
+
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user);
+            if (user) {
+                user.getIdTokenResult().then(idTokenResult => {
+                    user.admin = idTokenResult.claims.admin;
+                });
+                setCurrentUser(user);
+
+            }
             setLoading(false);
         });
 
@@ -39,7 +51,7 @@ const AuthProvider = (props) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ currentUser, signUp, login, logout, resetPassword }}>
+        <AuthContext.Provider value={{ currentUser, signUp, login, logout, resetPassword, makeAdmin }}>
             {!loading && props.children}
         </AuthContext.Provider>
     );
