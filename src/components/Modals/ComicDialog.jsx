@@ -9,6 +9,7 @@ import { useComics } from "../../contexts/ComicProvider";
 import { useState } from "react";
 import EditDialog from "./EditDialog";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthProvider";
 
 
 
@@ -24,6 +25,7 @@ const ComicDialog = (props) => {
     const { open, handleClose, comic, handleToggle, checked, arcIndex } = props;
 
     const { removeComic, updateRating } = useComics();
+    const { currentUser } = useAuth();
     const { id } = useParams();
 
     const [toggled, setToggled] = useState(checked);
@@ -82,11 +84,12 @@ const ComicDialog = (props) => {
                                         {comic.SeriesName}
                                     </Typography>
                                 </Grid>
-                                <Grid item >
+                                {currentUser.admin && <Grid item >
                                     <IconButton color="error" onClick={handleRemove}>
                                         <DeleteOutlineOutlined />
                                     </IconButton>
                                 </Grid>
+                                }
                             </Stack>
                             {comic.Comment ?
                                 <Grid item>
@@ -136,7 +139,9 @@ const ComicDialog = (props) => {
                 </DialogContent>
 
                 <DialogActions>
-                    <Button variant="outlined" startIcon={<EditIcon />} onClick={handleEditOpen}>Edit</Button>
+                    {currentUser.admin &&
+                        <Button variant="outlined" startIcon={<EditIcon />} onClick={handleEditOpen}>Edit</Button>
+                    }
                     {(toggled && comic.DetailUrl) ?
                         <Button variant="outlined" startIcon={<ClearIcon />} color="error" onClick={handleDialogToggle}>Remove</Button>
                         : <Button variant="outlined" startIcon={<BookIcon />} color="success" onClick={handleDialogToggle}>Read</Button>}
