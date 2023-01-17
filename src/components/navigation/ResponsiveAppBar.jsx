@@ -148,7 +148,7 @@ function ResponsiveAppBar() {
                             Annhilation
                         </MenuItem>
                         <Divider variant="middle" flexItem orientation="vertical" />
-                        {userData.errors && <>
+                        {(userData.errors && currentUser.admin) && <>
                             <Badge
                                 badgeContent={userData.errors.length}
                                 color="error"
