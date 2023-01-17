@@ -73,20 +73,23 @@ const Profile = () => {
                     </Typography>
                     <Divider variant="middle" />
                     <Box sx={{ display: 'flex', justifyContent: 'center', gap: '1em', flexDirection: { xs: 'column', md: 'row' } }}>
-                        <Button
-                            variant="contained"
-                            size="large"
-                            endIcon={<CloudUploadOutlined />}
-                            onClick={handleUpload}
-                        >Upload</Button>
-                        <Button
-                            variant="outlined"
-                            color="primary"
-                            size="large"
-                            endIcon={<CloudDownloadOutlined />}
-                            onClick={handleDownload}
-                            disabled
-                        >Download</Button>
+                        {currentUser.admin && <>
+                            <Button
+                                variant="contained"
+                                size="large"
+                                endIcon={<CloudUploadOutlined />}
+                                onClick={handleUpload}
+                            >Upload</Button>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                size="large"
+                                endIcon={<CloudDownloadOutlined />}
+                                onClick={handleDownload}
+                                disabled
+                            >Download</Button>
+                        </>
+                        }
                         <Button
                             variant="outlined"
                             color="secondary"
