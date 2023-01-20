@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { useAuth } from "./AuthProvider";
 import { db } from "../fbconfig";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
 export const RepoContext = React.createContext();
 
@@ -32,6 +32,18 @@ const RepoProvider = (props) => {
         }
     }
 
+    const likeComic = (data) => {
+        const dataRef = doc(db, 'users', currentUser.uid);
+        return updateDoc(dataRef, {
+            Liked: arrayUnion(data)
+        });
+    }
+    const unlikeComic = (data) => {
+        const dataRef = doc(db, 'users', currentUser.uid);
+        return updateDoc(dataRef, {
+            Liked: arrayRemove(data)
+        });
+    }
 
     const setData = (data) => {
         return setDoc(doc(db, "users", currentUser.uid), data, { merge: true });
@@ -53,7 +65,7 @@ const RepoProvider = (props) => {
     }, [])
 
     return (
-        <RepoContext.Provider value={{ setData, getUserData, getComics, uploadFixed }}>
+        <RepoContext.Provider value={{ setData, getUserData, getComics, uploadFixed, likeComic, unlikeComic }}>
             {props.children}
         </RepoContext.Provider>
     );

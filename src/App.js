@@ -8,12 +8,16 @@ import RepoProvider from "./contexts/RepoProvider";
 
 
 function App() {
+  const { palette } = createTheme();
+  const { augmentColor } = palette;
+  const createColor = (mainColor) => augmentColor({ color: { main: mainColor } });
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
       primary: indigo,
       secondary: deepOrange,
-      info: teal
+      info: teal,
+      pink: createColor("#e91e63")
     },
   });
 

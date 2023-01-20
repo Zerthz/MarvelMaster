@@ -4,12 +4,14 @@ import { Stack } from "@mui/system";
 import SendIcon from '@mui/icons-material/Send';
 import BookIcon from '@mui/icons-material/Book';
 import EditIcon from '@mui/icons-material/Edit';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useComics } from "../../contexts/ComicProvider";
 import { useState } from "react";
 import EditDialog from "./EditDialog";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
+import { useRepo } from "../../contexts/RepoProvider";
 
 
 
@@ -24,11 +26,13 @@ let imageFit = {
 const ComicDialog = (props) => {
     const { open, handleClose, comic, handleToggle, checked, arcIndex } = props;
 
-    const { removeComic, updateRating } = useComics();
+    const { removeComic, updateRating, updateLiked } = useComics();
+    const { unlikeComic, likeComic } = useRepo();
     const { currentUser } = useAuth();
     const { id } = useParams();
 
     const [toggled, setToggled] = useState(checked);
+    const [liked, setLiked] = useState(comic.Liked ?? false);
     const [editOpen, setEditOpen] = useState(false);
     const [ratingValue, setRatingValue] = useState();
 
@@ -50,6 +54,9 @@ const ComicDialog = (props) => {
     const handleEditCancel = () => {
         handleEditClose();
     }
+    const handleLikeClick = () => {
+        setLiked(!liked);
+    }
 
     const close = () => {
         if (comic.Rating !== ratingValue) {
@@ -57,6 +64,14 @@ const ComicDialog = (props) => {
         }
         if (comic.Read !== toggled) {
             handleToggle();
+        }
+        if (comic.Liked !== liked) {
+            if (liked === true) {
+                likeComic(comic);
+            } else {
+                unlikeComic(comic);
+            }
+            updateLiked(id.toLowerCase(), comic, arcIndex, liked)
         }
         handleClose();
     }
@@ -142,11 +157,14 @@ const ComicDialog = (props) => {
                     {currentUser.admin &&
                         <Button variant="outlined" startIcon={<EditIcon />} onClick={handleEditOpen}>Edit</Button>
                     }
+                    {liked ?
+                        <Button variant="outlined" startIcon={<ClearIcon />} color="error" onClick={handleLikeClick}>Unlike</Button>
+                        : <Button variant="outlined" startIcon={<FavoriteBorderIcon />} onClick={handleLikeClick} color="pink">Like</Button>}
                     {(toggled && comic.DetailUrl) ?
                         <Button variant="outlined" startIcon={<ClearIcon />} color="error" onClick={handleDialogToggle}>Remove</Button>
                         : <Button variant="outlined" startIcon={<BookIcon />} color="success" onClick={handleDialogToggle}>Read</Button>}
 
-                    <Button variant="outlined" onClick={handleClose}>Close</Button>
+                    <Button variant="outlined" onClick={close}>Close</Button>
                 </DialogActions>
 
             </Dialog >
