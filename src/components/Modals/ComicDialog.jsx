@@ -58,6 +58,7 @@ const ComicDialog = (props) => {
         if (comic.Read !== toggled) {
             handleToggle();
         }
+
         handleClose();
     }
 
