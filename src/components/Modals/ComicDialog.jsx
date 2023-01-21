@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useComics } from "../../contexts/ComicProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditDialog from "./EditDialog";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthProvider";
@@ -27,14 +27,13 @@ const ComicDialog = (props) => {
     const { open, handleClose, comic, handleToggle, checked, arcIndex } = props;
 
     const { removeComic, updateRating, updateLiked } = useComics();
-    const { unlikeComic, likeComic } = useRepo();
     const { currentUser } = useAuth();
     const { id } = useParams();
 
     const [toggled, setToggled] = useState(checked);
-    const [liked, setLiked] = useState(comic.Liked ?? false);
+    const [liked, setLiked] = useState(comic.Liked | false);
     const [editOpen, setEditOpen] = useState(false);
-    const [ratingValue, setRatingValue] = useState();
+    const [ratingValue, setRatingValue] = useState(comic.Rating | .0);
 
     const handleRemove = () => {
         removeComic(comic.Id);
@@ -58,7 +57,7 @@ const ComicDialog = (props) => {
         setLiked(!liked);
     }
 
-    const close = () => {
+    const close = async () => {
         if (comic.Rating !== ratingValue) {
             updateRating(id.toLowerCase(), comic, arcIndex, ratingValue);
         }
@@ -66,16 +65,14 @@ const ComicDialog = (props) => {
             handleToggle();
         }
         if (comic.Liked !== liked) {
-            if (liked === true) {
-                likeComic(comic);
-            } else {
-                unlikeComic(comic);
-            }
             updateLiked(id.toLowerCase(), comic, arcIndex, liked)
         }
         handleClose();
     }
 
+    useEffect(() => {
+
+    }, []);
 
 
 
@@ -113,7 +110,7 @@ const ComicDialog = (props) => {
                                     </Typography>
                                 </Grid> : null}
                             <Grid item>
-                                <Divider variant="middle" item />
+                                <Divider variant="middle" />
 
                             </Grid>
                             {comic.Description ? <>
@@ -123,7 +120,7 @@ const ComicDialog = (props) => {
                                     </Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Divider variant="middle" item />
+                                    <Divider variant="middle" />
                                 </Grid>
                             </>
                                 : null}

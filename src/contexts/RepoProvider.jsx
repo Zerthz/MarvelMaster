@@ -32,21 +32,12 @@ const RepoProvider = (props) => {
         }
     }
 
-    const likeComic = (data) => {
-        const dataRef = doc(db, 'users', currentUser.uid);
-        return updateDoc(dataRef, {
-            Liked: arrayUnion(data)
-        });
-    }
-    const unlikeComic = (data) => {
-        const dataRef = doc(db, 'users', currentUser.uid);
-        return updateDoc(dataRef, {
-            Liked: arrayRemove(data)
-        });
-    }
-
     const setData = (data) => {
-        return setDoc(doc(db, "users", currentUser.uid), data, { merge: true });
+        try {
+            return setDoc(doc(db, "users", currentUser.uid), data, { merge: true });
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     const getUserData = async () => {
@@ -65,7 +56,7 @@ const RepoProvider = (props) => {
     }, [])
 
     return (
-        <RepoContext.Provider value={{ setData, getUserData, getComics, uploadFixed, likeComic, unlikeComic }}>
+        <RepoContext.Provider value={{ setData, getUserData, getComics, uploadFixed }}>
             {props.children}
         </RepoContext.Provider>
     );

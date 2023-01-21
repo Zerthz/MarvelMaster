@@ -11,7 +11,7 @@ const TitleProgress = () => {
     const { id } = useParams();
 
     const [loading, setLoading] = useState();
-    const [percent, setPercent] = useState();
+    const [percent, setPercent] = useState(0);
     const [progressText, setProgressText] = useState();
 
     const total = (arcs) => {
