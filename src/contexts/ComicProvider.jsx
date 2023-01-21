@@ -128,7 +128,17 @@ const ComicProvider = (props) => {
         let field = all[page];
         let toUpdate = field[arc].ArcParts.find(c => c.Id === comic.Id);
         toUpdate.Liked = liked;
+        if (liked) {
+            if (!all.Liked) {
+                all.Liked = [];
+            }
+            all.Liked.push(toUpdate);
+        }
+        else {
 
+            let indexToRemove = all.Liked.findIndex(c => c.Id === comic.Id);
+            all.Liked.splice(indexToRemove, 1);
+        }
         setUserData(all);
         setData(all);
     }

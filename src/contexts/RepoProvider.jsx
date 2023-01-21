@@ -33,7 +33,11 @@ const RepoProvider = (props) => {
     }
 
     const setData = (data) => {
-        return setDoc(doc(db, "users", currentUser.uid), data, { merge: true });
+        try {
+            return setDoc(doc(db, "users", currentUser.uid), data, { merge: true });
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     const getUserData = async () => {
