@@ -28,9 +28,7 @@ const Arc = ({ arc, arcIndex, minimized }) => {
     }
 
     useEffect(() => {
-        if (getComicsLength(arc) === getReadComicsLength(arc)) {
-            setFullyRead(true);
-        }
+
         let counter = 0;
         let listItems = arc.ArcParts.map(item => {
             if (item.Read === true) { return; }
@@ -51,7 +49,12 @@ const Arc = ({ arc, arcIndex, minimized }) => {
     }, [arc, userData])
 
     useEffect(() => {
-
+        if (getComicsLength(arc) === getReadComicsLength(arc)) {
+            setFullyRead(true);
+        }
+        else {
+            setFullyRead(false);
+        }
         setExpanded(true);
         if (minimized) {
             setArcExpanded(false);
