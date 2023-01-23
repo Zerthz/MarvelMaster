@@ -1,4 +1,4 @@
-import { Button, Collapse, Divider, IconButton, List } from "@mui/material";
+import { Button, Collapse, Divider, IconButton, List, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useComics } from "../contexts/ComicProvider";
 import ArcSubheader from "./ArcSubheader";
@@ -9,7 +9,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { MoreHoriz } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
-
+import { Stack } from "@mui/system";
+import getComicsLength, { getReadComicsLength } from "../services/GetComicsLength";
+import DoneIcon from '@mui/icons-material/Done';
 const Arc = ({ arc, arcIndex, minimized }) => {
     const [comicItems, setComicItems] = useState();
     const { userData } = useComics();
@@ -17,6 +19,7 @@ const Arc = ({ arc, arcIndex, minimized }) => {
 
     const [expanded, setExpanded] = useState(true);
     const [arcExpanded, setArcExpanded] = useState(true);
+    const [fullyRead, setFullyRead] = useState(false);
     const handleExpand = () => {
         setExpanded(!expanded);
     }
@@ -25,7 +28,9 @@ const Arc = ({ arc, arcIndex, minimized }) => {
     }
 
     useEffect(() => {
-
+        if (getComicsLength(arc) === getReadComicsLength(arc)) {
+            setFullyRead(true);
+        }
         let counter = 0;
         let listItems = arc.ArcParts.map(item => {
             if (item.Read === true) { return; }
@@ -61,9 +66,15 @@ const Arc = ({ arc, arcIndex, minimized }) => {
 
     return (
         <>
-            <IconButton sx={{ display: 'flex', marginLeft: 'auto', opacity: '0.1' }} onClick={handleArcExpand}>
-                {arcExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            </IconButton>
+            <Stack direction="row">
+                {!arcExpanded &&
+                    <Typography variant="subtitle1" sx={{ fontStyle: 'italic', alignSelf: 'center' }}>
+                        {arc.Title}{fullyRead && <DoneIcon fontSize="small" />}
+                    </Typography>}
+                <IconButton sx={{ display: 'flex', marginLeft: 'auto', opacity: '0.1' }} onClick={handleArcExpand}>
+                    {arcExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                </IconButton>
+            </Stack>
             <Collapse in={arcExpanded}>
                 <ArcHeader title={arc.Title} description={arc.Description} image={arc.ImageUrl} />
                 <Divider sx={{ marginBottom: '0.5em' }}>
@@ -78,6 +89,7 @@ const Arc = ({ arc, arcIndex, minimized }) => {
                     </List>
                 </Collapse>
             </Collapse>
+            {!arcExpanded && <Divider variant="middle" />}
         </>
     );
 }
