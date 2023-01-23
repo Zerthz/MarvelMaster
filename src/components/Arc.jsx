@@ -10,7 +10,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { MoreHoriz } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
 
-const Arc = ({ arc, arcIndex }) => {
+const Arc = ({ arc, arcIndex, minimized }) => {
     const [comicItems, setComicItems] = useState();
     const { userData } = useComics();
     const { id } = useParams();
@@ -25,6 +25,9 @@ const Arc = ({ arc, arcIndex }) => {
     }
 
     useEffect(() => {
+        if (minimized) {
+            setArcExpanded(false);
+        }
         let counter = 0;
         let listItems = arc.ArcParts.map(item => {
             if (item.Read === true) { return; }

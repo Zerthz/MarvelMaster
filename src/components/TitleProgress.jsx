@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useComics } from "../contexts/ComicProvider";
+import { getComicsLength, getReadComicsLength } from "../services/GetComicsLength";
 import getReadComics from "../services/GetReadComics";
 
 const TitleProgress = () => {
@@ -16,8 +17,8 @@ const TitleProgress = () => {
 
     const total = (arcs) => {
         let num = 0;
-        arcs.forEach(arcs => {
-            num += arcs.ArcParts.filter(x => x.IsComic).length;
+        arcs.forEach(arc => {
+            num += getComicsLength(arc);
         });
         return num;
 
@@ -25,8 +26,8 @@ const TitleProgress = () => {
 
     const readC = (arcs) => {
         let num = 0;
-        arcs.forEach(arcs => {
-            num += arcs.ArcParts.filter(x => (x.Read && x.IsComic)).length;
+        arcs.forEach(arc => {
+            num += getReadComicsLength(arc);
         });
         return num;
     }

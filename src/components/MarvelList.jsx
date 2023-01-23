@@ -16,6 +16,7 @@ import { Link as BrowserLink } from 'react-router-dom';
 import OtherReading from "./PreviousReading";
 import PreviousReading from "./PreviousReading";
 import NextReading from "./NextReading";
+import getComicsLength, { getReadComicsLength } from "../services/GetComicsLength";
 
 function MarvelList() {
 
@@ -35,18 +36,25 @@ function MarvelList() {
 
     let counter = 0;
     const createItems = (data) => {
+        let fullyReadArcs = 0;
+
         let listItems = data.map((arc) => {
-            return (<Arc arc={arc} arcIndex={counter++} />);
+            // if an arc is fully read we want to minimize it and load another one instead.
+            if (getReadComicsLength(arc) === getComicsLength(arc)) {
+                fullyReadArcs++;
+                return (<Arc arc={arc} arcIndex={counter++} minimized={true} />);
+
+            } else {
+                return (<Arc arc={arc} arcIndex={counter++} />);
+
+            }
         });
         setComicItems(listItems);
-        setLoadedResults(listItems.slice(0, loadedArcs));
-        // setLoadedArcs(1);
-        if (listItems.length === 1) {
-            setAbleToLoadMore(false);
-        }
-        else {
-            setAbleToLoadMore(true);
-        }
+        let maxVal = Math.max(loadedArcs, fullyReadArcs + 1);
+        setLoadedResults(listItems.slice(0, maxVal));
+        setLoadedArcs(maxVal);
+
+        listItems.length === maxVal ? setAbleToLoadMore(false) : setAbleToLoadMore(true);
         setDataExists(true);
         setLoading(false);
     }
