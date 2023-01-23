@@ -25,9 +25,7 @@ const Arc = ({ arc, arcIndex, minimized }) => {
     }
 
     useEffect(() => {
-        if (minimized) {
-            setArcExpanded(false);
-        }
+
         let counter = 0;
         let listItems = arc.ArcParts.map(item => {
             if (item.Read === true) { return; }
@@ -50,10 +48,14 @@ const Arc = ({ arc, arcIndex, minimized }) => {
     useEffect(() => {
 
         setExpanded(true);
-        setArcExpanded(true);
+        if (minimized) {
+            setArcExpanded(false);
+        }
+        else {
+            setArcExpanded(true);
+        }
 
-
-    }, [id])
+    }, [id, minimized])
 
 
 

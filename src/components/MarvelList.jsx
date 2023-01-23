@@ -40,13 +40,14 @@ function MarvelList() {
 
         let listItems = data.map((arc) => {
             // if an arc is fully read we want to minimize it and load another one instead.
-            if (getReadComicsLength(arc) === getComicsLength(arc)) {
+            let c = getComicsLength(arc)
+            let r = getReadComicsLength(arc)
+            if (r === c) {
                 fullyReadArcs++;
                 return (<Arc arc={arc} arcIndex={counter++} minimized={true} />);
 
             } else {
-                return (<Arc arc={arc} arcIndex={counter++} />);
-
+                return (<Arc arc={arc} arcIndex={counter++} minimized={false} />);
             }
         });
         setComicItems(listItems);
