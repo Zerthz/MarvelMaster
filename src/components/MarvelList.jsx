@@ -62,7 +62,7 @@ function MarvelList() {
     const loadMore = () => {
         setLoading(true);
 
-        let loaded = loadedArcs;
+        let loaded = loadedResults.length;
         let arr = [...comicItems];
         let load = arr.slice(0, loaded + 1);
         setLoadedResults(load);
