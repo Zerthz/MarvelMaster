@@ -51,7 +51,7 @@ function MarvelList() {
             }
         });
         setComicItems(listItems);
-        let maxVal = Math.max(loadedArcs, fullyReadArcs + 1);
+        let maxVal = Math.max(1, fullyReadArcs + 1);
         setLoadedResults(listItems.slice(0, maxVal));
         setLoadedArcs(maxVal);
 
@@ -78,6 +78,7 @@ function MarvelList() {
 
     useEffect(() => {
         try {
+
             setLoading(true);
             if (supportedLists[id.toLowerCase()].title) {
                 let data = userData[id.toLowerCase()];
@@ -100,9 +101,12 @@ function MarvelList() {
             console.log(error);
         }
     }, [id, userData]);
+
     useEffect(() => {
         setLoadedArcs(1);
     }, [id])
+
+
     return (
         <>
             {!loading &&

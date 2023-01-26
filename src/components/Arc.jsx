@@ -1,4 +1,4 @@
-import { Button, Collapse, Divider, IconButton, List, Typography } from "@mui/material";
+import { Collapse, Divider, IconButton, List, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useComics } from "../contexts/ComicProvider";
 import ArcSubheader from "./ArcSubheader";
@@ -7,7 +7,6 @@ import ReadAccordion from "./ReadAccordion";
 import ArcHeader from "./ArcHeader";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { MoreHoriz } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
 import { Stack } from "@mui/system";
 import getComicsLength, { getReadComicsLength } from "../services/GetComicsLength";
