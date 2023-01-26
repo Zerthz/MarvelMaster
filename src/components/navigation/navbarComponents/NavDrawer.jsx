@@ -45,6 +45,11 @@ const NavDrawer = ({ anchorElNav, handleCloseNavMenu }) => {
                     Modern X-Men <span style={{ fontStyle: 'italic' }}>(10+ years)</span>
                 </ListItemText>
             </MenuItem>
+            <MenuItem component={BrowserLink} to="/list/HoXPoX">
+                <ListItemText inset>
+                    House of X / Powers of X
+                </ListItemText>
+            </MenuItem>
 
             <Typography variant='h6' pl={2} mt={2}>
                 Others

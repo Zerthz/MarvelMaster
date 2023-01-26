@@ -138,6 +138,9 @@ function ResponsiveAppBar() {
                             <MenuItem component={BrowserLink} to="/list/XMen">
                                 Modern X-Men
                             </MenuItem>
+                            <MenuItem component={BrowserLink} to="/list/HoXPoX">
+                                House of X / Powers of X
+                            </MenuItem>
                         </Menu>
 
 

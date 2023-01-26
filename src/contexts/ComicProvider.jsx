@@ -59,6 +59,14 @@ const ComicProvider = (props) => {
                 url: 'https://i.imgur.com/qIpKDp0.png'
             }
         },
+        hoxpox: {
+            title: "House of X / Powers of X",
+            description: "Jonathan Hickman tackles X-Men",
+            previousReading: {
+                name: "xmen",
+                url: "https://i.imgur.com/qIpKDp0.png"
+            }
+        },
         annhilation: {
             title: 'Annhilation',
             description: "The start of the modern era of Marvel cosmic. Orchestrated by Dan Abnett and Andy Lanning, this era introduces the actual Guardians of the Galaxy and the reinvention of Nova along with political intrigues, massive space battles and end of the universe type of events, all of this into one gigantic and coherent storyline. Side stories includes the rise of the Inhumans and the Silver Surfer as the herald of Galactus."
@@ -234,6 +242,9 @@ const ComicProvider = (props) => {
             case 'xmendays':
                 param = "DOFP"
                 break;
+            case 'hoxpox':
+                param = "HOXPOX";
+                break;
             default:
                 return;
         }
@@ -261,6 +272,9 @@ const ComicProvider = (props) => {
                     break;
                 case 'xmendays':
                     all.xmendays = comics.Result;
+                    break;
+                case 'hoxpox':
+                    all.hoxpox = comics.Result;
                     break;
                 default:
                     return;
