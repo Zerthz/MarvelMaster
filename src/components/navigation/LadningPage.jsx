@@ -19,7 +19,7 @@ const LandingPage = () => {
             <Typography>
                 Most scuffed loading page of all time
             </Typography>
-            {currentUser.admin && <Box display="flex"
+            {(currentUser && currentUser.admin) && <Box display="flex"
                 sx={{ flexDirection: 'column', alignItems: 'center', paddingTop: '2em', gap: '0.5em' }}>
 
                 <Box

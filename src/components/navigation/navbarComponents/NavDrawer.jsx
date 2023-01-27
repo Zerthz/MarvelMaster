@@ -60,7 +60,8 @@ const NavDrawer = ({ anchorElNav, handleCloseNavMenu }) => {
                     Jonathan Hickman: TMS
                 </ListItemText>
             </MenuItem>
-            {currentUser.admin &&
+
+            {(currentUser && currentUser.admin) &&
                 < MenuItem component={BrowserLink} to="/Errors" >
                     <ListItemText inset>
                         <Typography color="secondary">
