@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import ErrorList from "../ErrorList";
 import Login from "../auth/Login";
 import MarvelList from "../MarvelList";
-import Profile from "../auth/Profile";
+import Profile from "../auth/Profile/Profile";
 import SignUp from "../auth/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import LandingPage from "./LadningPage";
