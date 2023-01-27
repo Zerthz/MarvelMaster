@@ -74,7 +74,7 @@ function ResponsiveAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        Marvel Master
+                        Marvel Checkpoint
                     </Typography>
                     {/* Small screens */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -109,7 +109,7 @@ function ResponsiveAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        MarvelMaster
+                        MCP
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', gap: '0.6rem' } }}>
                         {/* <MenuItem component={BrowserLink} to="/list/Part1">
