@@ -139,7 +139,7 @@ function MarvelList() {
                         </Button>}
                     {dataExists && !ableToLoadMore &&
                         <>
-                            <Chip label="End" variant="outlined" />
+                            <Chip label="End" variant="outlined" sx={{ mb: 2 }} />
                             {(showPriorNext && supportedLists[id.toLowerCase()].nextReading) && <NextReading text="Read This Next" />}
                         </>}
                     <ScrollTopFab />
