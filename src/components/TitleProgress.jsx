@@ -1,10 +1,10 @@
-import { LinearProgress, Paper, Typography } from "@mui/material";
+import { MoreHoriz } from "@mui/icons-material";
+import { Grid, IconButton, LinearProgress, Paper, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useComics } from "../contexts/ComicProvider";
 import { getComicsLength, getReadComicsLength } from "../services/GetComicsLength";
-import getReadComics from "../services/GetReadComics";
 
 const TitleProgress = () => {
 
@@ -53,10 +53,15 @@ const TitleProgress = () => {
     return (
         <>
             {!loading &&
-                <Paper sx={{ width: { xs: '90%', lg: '25%' }, padding: '0.6em' }}>
+
+                <Paper sx={{ width: { xs: '90%', lg: '25%' }, padding: '0.6em', position: 'relative' }}>
+                    <IconButton sx={{ position: 'absolute', top: '0px', right: '8px', opacity: 0.25 }}>
+                        <MoreHoriz />
+                    </IconButton>
                     <Typography variant="h4" textAlign="center">
                         {supportedLists[id.toLowerCase()].title}
                     </Typography>
+
                     <Typography align="center" variant="subtitle1">
                         {progressText}
                     </Typography>
@@ -68,6 +73,7 @@ const TitleProgress = () => {
                     </Typography>
 
                 </Paper>
+
             }
         </>
     );
