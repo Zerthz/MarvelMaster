@@ -17,11 +17,13 @@ import OtherReading from "./PreviousReading";
 import PreviousReading from "./PreviousReading";
 import NextReading from "./NextReading";
 import getComicsLength, { getReadComicsLength } from "../services/GetComicsLength";
+import { useSettings } from "../contexts/SettingsProvider";
 
 function MarvelList() {
 
     const { userData, dataExists, supportedLists, setDataExists } = useComics();
     const { currentUser } = useAuth();
+    const { showPriorNext } = useSettings();
 
     const [loading, setLoading] = useState(true);
     const [comicItems, setComicItems] = useState();
@@ -118,7 +120,7 @@ function MarvelList() {
                         <>
                             <TitleProgress />
                             <Divider />
-                            {supportedLists[id.toLowerCase()].previousReading && <PreviousReading text="Prior Reading" />}
+                            {(showPriorNext && supportedLists[id.toLowerCase()].previousReading) && <PreviousReading text="Prior Reading" />}
                             <Box sx={{ width: { xs: '90%', lg: '25%' }, paddingTop: 0 }}>
                                 {loadedResults}
                             </Box>
@@ -138,7 +140,7 @@ function MarvelList() {
                     {dataExists && !ableToLoadMore &&
                         <>
                             <Chip label="End" variant="outlined" />
-                            {supportedLists[id.toLowerCase()].nextReading && <NextReading text="Read This Next" />}
+                            {(showPriorNext && supportedLists[id.toLowerCase()].nextReading) && <NextReading text="Read This Next" />}
                         </>}
                     <ScrollTopFab />
                 </Box>

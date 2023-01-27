@@ -5,6 +5,7 @@ import MarvelMasterProvider from "./contexts/ComicProvider";
 import AuthProvider from "./contexts/AuthProvider";
 import ResponsiveAppBar from "./components/navigation/ResponsiveAppBar";
 import RepoProvider from "./contexts/RepoProvider";
+import SettingsProvider from "./contexts/SettingsProvider";
 
 
 function App() {
@@ -27,10 +28,12 @@ function App() {
         <CssBaseline />
         <AuthProvider>
           <RepoProvider>
-            <MarvelMasterProvider>
-              <ResponsiveAppBar />
-              <Main />
-            </MarvelMasterProvider>
+            <SettingsProvider>
+              <MarvelMasterProvider>
+                <ResponsiveAppBar />
+                <Main />
+              </MarvelMasterProvider>
+            </SettingsProvider>
           </RepoProvider>
         </AuthProvider>
       </ThemeProvider>

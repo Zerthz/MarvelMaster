@@ -7,7 +7,6 @@ import SignUp from "../auth/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import LandingPage from "./LadningPage";
 import NotFound from "./NotFound";
-import ResetEmail from "../auth/ResetPassword";
 import ResetPassword from "../auth/ResetPassword";
 
 

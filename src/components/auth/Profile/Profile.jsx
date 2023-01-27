@@ -1,11 +1,14 @@
 import { CloudDownloadOutlined, CloudUploadOutlined } from "@mui/icons-material";
-import { Alert, Button, Divider, Paper, Snackbar, Typography } from "@mui/material";
+import { Alert, Button, Divider, Paper, Snackbar, Tab, Tabs, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthProvider";
 import { useComics } from "../../../contexts/ComicProvider";
 import { useRepo } from "../../../contexts/RepoProvider";
+import ProfileTab from "./Tabs/ProfileTab";
+import SettingsTab from "./Tabs/SettingsTab";
+import TabPanel from "./Tabs/TabPanel";
 
 const Profile = () => {
     const { logout, currentUser } = useAuth();
@@ -13,12 +16,14 @@ const Profile = () => {
     const { userData } = useComics();
 
     const [open, setOpen] = useState(false);
+    const [tabValue, setTabValue] = useState(0);
 
     let navigate = useNavigate();
 
     const handleClose = () => {
         setOpen(false);
     }
+
     const handleUpload = () => {
         try {
             let result = JSON.parse(JSON.stringify(userData.xmen));
@@ -40,64 +45,40 @@ const Profile = () => {
         }
     }
 
-
     const handleLogout = async () => {
         await logout();
         navigate("/LogIn")
     }
 
+    const handleTabChange = (event, newValue) => {
+        setTabValue(newValue);
+    }
 
     useEffect(() => {
     }, [])
     return (
         <>
-            <Container maxWidth="sm">
-                <Paper elevation={1} sx={{ minHeight: '200px', display: 'flex', flexDirection: 'column', marginTop: '2rem', justifyContent: 'center', gap: '1em', padding: '1em' }}>
-                    <Typography
-                        textAlign="center"
-                        variant="h3"
-                    >
-                        Profile
-                    </Typography>
-                    <Typography
-                        textAlign="center"
-                        variant="subtitle2">
-                        {currentUser.displayName || currentUser.email}
-                    </Typography>
-                    <Typography
-                        textAlign="center"
-                        variant="body1"
-                    >
-                        This is your profile, you can upload your local browser data to the cloud, or you can download data from the cloud.
-                        This is irreversable.
-                    </Typography>
-                    <Divider variant="middle" />
-                    <Box sx={{ display: 'flex', justifyContent: 'center', gap: '1em', flexDirection: { xs: 'column', md: 'row' } }}>
-                        <Button
-                            variant="contained"
-                            size="large"
-                            endIcon={<CloudUploadOutlined />}
-                            onClick={handleUpload}
-                        >Upload</Button>
-                        <Button
-                            variant="outlined"
-                            color="primary"
-                            size="large"
-                            endIcon={<CloudDownloadOutlined />}
-                            onClick={handleDownload}
-                            disabled
-                        >Download</Button>
-                        <Button
-                            variant="outlined"
-                            color="secondary"
-                            size="large"
-                            onClick={handleLogout}
-                        >Sign Out</Button>
+            <Box
+                sx={{ display: 'flex', alignContent: 'center', flexDirection: 'column', mt: 4, width: { sm: '100%' } }}
+            >
+                <Tabs
+                    value={tabValue}
+                    onChange={handleTabChange}
+                    textColor="secondary"
+                    indicatorColor="secondary"
+                    centered
+                >
+                    <Tab label="Profile" />
+                    <Tab label="Settings" />
+                </Tabs>
+                <TabPanel value={tabValue} index={0}>
+                    <ProfileTab handleUpload={handleUpload} handleDownload={handleDownload} handleLogout={handleLogout} />
+                </TabPanel>
+                <TabPanel value={tabValue} index={1}>
+                    <SettingsTab />
+                </TabPanel>
 
-                    </Box>
-                </Paper>
-
-            </Container>
+            </Box>
             <Snackbar
                 open={open}
                 autoHideDuration={3000}
