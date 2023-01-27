@@ -1,5 +1,5 @@
 import { MoreHoriz } from "@mui/icons-material";
-import { IconButton, LinearProgress, Paper, Typography } from "@mui/material";
+import { Button, IconButton, LinearProgress, Menu, MenuItem, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -14,6 +14,19 @@ const TitleProgress = () => {
     const [loading, setLoading] = useState();
     const [percent, setPercent] = useState(0);
     const [progressText, setProgressText] = useState();
+    const [anchorElOptions, setAnchorElOptions] = useState(null);
+
+    const handleCloseOptions = () => {
+        setAnchorElOptions(null);
+    }
+
+    const handleOptionsMenu = (event) => {
+        setAnchorElOptions(event.currentTarget);
+    }
+
+    const handleMarkAsRead = () => {
+        handleCloseOptions();
+    }
 
     const total = (arcs) => {
         let num = 0;
@@ -53,26 +66,37 @@ const TitleProgress = () => {
     return (
         <>
             {!loading &&
+                <>
+                    <Paper sx={{ width: { xs: '90%', lg: '25%' }, padding: '0.6em', position: 'relative' }}>
+                        <IconButton sx={{ position: 'absolute', top: '0px', right: '8px', opacity: 0.25 }}
+                            onClick={handleOptionsMenu}>
+                            <MoreHoriz />
+                        </IconButton>
+                        <Typography variant="h4" textAlign="center">
+                            {supportedLists[id.toLowerCase()].title}
+                        </Typography>
 
-                <Paper sx={{ width: { xs: '90%', lg: '25%' }, padding: '0.6em', position: 'relative' }}>
-                    <IconButton sx={{ position: 'absolute', top: '0px', right: '8px', opacity: 0.25 }}>
-                        <MoreHoriz />
-                    </IconButton>
-                    <Typography variant="h4" textAlign="center">
-                        {supportedLists[id.toLowerCase()].title}
-                    </Typography>
-
-                    <Typography align="center" variant="subtitle1">
-                        {progressText}
-                    </Typography>
-                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <LinearProgress value={percent} variant="determinate" color="success" sx={{ width: '80%', height: '0.5em' }} />
-                    </Box>
-                    <Typography align="center" variant="body1" paragraph paddingTop={1}>
-                        {supportedLists[id.toLowerCase()].description}
-                    </Typography>
-
-                </Paper>
+                        <Typography align="center" variant="subtitle1">
+                            {progressText}
+                        </Typography>
+                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <LinearProgress value={percent} variant="determinate" color="success" sx={{ width: '80%', height: '0.5em' }} />
+                        </Box>
+                        <Typography align="center" variant="body1" paragraph paddingTop={1}>
+                            {supportedLists[id.toLowerCase()].description}
+                        </Typography>
+                    </Paper>
+                    <Menu
+                        anchorEl={anchorElOptions}
+                        keepMounted
+                        open={Boolean(anchorElOptions)}
+                        onClose={handleCloseOptions}
+                    >
+                        <MenuItem onClick={handleMarkAsRead}>
+                            Mark As Read
+                        </MenuItem>
+                    </Menu>
+                </>
 
             }
         </>
