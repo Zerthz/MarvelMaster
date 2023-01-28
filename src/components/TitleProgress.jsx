@@ -8,7 +8,7 @@ import { getComicsLength, getReadComicsLength } from "../services/GetComicsLengt
 
 const TitleProgress = () => {
 
-    const { supportedLists, userData, markOrderAsRead } = useComics();
+    const { supportedLists, userData, markOrderAsRead, markOrderAsUnread } = useComics();
     const { id } = useParams();
 
     const [loading, setLoading] = useState();
@@ -27,7 +27,10 @@ const TitleProgress = () => {
     const handleMarkAsRead = () => {
         handleCloseOptions();
         markOrderAsRead(id);
-
+    }
+    const handleMarkAsUnread = () => {
+        handleCloseOptions();
+        markOrderAsUnread(id);
     }
 
     const total = (arcs) => {
@@ -96,6 +99,9 @@ const TitleProgress = () => {
                     >
                         <MenuItem onClick={handleMarkAsRead} disabled={percent === 100}>
                             Mark As Read
+                        </MenuItem>
+                        <MenuItem onClick={handleMarkAsUnread} disabled={percent === 0}>
+                            Mark As Unread
                         </MenuItem>
                     </Menu>
                 </>
