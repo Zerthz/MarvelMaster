@@ -195,6 +195,20 @@ const ComicProvider = (props) => {
 
     }
 
+    const markOrderAsRead = (id) => {
+        let all = { ...userData };
+        all[id.toLowerCase()].forEach(arc => {
+            arc.ArcParts.forEach(comic => {
+                if (comic.IsComic) {
+                    comic.Read = true;
+                }
+            });
+        });
+
+        setUserData(all);
+        setData(all);
+    }
+
     const updateComic = (id, title, url, img, description, comment, page, arc) => {
 
         let all = { ...userData };
@@ -345,7 +359,7 @@ const ComicProvider = (props) => {
         <ComicContext.Provider
             value={{
                 results, dataExists, fetchComics, store, updateComic, errors, removeComic, allResults, supportedLists,
-                userData, setDataExists, updateRating, updateLiked
+                userData, setDataExists, updateRating, updateLiked, markOrderAsRead
             }}
         >
             {!loading && props.children}

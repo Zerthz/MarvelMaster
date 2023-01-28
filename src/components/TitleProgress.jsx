@@ -1,5 +1,5 @@
 import { MoreHoriz } from "@mui/icons-material";
-import { Button, IconButton, LinearProgress, Menu, MenuItem, Paper, Typography } from "@mui/material";
+import { IconButton, LinearProgress, Menu, MenuItem, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -8,7 +8,7 @@ import { getComicsLength, getReadComicsLength } from "../services/GetComicsLengt
 
 const TitleProgress = () => {
 
-    const { supportedLists, userData } = useComics();
+    const { supportedLists, userData, markOrderAsRead } = useComics();
     const { id } = useParams();
 
     const [loading, setLoading] = useState();
@@ -26,6 +26,8 @@ const TitleProgress = () => {
 
     const handleMarkAsRead = () => {
         handleCloseOptions();
+        markOrderAsRead(id);
+
     }
 
     const total = (arcs) => {
@@ -92,7 +94,7 @@ const TitleProgress = () => {
                         open={Boolean(anchorElOptions)}
                         onClose={handleCloseOptions}
                     >
-                        <MenuItem onClick={handleMarkAsRead}>
+                        <MenuItem onClick={handleMarkAsRead} disabled={percent === 100}>
                             Mark As Read
                         </MenuItem>
                     </Menu>
