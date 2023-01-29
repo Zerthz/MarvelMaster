@@ -74,53 +74,6 @@ const ComicProvider = (props) => {
     };
 
 
-
-
-    // const createCache = (resultToSave, missingItemsToSave) => {
-
-    //     let data = {
-    //         timeSaved: dayjs(),
-    //         results: {
-    //             part1: resultToSave,
-    //         },
-    //         missingItems: missingItemsToSave,
-    //     };
-
-    //     setAllResults(resultToSave);
-    //     setReadResults(getReadComics(resultToSave));
-    //     setResults(resultToSave.slice(0, 100));
-    //     setErrors(missingItemsToSave);
-    //     localStorage.setItem(currentUser.uid, JSON.stringify(data));
-    //     // setCacheExists(true);
-    // }
-
-    // const updateCache = (data, toUpdate) => {
-    //     let cacheJSON = localStorage.getItem(currentUser.uid);
-    //     let cache = JSON.parse(cacheJSON);
-    //     cache.timeSaved = dayjs();
-    //     switch (toUpdate) {
-    //         case 'Part1':
-    //             cache.results.part1 = data;
-    //             break;
-    //         case 'missingItems':
-    //             cache.missingItems = data;
-    //             break;
-    //         // update all
-    //         case 'all':
-    //             cache.results = data.results;
-    //             cache.missingItems = data.missingItems;
-    //             break;
-    //         // this allows us to enter here with only changing the timestamp
-    //         case 'timestamp':
-    //             break;
-    //         default:
-    //             return;
-    //     };
-
-    //     localStorage.setItem(currentUser.uid, JSON.stringify(cache));
-    //     // setCacheExists(true);
-    // }
-
     const updateRating = (page, comic, arc, rating) => {
         let all = { ...userData };
         let field = all[page];
