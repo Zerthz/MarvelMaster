@@ -59,7 +59,7 @@ const Profile = () => {
     return (
         <>
             <Box
-                sx={{ display: 'flex', alignContent: 'center', flexDirection: 'column', mt: 4, width: { sm: '100%' } }}
+                sx={{ display: 'flex', alignContent: 'center', flexDirection: 'column', mt: 4 }}
             >
                 <Tabs
                     value={tabValue}

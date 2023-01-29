@@ -19,11 +19,12 @@ const TabPanel = (props) => {
             style={style}
         >
             {value === index && (
-                <Box sx={{ width: { lg: '30%' } }}>
+                <Box sx={{ width: { xs: '90%', lg: '30%' } }}>
                     {children}
                 </Box>
-            )}
-        </div>
+            )
+            }
+        </div >
     )
 }
 
