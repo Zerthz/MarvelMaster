@@ -30,7 +30,7 @@ const NavDrawer = ({ anchorElNav, handleCloseNavMenu }) => {
                 X-Men
             </Typography>
             <Divider />
-            <MenuItem component={BrowserLink} to="/list/PheonixSaga">
+            <MenuItem component={BrowserLink} to="/list/PhoenixSaga">
                 <ListItemText inset>
                     Pheonix Saga
                 </ListItemText>

@@ -129,7 +129,7 @@ function ResponsiveAppBar() {
                             open={Boolean(anchorElXmen)}
                             onClose={handleCloseXMenMenu}
                         >
-                            <MenuItem component={BrowserLink} to="/list/PheonixSaga">
+                            <MenuItem component={BrowserLink} to="/list/PhoenixSaga">
                                 Pheonix Saga
                             </MenuItem>
                             <MenuItem component={BrowserLink} to="/list/XMenDays">
