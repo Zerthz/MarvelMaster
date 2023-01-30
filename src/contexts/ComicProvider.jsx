@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useAuth } from './AuthProvider';
 import { useRepo } from './RepoProvider';
@@ -121,7 +122,21 @@ const ComicProvider = (props) => {
         let all = { ...userData };
         let field = all[page];
         let toUpdate = field[arcIndex].ArcParts.find(comic => comic.Id === id);
+
         toUpdate.Read = read;
+        if (read === true) {
+            // add to start of read array
+            if (toUpdate.ReadDates === undefined) {
+                toUpdate.ReadDates = [];
+            }
+            toUpdate.ReadDates.unshift(dayjs().toString());
+
+        } else {
+            // remove at start of array - might be weird cases but we handle them as they come.
+            if (toUpdate.ReadDates) {
+                toUpdate.ReadDates.shift();
+            }
+        }
         setUserData(all);
         setData(all);
     }
