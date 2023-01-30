@@ -130,7 +130,7 @@ function ResponsiveAppBar() {
                             onClose={handleCloseXMenMenu}
                         >
                             <MenuItem component={BrowserLink} to="/list/PhoenixSaga">
-                                Pheonix Saga
+                                Phoenix Saga
                             </MenuItem>
                             <MenuItem component={BrowserLink} to="/list/XMenDays">
                                 Days of Future Past
