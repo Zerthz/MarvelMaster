@@ -32,7 +32,7 @@ const NavDrawer = ({ anchorElNav, handleCloseNavMenu }) => {
             <Divider />
             <MenuItem component={BrowserLink} to="/list/PhoenixSaga">
                 <ListItemText inset>
-                    Pheonix Saga
+                    Phoenix Saga
                 </ListItemText>
             </MenuItem>
             <MenuItem component={BrowserLink} to="/list/XMenDays">
