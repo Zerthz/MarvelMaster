@@ -27,7 +27,7 @@ const ProfileTab = ({ handleUpload, handleDownload, handleLogout }) => {
                     textAlign="center"
                     variant="body1"
                 >
-                    This is your profile. You can access settings or sync your data
+                    This is your profile. You can access settings or sync your data <span style={{ fontStyle: 'italic' }}>- To be added </span>
                 </Typography>
                 <Typography
                     textAlign="center"
@@ -37,20 +37,24 @@ const ProfileTab = ({ handleUpload, handleDownload, handleLogout }) => {
                 </Typography>
                 <Divider variant="middle" />
                 <Box sx={{ display: 'flex', justifyContent: 'center', gap: '1em', flexDirection: { xs: 'column', md: 'row' } }}>
-                    <Button
-                        variant="contained"
-                        size="large"
-                        endIcon={<CloudUploadOutlined />}
-                        onClick={handleUpload}
-                    >Upload</Button>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        size="large"
-                        endIcon={<CloudDownloadOutlined />}
-                        onClick={handleDownload}
-                        disabled
-                    >Download</Button>
+                    {currentUser.admin &&
+                        <>
+                            <Button
+                                variant="contained"
+                                size="large"
+                                endIcon={<CloudUploadOutlined />}
+                                onClick={handleUpload}
+                            >Upload</Button>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                size="large"
+                                endIcon={<CloudDownloadOutlined />}
+                                onClick={handleDownload}
+                                disabled
+                            >Download</Button>
+                        </>
+                    }
                     <Button
                         variant="outlined"
                         color="secondary"
